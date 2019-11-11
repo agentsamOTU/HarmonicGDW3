@@ -21,12 +21,12 @@ void HorizontalScroll::Update()
 	}
 }
 
-Camera * HorizontalScroll::GetCam() const
+Camera* HorizontalScroll::GetCam() const
 {
 	return m_cam;
 }
 
-Transform * HorizontalScroll::GetFocus() const
+Transform* HorizontalScroll::GetFocus() const
 {
 	return m_focus;
 }

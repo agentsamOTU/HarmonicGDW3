@@ -471,7 +471,8 @@ void Game::MouseMotion(SDL_MouseMotionEvent evnt)
 {
 	printf("Mouse moved (%f,%f)\n", float(evnt.x), float(evnt.y));
 	auto& look = ECS::GetComponent<Transform>(EntityIdentifier::MainPlayer());
-	float angle = 78;
+	float angle;
+	angle = 1/tan((float(evnt.y) - 350)/ (float(evnt.x) - 350));//fix if want mouse
 	look.SetRotationAngleZ(angle);
 	if (m_guiActive)
 	{
@@ -480,7 +481,7 @@ void Game::MouseMotion(SDL_MouseMotionEvent evnt)
 
 		if (!ImGui::GetIO().WantCaptureMouse)
 		{
-
+			
 		}
 	}
 
