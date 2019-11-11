@@ -369,47 +369,55 @@ void Game::KeyboardHold()
 	vec3 position = m_register->get<Transform>(EntityIdentifier::MainPlayer()).GetPosition();
 
 	vec2 totalForce = vec2(0.f, 0.f);
-
+	bool moving=false;
 	float speed = 30.f;
 
 	if (Input::GetKey(Key::W))
 	{
-		totalForce.y += 30.f;
+		totalForce.y += 120.f;
+		moving = true;
 	}
 	if (Input::GetKey(Key::A))
 	{
-		totalForce.x += -15.f;
+		totalForce.x += -120.f;
+		moving = true;
 	}
 	if (Input::GetKey(Key::S))
 	{
-		totalForce.y += -15.f;
+		totalForce.y += -120.f;
+		moving = true;
 	}
 	if (Input::GetKey(Key::D))
 	{
-		totalForce.x += 15.f;
+		totalForce.x += 120.f;
+		moving = true;
 	}
 	vec2 acceleration = totalForce / m_mass;
+	if (!moving)
+	{
+		acceleration = m_velocity * -4.f;
+	}
 
 	//updates velocity
-	if (m_velocity.x < -21.f)
+	if (m_velocity.x < -121.f)
 	{
-		m_velocity.x = -20.8f;
+		m_velocity.x = -120.8f;
 	}
-	else if (m_velocity.x > 21.f)
+	else if (m_velocity.x > 121.f)
 	{
-		m_velocity.x = 20.8f;
+		m_velocity.x = 120.8f;
 	}
 	else
 	{
 		m_velocity.x = m_velocity.x + (acceleration.x * Timer::deltaTime);
 	}
-	if (m_velocity.y < -21.f)
+	if (m_velocity.y < -121.f)
 	{
-		m_velocity.y = -20.8f;
+		m_velocity.y = -120.8f;
 	}
-	else if (m_velocity.y > 21.f)
+	else if (m_velocity.y > 121.f)
 	{
-		m_velocity.y = 20.8f;
+		m_velocity.y = 120.8f;
 	}
 	else
 	{
@@ -460,20 +468,32 @@ void Game::KeyboardUp()
 			animController.SetActiveAnim(0);
 		}
 	}
-	/*if (Input::GetKeyUp(Key::W))
-	{
-		auto& transKen = ECS::GetComponent<Transform>(EntityIdentifier::MainPlayer());
-		transKen.SetPosition(vec3(transKen.GetPosition().x, transKen.GetPosition().y + 1, transKen.GetPosition().z));
-	}*/
+	
 }
 
 void Game::MouseMotion(SDL_MouseMotionEvent evnt)
 {
-	printf("Mouse moved (%f,%f)\n", float(evnt.x), float(evnt.y));
+	printf("Mouse moved (%f,%f)\n", float(evnt.x) - 350, float(evnt.y) - 350 );
 	auto& look = ECS::GetComponent<Transform>(EntityIdentifier::MainPlayer());
 	float angle;
-	angle = 1/tan((float(evnt.y) - 350)/ (float(evnt.x) - 350));//fix if want mouse
-	look.SetRotationAngleZ(angle);
+	angle = atan((float(evnt.y) - 350)/ (float(evnt.x) - 350));//fix if want mouse
+	if ((float(evnt.x) - 350) > 0)
+	{
+		look.SetRotationAngleZ(-angle - 3 * PI / 2);
+	}
+	else if ((float(evnt.x) - 350) == 0 && (float(evnt.y) - 350) > 0)
+	{
+		look.SetRotationAngleZ(0);
+	}
+	else if ((float(evnt.x) - 350) == 0 && (float(evnt.y) - 350) < 0)
+	{
+		look.SetRotationAngleZ(PI);
+	}
+	else
+	{
+		look.SetRotationAngleZ(-angle  + 3 * PI / 2);
+	}
+	
 	if (m_guiActive)
 	{
 		ImGui::GetIO().MousePos = ImVec2(float(evnt.x), float(evnt.y));
