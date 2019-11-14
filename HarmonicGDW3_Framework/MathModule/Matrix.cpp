@@ -186,15 +186,9 @@ mat4 mat4::Transpose()
 
 float mat4::Determinant()
 {
-	float temp = (row1.x * row2.y * row3.z*row4.w)
-		+ (row1.y * row2.z * row3.w * row4.x)
-		+ (row1.z * row2.w * row3.x * row4.y)
-		+ (row1.w * row2.x * row3.y * row4.z)
-		- (row1.w * row2.z * row3.y * row4.x)
-		- (row1.z * row2.y * row3.x * row4.w)
-		- (row1.y * row2.x * row3.w * row4.z)
-		- (row1.x * row2.w * row3.z * row4.y);
-	return temp;
+	vec4 row1= Adjugate().Transpose().row1;
+	vec4 rowOr = this->row1;
+	return rowOr.x * row1.x + rowOr.y + row1.y + rowOr.z * row1.z + rowOr.w * row1.w;
 }
 
 mat4 mat4::Inverse()

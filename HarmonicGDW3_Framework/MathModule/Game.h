@@ -50,6 +50,7 @@ public:
 	//*Checks the results of the events that have been polled
 	void CheckEvents();
 
+	void Routines();
 	/*Input Functions*/
 	void AcceptInput();
 	void GamepadInput();
@@ -93,6 +94,7 @@ private:
 	bool m_wheel = false;
 
 	vec2 m_velocity = vec2(0.f, 0.f);
+	vec2 m_velocityEn1 = vec2(0.f, 0.f);
 
 	float m_mass = 2.f;
 };

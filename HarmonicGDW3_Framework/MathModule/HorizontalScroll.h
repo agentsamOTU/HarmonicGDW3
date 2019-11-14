@@ -22,7 +22,7 @@ private:
 	Camera* m_cam = nullptr;
 	Transform* m_focus = nullptr;
 
-	float m_offset = 5.f;
+	float m_offset = 0.f;
 };
 inline void from_json(const nlohmann::json& j, HorizontalScroll& horiScroll)
 {

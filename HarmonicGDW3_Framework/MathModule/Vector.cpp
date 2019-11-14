@@ -41,7 +41,7 @@ float vec2::Dot(vec2 v2)
 
 float vec2::GetMagnitude()
 {
-	return float(sqrt((x*x)+(y+y)));
+	return float(sqrt(double(x*x)+double(y*y)));
 }
 
 float vec2::GetMagnitudeSquared()

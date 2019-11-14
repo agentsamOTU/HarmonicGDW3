@@ -74,7 +74,7 @@ bool Game::Run()
 		//Polls events and then checks them
 		BackEnd::PollEvents(m_register, &m_close, &m_motion, &m_click, &m_wheel);
 		CheckEvents();
-
+		Routines();
 		//does the window have keyboard focus?
 		if (Input::m_windowFocus)
 		{
@@ -123,6 +123,26 @@ void Game::CheckEvents()
 
 	if (m_wheel)
 		MouseWheel(BackEnd::GetWheelEvent());
+}
+
+void Game::Routines()
+{
+	auto& enemLoc = ECS::GetComponent<Transform>(3);
+	auto& playLoc = ECS::GetComponent<Transform>(EntityIdentifier::MainPlayer());
+	vec2 delta =vec2(playLoc.GetPositionX() - enemLoc.GetPositionX(), playLoc.GetPositionY() - enemLoc.GetPositionY());
+	m_velocityEn1 = vec2(delta.Normalize())*5.f;
+	if (delta.GetMagnitude() < 60)
+	{
+		printf("He would shoot now\n");
+	}
+	else if (delta.GetMagnitude() < 150)
+	{
+		vec3 position = m_register->get<Transform>(3).GetPosition();
+		position = position + (vec3(m_velocityEn1.x, m_velocityEn1.y, 0.f) * Timer::deltaTime);
+		//sets position
+		m_register->get<Transform>(3).SetPosition(position);
+	}
+	enemLoc.SetRotationAngleZ(atan2(delta.y, delta.x)+PI/2);
 }
 
 void Game::AcceptInput()
@@ -473,12 +493,11 @@ void Game::KeyboardUp()
 
 void Game::MouseMotion(SDL_MouseMotionEvent evnt)
 {
-	printf("Mouse moved (%f,%f)\n", float(evnt.x) - 350, float(evnt.y) - 350 );
+	//printf("Mouse moved (%f,%f)\n", float(evnt.x) - 350, float(evnt.y) - 350 );
 	auto& look = ECS::GetComponent<Transform>(EntityIdentifier::MainPlayer());
 	float angle;
-	angle = atan2((float(evnt.y) - 350), (float(evnt.x) - 350));//fix if want mouse
+	angle = atan2((float(evnt.y) - BackEnd::GetWindowHeight()/2), (float(evnt.x) - BackEnd::GetWindowWidth() / 2));//fix if want mouse
 	look.SetRotationAngleZ(-angle - 3 * PI / 2);
-	
 	
 	if (m_guiActive)
 	{
