@@ -147,6 +147,7 @@ void Game::Routines()
 
 void Game::AcceptInput()
 {
+	m_moving = false;
 	XInputManager::Update();
 	//Just calls all the other input functions 
 	GamepadInput();
@@ -229,7 +230,6 @@ void Game::GamepadStick(XInputController* con)
 	auto& look = ECS::GetComponent<Transform>(EntityIdentifier::MainPlayer());
 	float angle;
 	vec2 friction;
-	bool moving = false;
 	//Gamepad stick stuffs
 	Stick sticks[2];
 	con->GetSticks(sticks);
@@ -246,7 +246,7 @@ void Game::GamepadStick(XInputController* con)
 		{
 			totalForce.y += 150.f;
 		}
-		moving = true;
+		m_moving = true;
 	}
 	if (sticks[0].x < -0.3f)
 	{
@@ -258,7 +258,7 @@ void Game::GamepadStick(XInputController* con)
 		{
 			totalForce.x += -150.f;
 		}
-		moving = true;
+		m_moving = true;
 	}
 	if (sticks[0].x > 0.3f)
 	{
@@ -270,7 +270,7 @@ void Game::GamepadStick(XInputController* con)
 		{
 			totalForce.x += 150.f;
 		}
-		moving = true;
+		m_moving = true;
 	}
 	if (sticks[0].y < -0.3f)
 	{
@@ -282,14 +282,10 @@ void Game::GamepadStick(XInputController* con)
 		{
 			totalForce.y += -150.f;
 		}
-		moving = true;
+		m_moving = true;
 	}
 	
 	vec2 acceleration = totalForce / m_mass;
-	if (!moving)
-	{
-		acceleration = m_velocity*-4.f;
-	}
 	//updates velocity
 	if (m_velocity.x < -121.f)
 	{
@@ -389,31 +385,31 @@ void Game::KeyboardHold()
 	vec3 position = m_register->get<Transform>(EntityIdentifier::MainPlayer()).GetPosition();
 
 	vec2 totalForce = vec2(0.f, 0.f);
-	bool moving=false;
+	
 	float speed = 30.f;
 
 	if (Input::GetKey(Key::W))
 	{
 		totalForce.y += 120.f;
-		moving = true;
+		m_moving = true;
 	}
 	if (Input::GetKey(Key::A))
 	{
 		totalForce.x += -120.f;
-		moving = true;
+		m_moving = true;
 	}
 	if (Input::GetKey(Key::S))
 	{
 		totalForce.y += -120.f;
-		moving = true;
+		m_moving = true;
 	}
 	if (Input::GetKey(Key::D))
 	{
 		totalForce.x += 120.f;
-		moving = true;
+		m_moving = true;
 	}
 	vec2 acceleration = totalForce / m_mass;
-	if (!moving)
+	if (!m_moving)
 	{
 		acceleration = m_velocity * -4.f;
 	}

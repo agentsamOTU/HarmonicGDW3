@@ -92,6 +92,7 @@ private:
 	bool m_motion = false;
 	bool m_click = false;
 	bool m_wheel = false;
+	bool m_moving = false;
 
 	vec2 m_velocity = vec2(0.f, 0.f);
 	vec2 m_velocityEn1 = vec2(0.f, 0.f);
