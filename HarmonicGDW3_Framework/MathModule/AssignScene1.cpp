@@ -52,25 +52,26 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 		ECS::AttachComponent<AnimationController>(entity);
 
 		//sets up components
-		std::string fileName = "contraTopSheet.png";
+		std::string fileName = "DoomGuy_Walk.png";
 		auto& animController = ECS::GetComponent<AnimationController>(entity);
 		animController.InitUVs(fileName);
 		animController.AddAnimation(Animation());
 		animController.SetActiveAnim(0);
 		//adds first animation
 		auto& anim = animController.GetAnimation(0);
-		anim.AddFrame(vec2(45.f, 10.f), vec2(72.f, 40.f));
-		anim.AddFrame(vec2(73.f, 13.f), vec2(99.f, 40.f));
-		anim.AddFrame(vec2(100.f, 13.f), vec2(127.f, 40.f));
-		anim.AddFrame(vec2(73.f, 13.f), vec2(99.f, 40.f));
+		anim.AddFrame(vec2(60.f, 289.f), vec2(269.f, 110.f));
+		anim.AddFrame(vec2(739.f, 289.f), vec2(949.f, 110.f));
+		anim.AddFrame(vec2(60.f, 289.f), vec2(269.f, 110.f));
+		anim.AddFrame(vec2(739.f, 629.f), vec2(949.f, 450.f));
+
 		anim.SetRepeating(true);
 		//sets time between frames
 		anim.SetSecPerFrame(0.1667f);
-		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 30, 30, true, &animController);
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 24, 24, true, &animController);
 		ECS::GetComponent<Transform>(entity).SetPosition(vec3(0.f, -60.f, 10.f));
 		//sets up the identifier
 		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::AnimationBit();
-		ECS::SetUpIdentifier(entity, bitHolder, "contra");
+		ECS::SetUpIdentifier(entity, bitHolder, "doomGuy");
 		ECS::SetIsMainPlayer(entity, true);
 	}
 	{
