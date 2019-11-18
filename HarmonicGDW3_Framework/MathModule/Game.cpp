@@ -234,89 +234,25 @@ void Game::GamepadStick(XInputController* con)
 	//Gamepad stick stuffs
 	Stick sticks[2];
 	con->GetSticks(sticks);
-	vec3 position = m_register->get<Transform>(EntityIdentifier::MainPlayer()).GetPosition();
+	auto& playPhs = ECS::GetComponent<PhysicsBody>(EntityIdentifier::MainPlayer());
 
 	vec2 totalForce = vec2(0.f, 0.f);
 	if (sticks[0].y > 0.3f)
 	{
-		if (m_velocity.y >= 0)
-		{
-			totalForce.y += 50.f;
-		}
-		else
-		{
-			totalForce.y += 150.f;
-		}
-		m_moving = true;
+		playPhs.ApplyForce(vec3(0.f, 50.f, 0.f));
 	}
 	if (sticks[0].x < -0.3f)
 	{
-		if (m_velocity.x <= 0)
-		{
-			totalForce.x += -50.f;
-		}
-		else
-		{
-			totalForce.x += -150.f;
-		}
-		m_moving = true;
+		playPhs.ApplyForce(vec3(-50.f, 0.f, 0.f));
 	}
 	if (sticks[0].x > 0.3f)
 	{
-		if (m_velocity.x >= 0)
-		{
-			totalForce.x += 50.f;
-		}
-		else
-		{
-			totalForce.x += 150.f;
-		}
-		m_moving = true;
+		playPhs.ApplyForce(vec3(50.f, 0.f, 0.f));
 	}
 	if (sticks[0].y < -0.3f)
 	{
-		if (m_velocity.y <= 0)
-		{
-			totalForce.y += -50.f;
-		}
-		else
-		{
-			totalForce.y += -150.f;
-		}
-		m_moving = true;
+		playPhs.ApplyForce(vec3(0.f, -50.f, 0.f));
 	}
-	
-	vec2 acceleration = totalForce / m_mass;
-	//updates velocity
-	if (m_velocity.x < -121.f)
-	{
-		m_velocity.x = -120.8f;
-	}
-	else if (m_velocity.x > 121.f)
-	{
-		m_velocity.x = 120.8f;
-	}
-	else
-	{
-		m_velocity.x = m_velocity.x + (acceleration.x * Timer::deltaTime);
-	}
-	if (m_velocity.y < -121.f)
-	{
-		m_velocity.y = -120.8f;
-	}
-	else if (m_velocity.y > 121.f)
-	{
-		m_velocity.y = 120.8f;
-	}
-	else
-	{
-		m_velocity.y = m_velocity.y + (acceleration.y * Timer::deltaTime);
-	}
-	//updates position
-	position = position + (vec3(m_velocity.x, m_velocity.y, 0.f) * Timer::deltaTime)
-		+ (vec3(acceleration.x, acceleration.y, 0.f) * 0.5f * (Timer::deltaTime * Timer::deltaTime));
-	//sets position
-	m_register->get<Transform>(EntityIdentifier::MainPlayer()).SetPosition(position);
 
 	
 	if (sticks[1].x > 0.3f && sticks[1].y > 0.3f)
