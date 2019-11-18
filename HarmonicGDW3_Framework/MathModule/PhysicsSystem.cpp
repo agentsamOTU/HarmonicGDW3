@@ -119,7 +119,7 @@ bool PhysicsSystem::BoxBoxCollision(std::pair<PhysicsBody&, Box> group1, std::pa
 	{
 		//is x collide
 		bool axisXCollide = group1.second.m_bottomRight.x >= group2.second.m_bottomLeft.x &&
-			group2.second.m_bottomRight.x >= group1.second.m_bottomLeft.y;
+			group2.second.m_bottomRight.x >= group1.second.m_bottomLeft.x;
 
 		//is y collide
 		bool axisYCollide = group1.second.m_topLeft.y >= group2.second.m_bottomLeft.y &&
