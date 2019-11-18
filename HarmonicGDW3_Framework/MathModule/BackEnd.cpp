@@ -162,7 +162,7 @@ void BackEnd::GUI(entt::registry* reg, Scene* scene)
 {
 	SceneEditor::CreateTab(reg, scene);
 	EffectManager::CreateTab();
-	ControlTab::CreateTab();
+	//ControlTab::CreateTab();
 }
 
 void BackEnd::ReshapeWindow(int w, int h, entt::registry * mainReg)
