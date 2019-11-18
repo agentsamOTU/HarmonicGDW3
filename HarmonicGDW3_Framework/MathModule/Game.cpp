@@ -134,7 +134,7 @@ void Game::Routines()
 	auto& enemPhs = ECS::GetComponent<PhysicsBody>(3);
 	auto& playLoc = ECS::GetComponent<Transform>(EntityIdentifier::MainPlayer());
 	vec2 delta =vec2(playLoc.GetPositionX() - enemLoc.GetPositionX(), playLoc.GetPositionY() - enemLoc.GetPositionY());
-	m_velocityEn1 = vec2(delta.Normalize())*5.f;
+	m_velocityEn1 = vec2(delta.Normalize())*10.f;
 	if (delta.GetMagnitude() < 60)
 	{
 		printf("He would shoot now\n");
@@ -388,19 +388,19 @@ void Game::KeyboardHold()
 
 	if (Input::GetKey(Key::W))
 	{
-		playPhs.ApplyForce(vec3(0.f, 30.f, 0.f));
+		playPhs.ApplyForce(vec3(0.f, 50.f, 0.f));
 	}
 	if (Input::GetKey(Key::A))
 	{
-		playPhs.ApplyForce(vec3(-30.f, 0.f, 0.f));
+		playPhs.ApplyForce(vec3(-50.f, 0.f, 0.f));
 	}
 	if (Input::GetKey(Key::S))
 	{
-		playPhs.ApplyForce(vec3(0.f, -30.f, 0.f));
+		playPhs.ApplyForce(vec3(0.f, -50.f, 0.f));
 	}
 	if (Input::GetKey(Key::D))
 	{
-		playPhs.ApplyForce(vec3(30.f, 0.f,0.f));
+		playPhs.ApplyForce(vec3(50.f, 0.f,0.f));
 	}
 }
 

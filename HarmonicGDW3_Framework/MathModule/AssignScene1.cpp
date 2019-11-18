@@ -94,10 +94,10 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 		ECS::AttachComponent<Transform>(entity);
 
 		//sets up components
-		std::string fileName = "TlozBGR1.png";
-		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 200, 200);
+		std::string fileName = "surface.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 640, 640);
 
-		ECS::GetComponent<Transform>(entity).SetPosition(vec3(0.f, -44.f, -1));
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(0.f, 0.f, 0.f));
 		
 
 
@@ -153,7 +153,33 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::AnimationBit()|EntityIdentifier::PhysicsBit();
 		ECS::SetUpIdentifier(entity, bitHolder, "Zombie");
 	}
+	{
+		//creates entity
+		auto entity = ECS::CreateEntity();
 
+		//add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+
+		//sets up components
+		std::string fileName = "longWall.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 160, 20);
+
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(0.f, 0.f, 10.f));
+
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
+			vec2(0.f, 0.f),
+			CollisionIDs::Environment(), (0x0), false);
+
+
+		//sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "LongWall1");
+	}
 	ECS::GetComponent<VerticalScroll>(EntityIdentifier::MainCamera()).SetFocus(&ECS::GetComponent<Transform>(EntityIdentifier::MainPlayer()));
 	ECS::GetComponent<HorizontalScroll>(EntityIdentifier::MainCamera()).SetFocus(&ECS::GetComponent<Transform>(EntityIdentifier::MainPlayer()));
 }
