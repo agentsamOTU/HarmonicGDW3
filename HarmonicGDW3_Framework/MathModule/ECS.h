@@ -10,7 +10,7 @@
 #include "AnimationController.h"
 #include "Transform.h"
 #include "EntityIdentifier.h"
-//#include "PhysicsBody.h"
+#include "PhysicsBody.h"
 #include "HealthBar.h"
 
 class ECS abstract
