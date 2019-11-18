@@ -48,6 +48,7 @@ void Game::InitGame()
 	m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
 
 	//sets m_register to point to the register in the active scene
+	PhysicsSystem::Init();
 
 	m_register = m_activeScene->GetScene();
 }
@@ -92,6 +93,8 @@ void Game::Update()
 	Timer::Update();
 	//Update the backend
 	BackEnd::Update(m_register);
+
+	PhysicsSystem::Update(m_register);
 }
 
 void Game::GUI()
@@ -128,6 +131,7 @@ void Game::CheckEvents()
 void Game::Routines()
 {
 	auto& enemLoc = ECS::GetComponent<Transform>(3);
+	auto& enemPhs = ECS::GetComponent<PhysicsBody>(3);
 	auto& playLoc = ECS::GetComponent<Transform>(EntityIdentifier::MainPlayer());
 	vec2 delta =vec2(playLoc.GetPositionX() - enemLoc.GetPositionX(), playLoc.GetPositionY() - enemLoc.GetPositionY());
 	m_velocityEn1 = vec2(delta.Normalize())*5.f;
@@ -137,10 +141,7 @@ void Game::Routines()
 	}
 	else if (delta.GetMagnitude() < 150)
 	{
-		vec3 position = m_register->get<Transform>(3).GetPosition();
-		position = position + (vec3(m_velocityEn1.x, m_velocityEn1.y, 0.f) * Timer::deltaTime);
-		//sets position
-		m_register->get<Transform>(3).SetPosition(position);
+		enemPhs.SetVelocity(vec3(m_velocityEn1.x, m_velocityEn1.y, 0.f));
 	}
 	enemLoc.SetRotationAngleZ(atan2(delta.y, delta.x)+PI/2);
 }
@@ -382,68 +383,25 @@ void Game::GamepadTrigger(XInputController* con)
 void Game::KeyboardHold()
 {
 	//Keyboard button held
-	vec3 position = m_register->get<Transform>(EntityIdentifier::MainPlayer()).GetPosition();
+	auto& playPhs = ECS::GetComponent<PhysicsBody>(EntityIdentifier::MainPlayer());
 
-	vec2 totalForce = vec2(0.f, 0.f);
-	
-	float speed = 30.f;
 
 	if (Input::GetKey(Key::W))
 	{
-		totalForce.y += 120.f;
-		m_moving = true;
+		playPhs.ApplyForce(vec3(0.f, 30.f, 0.f));
 	}
 	if (Input::GetKey(Key::A))
 	{
-		totalForce.x += -120.f;
-		m_moving = true;
+		playPhs.ApplyForce(vec3(-30.f, 0.f, 0.f));
 	}
 	if (Input::GetKey(Key::S))
 	{
-		totalForce.y += -120.f;
-		m_moving = true;
+		playPhs.ApplyForce(vec3(0.f, -30.f, 0.f));
 	}
 	if (Input::GetKey(Key::D))
 	{
-		totalForce.x += 120.f;
-		m_moving = true;
+		playPhs.ApplyForce(vec3(30.f, 0.f,0.f));
 	}
-	vec2 acceleration = totalForce / m_mass;
-	if (!m_moving)
-	{
-		acceleration = m_velocity * -4.f;
-	}
-
-	//updates velocity
-	if (m_velocity.x < -121.f)
-	{
-		m_velocity.x = -120.8f;
-	}
-	else if (m_velocity.x > 121.f)
-	{
-		m_velocity.x = 120.8f;
-	}
-	else
-	{
-		m_velocity.x = m_velocity.x + (acceleration.x * Timer::deltaTime);
-	}
-	if (m_velocity.y < -121.f)
-	{
-		m_velocity.y = -120.8f;
-	}
-	else if (m_velocity.y > 121.f)
-	{
-		m_velocity.y = 120.8f;
-	}
-	else
-	{
-		m_velocity.y = m_velocity.y + (acceleration.y * Timer::deltaTime);
-	}
-	//updates position
-	position = position + (vec3(m_velocity.x, m_velocity.y, 0.f) * Timer::deltaTime)
-		+(vec3(acceleration.x,acceleration.y,0.f)*0.5f*(Timer::deltaTime*Timer::deltaTime));
-	//sets position
-	m_register->get<Transform>(EntityIdentifier::MainPlayer()).SetPosition(position);
 }
 
 void Game::KeyboardDown()
@@ -483,6 +441,10 @@ void Game::KeyboardUp()
 		{
 			animController.SetActiveAnim(0);
 		}
+	}
+	if (Input::GetKeyUp(Key::P))
+	{
+		PhysicsBody::SetDraw(!PhysicsBody::GetDraw());
 	}
 	
 }

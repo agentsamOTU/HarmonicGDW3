@@ -146,6 +146,8 @@ void BackEnd::Draw(entt::registry* mainReg)
 {
 	//Call draw on the register using the rendering system
 	RenderingSystem::Draw(mainReg);
+
+	PhysicsSystem::Draw(mainReg);
 }
 
 void BackEnd::Update(entt::registry* mainReg)
