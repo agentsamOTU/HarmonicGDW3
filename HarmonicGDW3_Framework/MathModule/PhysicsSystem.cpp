@@ -98,7 +98,7 @@ void PhysicsSystem::Run(entt::registry* reg)
 								trans1.SetPosition(trans1.GetPosition() + (-body1.GetVelocity() * (Timer::deltaTime)));
 								//once it collides we stop
 								body1.SetAcceleration(vec3(0.f, 0.f, 0.f));
-								body1.SetVelocity(-body1.GetVelocity());
+								body1.SetVelocity(vec3(0.f, 0.f, 0.f));
 							}
 						}
 						else if (body2.GetBodyType() == BodyType::CIRCLE)
