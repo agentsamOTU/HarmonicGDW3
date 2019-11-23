@@ -71,7 +71,6 @@ bool Game::Run()
 		
 		//Flips the windows
 		m_window->Flip();
-		
 		//Polls events and then checks them
 		BackEnd::PollEvents(m_register, &m_close, &m_motion, &m_click, &m_wheel);
 		CheckEvents();
@@ -82,6 +81,8 @@ bool Game::Run()
 			//Accept all input
 			AcceptInput();
 		}
+		//hacky but works
+		ECS::GetComponent<Camera>(EntityIdentifier::MainCamera()).SetPosition(ECS::GetComponent<Transform>(EntityIdentifier::MainPlayer()).GetPosition());
 	}
 
 	return true;
@@ -413,6 +414,9 @@ void Game::MouseClick(SDL_MouseButtonEvent evnt)
 	if (SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(SDL_BUTTON_LEFT))
 	{
 		printf("Left mouse clicked at (%f,%f)\n", float(evnt.x), float(evnt.y));
+		auto& shot=ECS::GetComponent<PlayerWeapons>(EntityIdentifier::MainPlayer());
+		auto& trans= ECS::GetComponent<Transform>(EntityIdentifier::MainPlayer());
+		shot.Shoot(&trans);
 	}
 	if (SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(SDL_BUTTON_RIGHT))
 	{

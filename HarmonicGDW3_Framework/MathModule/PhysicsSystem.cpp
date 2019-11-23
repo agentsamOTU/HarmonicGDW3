@@ -99,6 +99,12 @@ void PhysicsSystem::Run(entt::registry* reg)
 								//once it collides we stop
 								body1.SetAcceleration(vec3(0.f, 0.f, 0.f));
 								body1.SetVelocity(vec3(0.f, 0.f, 0.f));
+								if (body1.GetBodyID()==CollisionIDs::Bullet())
+								{
+									printf("%i\n", entity);
+									ECS::DestroyEntity(entity);
+									break;
+								}
 							}
 						}
 						else if (body2.GetBodyType() == BodyType::CIRCLE)
@@ -115,7 +121,7 @@ void PhysicsSystem::Run(entt::registry* reg)
 bool PhysicsSystem::BoxBoxCollision(std::pair<PhysicsBody&, Box> group1, std::pair<PhysicsBody&, Box> group2)
 {
 	
-	if ((group1.first.GetCollideID() & group2.first.GetBodyID())!=0)
+	if (group1.first.GetCollideID() & group2.first.GetBodyID())
 	{
 		//is x collide
 		bool axisXCollide = group1.second.m_bottomRight.x >= group2.second.m_bottomLeft.x &&

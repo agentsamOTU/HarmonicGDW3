@@ -51,6 +51,7 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 		ECS::AttachComponent<Transform>(entity);
 		ECS::AttachComponent<AnimationController>(entity);
 		ECS::AttachComponent<PhysicsBody>(entity);
+		ECS::AttachComponent<PlayerWeapons>(entity);
 
 		//sets up components
 		std::string fileName = "DoomGuy_Walk.png";

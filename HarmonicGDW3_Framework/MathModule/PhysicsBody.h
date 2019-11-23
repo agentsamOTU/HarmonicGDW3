@@ -22,11 +22,13 @@ public:
 	static unsigned int Player();
 	static unsigned int Environment();
 	static unsigned int Enemy();
+	static unsigned int Bullet();
 private:
 	//holds the IDs
 	static unsigned int m_playerID;
 	static unsigned int m_environmentID;
 	static unsigned int m_enemyID;
+	static unsigned int m_bulletID;
 };
 
 class PhysicsBody
