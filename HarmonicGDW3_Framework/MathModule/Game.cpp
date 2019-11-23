@@ -416,7 +416,11 @@ void Game::MouseClick(SDL_MouseButtonEvent evnt)
 		printf("Left mouse clicked at (%f,%f)\n", float(evnt.x), float(evnt.y));
 		auto& shot=ECS::GetComponent<PlayerWeapons>(EntityIdentifier::MainPlayer());
 		auto& trans= ECS::GetComponent<Transform>(EntityIdentifier::MainPlayer());
-		shot.Shoot(&trans);
+		if (shot.GetAmmo() > 0)
+		{
+			shot.Shoot(&trans);
+			printf("%i", shot.GetAmmo());
+		}
 	}
 	if (SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(SDL_BUTTON_RIGHT))
 	{

@@ -28,6 +28,7 @@ void PlayerWeapons::Shoot(Transform* trans)
 		tempPhsBody.SetFriction(0.f);
 		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::PhysicsBit();
 		ECS::SetUpIdentifier(entity, bitHolder, "bullet");
+		ammPist -= 1;
 	}
 	else if (curWeap == 1)//shotgun
 	{
@@ -42,4 +43,42 @@ void PlayerWeapons::AddAmmo(int type, int quantity)
 
 void PlayerWeapons::ChangeWeapon(int weap)
 {
+}
+
+int PlayerWeapons::GetAmmo()
+{
+	if (curWeap == 0)
+	{
+		return ammPist;
+	}
+	else if (curWeap == 1)
+	{
+		return ammShot;
+	}
+}
+
+void PlayerWeapons::SetAmmo(int pist, int shot)
+{
+	ammPist=pist;
+	ammShot = shot;
+}
+
+int PlayerWeapons::GetPistol() const
+{
+	return ammPist;
+}
+
+int PlayerWeapons::GetShot() const
+{
+	return ammShot;
+}
+
+bool PlayerWeapons::GetHasShotgun() const
+{
+	return hasShot;
+}
+
+void PlayerWeapons::SetHasShotgun(bool has)
+{
+	hasShot = has;
 }

@@ -101,7 +101,6 @@ void PhysicsSystem::Run(entt::registry* reg)
 								body1.SetVelocity(vec3(0.f, 0.f, 0.f));
 								if (body1.GetBodyID()==CollisionIDs::Bullet())
 								{
-									printf("%i\n", entity);
 									ECS::DestroyEntity(entity);
 									break;
 								}
