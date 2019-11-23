@@ -166,17 +166,17 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 		ECS::AttachComponent<Transform>(entity);
 
 		//sets up components
-		std::string fileName = "surface.png";
-		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 50, 190);
+		std::string fileName = "floor.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 50, 120);
 
 
-		ECS::GetComponent<Transform>(entity).SetPosition(vec3(0.f, 150.f, 0.f));
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(0.f, 185.f, 0.f));
 
 
 
 		//sets up the identifier
 		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
-		ECS::SetUpIdentifier(entity, bitHolder, "Dark Background");
+		ECS::SetUpIdentifier(entity, bitHolder, "Hallway1");
 	}
 	{
 		//creates entity
@@ -215,7 +215,7 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 		ECS::AttachComponent<PhysicsBody>(entity);
 
 		//sets up components
-		std::string fileName = "longWall.png";
+		std::string fileName = "HalfWall.png";
 		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 75, 20);
 
 		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-62.f, 125.f, 10.f));
@@ -230,7 +230,7 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 
 		//sets up the identifier
 		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
-		ECS::SetUpIdentifier(entity, bitHolder, "LongWall1");
+		ECS::SetUpIdentifier(entity, bitHolder, "HalfWall1");
 	}
 	
 	{
@@ -243,7 +243,7 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 		ECS::AttachComponent<PhysicsBody>(entity);
 		
 		//sets up components
-		std::string fileName = "longWall.png";
+		std::string fileName = "HalfWall.png";
 		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 75, 20);
 
 		ECS::GetComponent<Transform>(entity).SetPosition(vec3(62.f, 125.f, 10.f));
@@ -258,7 +258,7 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 
 		//sets up the identifier
 		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
-		ECS::SetUpIdentifier(entity, bitHolder, "LongWall1");
+		ECS::SetUpIdentifier(entity, bitHolder, "HalfWall1");
 	}
 	{
 		//creates entity
@@ -270,7 +270,7 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 		ECS::AttachComponent<PhysicsBody>(entity);
 
 		//sets up components
-		std::string fileName = "longWall.png";
+		std::string fileName = "Pillar.png";
 		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 20, 20);
 
 		ECS::GetComponent<Transform>(entity).SetPosition(vec3(60.f, 70.f, 10.f));
@@ -285,7 +285,7 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 
 		//sets up the identifier
 		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
-		ECS::SetUpIdentifier(entity, bitHolder, "LongWall1");
+		ECS::SetUpIdentifier(entity, bitHolder, "Pillar1");
 	}
 	{
 		//creates entity
@@ -297,7 +297,7 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 		ECS::AttachComponent<PhysicsBody>(entity);
 
 		//sets up components
-		std::string fileName = "longWall.png";
+		std::string fileName = "Pillar.png";
 		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 20, 20);
 
 		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-60.f, 70.f, 10.f));
@@ -312,7 +312,7 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 
 		//sets up the identifier
 		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
-		ECS::SetUpIdentifier(entity, bitHolder, "LongWall1");
+		ECS::SetUpIdentifier(entity, bitHolder, "Pillar1");
 	}
 	{
 		//creates entity
@@ -324,7 +324,7 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 		ECS::AttachComponent<PhysicsBody>(entity);
 
 		//sets up components
-		std::string fileName = "longWall.png";
+		std::string fileName = "Pillar.png";
 		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 20, 20);
 
 		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-60.f, -70.f, 10.f));
@@ -339,7 +339,7 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 
 		//sets up the identifier
 		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
-		ECS::SetUpIdentifier(entity, bitHolder, "LongWall1");
+		ECS::SetUpIdentifier(entity, bitHolder, "Pillar");
 	}
 	{
 		//creates entity
@@ -351,7 +351,7 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 		ECS::AttachComponent<PhysicsBody>(entity);
 
 		//sets up components
-		std::string fileName = "longWall.png";
+		std::string fileName = "Pillar.png";
 		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 20, 20);
 
 		ECS::GetComponent<Transform>(entity).SetPosition(vec3(60.f, -70.f, 10.f));
@@ -366,7 +366,7 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 
 		//sets up the identifier
 		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
-		ECS::SetUpIdentifier(entity, bitHolder, "LongWall1");
+		ECS::SetUpIdentifier(entity, bitHolder, "Pillar1");
 	}
 	{
 		//creates entity
@@ -615,8 +615,8 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 		ECS::AttachComponent<PhysicsBody>(entity);
 
 		//sets up components
-		std::string fileName = "sidewaysWall.png";
-		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 20, 65);
+		std::string fileName = "HalfSideWall.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 25, 65);
 
 		ECS::GetComponent<Transform>(entity).SetPosition(vec3(173.f, 270.f, 10.f));
 
@@ -642,8 +642,8 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 		ECS::AttachComponent<PhysicsBody>(entity);
 
 		//sets up components
-		std::string fileName = "sidewaysWall.png";
-		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 20, 65);
+		std::string fileName = "HalfSideWall.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 25, 65);
 
 		ECS::GetComponent<Transform>(entity).SetPosition(vec3(173.f, 382.f, 10.f));
 
@@ -717,7 +717,7 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 		ECS::AttachComponent<PhysicsBody>(entity);
 
 		//sets up components
-		std::string fileName = "sidewaysWall.png";
+		std::string fileName = "HalfSideWall.png";
 		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 20, 100);
 
 		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-40.f, 450.f, 10.f));
@@ -732,7 +732,7 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 
 		//sets up the identifier
 		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
-		ECS::SetUpIdentifier(entity, bitHolder, "LongWall1");
+		ECS::SetUpIdentifier(entity, bitHolder, "Halfsidewayswall1");
 	}
 	{
 		//creates entity
@@ -744,7 +744,7 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 		ECS::AttachComponent<PhysicsBody>(entity);
 
 		//sets up components
-		std::string fileName = "sidewaysWall.png";
+		std::string fileName = "HalfSideWall.png";
 		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 20, 100);
 
 		ECS::GetComponent<Transform>(entity).SetPosition(vec3(40.f, 450.f, 10.f));
@@ -759,7 +759,7 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 
 		//sets up the identifier
 		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
-		ECS::SetUpIdentifier(entity, bitHolder, "LongWall1");
+		ECS::SetUpIdentifier(entity, bitHolder, "HalfsidewaysWall1");
 	}
 	//level 2 begins
 
