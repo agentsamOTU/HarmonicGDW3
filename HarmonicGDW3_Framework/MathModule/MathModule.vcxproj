@@ -148,6 +148,7 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CameraSystem.h" />
     <ClInclude Include="ControlTab.h" />
+    <ClInclude Include="Door.h" />
     <ClInclude Include="ECS.h" />
     <ClInclude Include="EffectManager.h" />
     <ClInclude Include="EntityIdentifier.h" />
@@ -205,6 +206,7 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CameraSystem.cpp" />
     <ClCompile Include="ControlTab.cpp" />
+    <ClCompile Include="Door.cpp" />
     <ClCompile Include="ECS.cpp" />
     <ClCompile Include="EffectManager.cpp" />
     <ClCompile Include="EntityIdentifier.cpp" />

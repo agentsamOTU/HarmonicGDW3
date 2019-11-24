@@ -131,6 +131,17 @@ void Game::CheckEvents()
 
 void Game::Routines()
 {
+	auto& playHealth = ECS::GetComponent<HealthArmour>(EntityIdentifier::MainPlayer());
+	if (playHealth.GetDamaged())
+	{
+		playHealth.TakeDamage(10);
+		printf("PlayerHealth:%i\n", playHealth.GetHealth());
+		if (playHealth.GetHealth() <= 0)
+		{
+			printf("GAMEOVER");
+			exit(0);
+		}
+	}
 	auto view = m_register->view<Zombie>();
 	for (auto entity : view)
 	{
@@ -347,14 +358,17 @@ void Game::GamepadTrigger(XInputController* con)
 	Triggers triggers;
 	con->GetTriggers(triggers);
 
-	if (triggers.RT > 0.5f && triggers.RT < 0.8f)
+	if (triggers.RT > 0.5f && triggers.RT > 0.8f)
 	{
-		printf("Half press\n");
+		auto& shot = ECS::GetComponent<PlayerWeapons>(EntityIdentifier::MainPlayer());
+		auto& trans = ECS::GetComponent<Transform>(EntityIdentifier::MainPlayer());
+		if (shot.GetAmmo() > 0)
+		{
+			shot.Shoot(&trans);
+			printf("Player Ammo:%i\n", shot.GetAmmo());
+		}
 	}
-	if (triggers.RT > 0.8f)
-	{
-		printf("Full press\n");
-	}
+	
 }
 
 void Game::KeyboardHold()
@@ -453,22 +467,19 @@ void Game::MouseClick(SDL_MouseButtonEvent evnt)
 {
 	if (SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(SDL_BUTTON_LEFT))
 	{
-		printf("Left mouse clicked at (%f,%f)\n", float(evnt.x), float(evnt.y));
 		auto& shot=ECS::GetComponent<PlayerWeapons>(EntityIdentifier::MainPlayer());
 		auto& trans= ECS::GetComponent<Transform>(EntityIdentifier::MainPlayer());
 		if (shot.GetAmmo() > 0)
 		{
 			shot.Shoot(&trans);
-			printf("%i", shot.GetAmmo());
+			printf("Player Ammo:%i\n", shot.GetAmmo());
 		}
 	}
 	if (SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(SDL_BUTTON_RIGHT))
 	{
-		printf("Right mouse clicked at (%f,%f)\n", float(evnt.x), float(evnt.y));
 	}
 	if (SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(SDL_BUTTON_MIDDLE))
 	{
-		printf("Middle mouse clicked at (%f,%f)\n", float(evnt.x), float(evnt.y));
 	}
 	if (m_guiActive)
 	{
