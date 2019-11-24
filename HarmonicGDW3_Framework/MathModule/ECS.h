@@ -12,6 +12,9 @@
 #include "EntityIdentifier.h"
 #include "PhysicsBody.h"
 #include "HealthBar.h"
+#include "PlayerWeapons.h"
+#include "HealthArmour.h"
+#include "Zombie.h"
 
 class ECS abstract
 {

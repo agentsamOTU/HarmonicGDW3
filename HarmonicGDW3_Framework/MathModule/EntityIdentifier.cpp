@@ -12,6 +12,10 @@ unsigned int EntityIdentifier::m_physicsBit			= 0x100000;
 unsigned int EntityIdentifier::m_healthBarBit		= 0x1000000;
 unsigned int EntityIdentifier::m_horiScrollCameraBit= 0x10000000;
 unsigned int EntityIdentifier::m_vertScrollCameraBit= 0x2;
+unsigned int EntityIdentifier::m_playerWeaponBit    = 0x20;
+unsigned int EntityIdentifier::m_healthArmourBit    = 0x200;
+unsigned int EntityIdentifier::m_zombieBit          = 0x2000;
+unsigned int EntityIdentifier::m_impBit             = 0x20000;
 
 
 //(having just camera means the bit = 1)
@@ -123,6 +127,26 @@ unsigned int EntityIdentifier::HoriScrollCameraBit()
 unsigned int EntityIdentifier::VertScrollCameraBit()
 {
 	return m_vertScrollCameraBit;
+}
+
+unsigned int EntityIdentifier::PlayerWeaponBit()
+{
+	return m_playerWeaponBit;
+}
+
+unsigned int EntityIdentifier::HealthArmourBit()
+{
+	return m_healthArmourBit;
+}
+
+unsigned int EntityIdentifier::ZombieBit()
+{
+	return m_zombieBit;
+}
+
+unsigned int EntityIdentifier::ImpBit()
+{
+	return m_impBit;
 }
 
 void EntityIdentifier::MainPlayer(unsigned int entity)

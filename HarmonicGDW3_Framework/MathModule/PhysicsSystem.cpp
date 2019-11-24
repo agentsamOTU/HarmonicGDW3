@@ -98,7 +98,17 @@ void PhysicsSystem::Run(entt::registry* reg)
 								trans1.SetPosition(trans1.GetPosition() + (-body1.GetVelocity() * (Timer::deltaTime)));
 								//once it collides we stop
 								body1.SetAcceleration(vec3(0.f, 0.f, 0.f));
-								body1.SetVelocity(-body1.GetVelocity());
+								body1.SetVelocity(vec3(0.f, 0.f, 0.f));
+								if (body1.GetBodyID()&CollisionIDs::Bullet())
+								{
+									ECS::DestroyEntity(entity);
+									if (ECS::GetComponent<EntityIdentifier>(entity2).GetIdentifier()& EntityIdentifier::HealthArmourBit())
+									{
+										printf("hit obj has health");
+										ECS::GetComponent<HealthArmour>(entity2).SetDamaged(true);
+									}
+									break;
+								}
 							}
 						}
 						else if (body2.GetBodyType() == BodyType::CIRCLE)
@@ -115,7 +125,7 @@ void PhysicsSystem::Run(entt::registry* reg)
 bool PhysicsSystem::BoxBoxCollision(std::pair<PhysicsBody&, Box> group1, std::pair<PhysicsBody&, Box> group2)
 {
 	
-	if ((group1.first.GetCollideID() & group2.first.GetBodyID())!=0)
+	if (group1.first.GetCollideID() & group2.first.GetBodyID())
 	{
 		//is x collide
 		bool axisXCollide = group1.second.m_bottomRight.x >= group2.second.m_bottomLeft.x &&
