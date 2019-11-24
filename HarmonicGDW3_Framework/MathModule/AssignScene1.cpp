@@ -769,6 +769,65 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
 		ECS::SetUpIdentifier(entity, bitHolder, "HalfsidewaysWall1");
 	}
+	{
+		//Creates entity 
+		auto entity = ECS::CreateEntity();
+
+		//Add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<AnimationController>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+		ECS::AttachComponent<Door>(entity);
+
+		//Sets up components
+		std::string Door = "RegularDoor.png";
+		auto& animController = ECS::GetComponent<AnimationController>(entity);
+		animController.InitUVs(Door);
+		//Adds first animation
+		animController.AddAnimation(Animation());
+		animController.AddAnimation(Animation());
+		//Sets active animation
+		animController.SetActiveAnim(1);
+
+		//gets first animation
+		auto& anim = animController.GetAnimation(0);
+		anim.AddFrame(vec2(20.f, 210.f), vec2(310.f, 120.f));
+		anim.AddFrame(vec2(360.f, 210.f), vec2(649.f, 120.f));
+		anim.AddFrame(vec2(700.f, 210.f), vec2(989.f, 120.f));
+		anim.AddFrame(vec2(1040.f, 210.f), vec2(1330.f, 120.f));
+		anim.AddFrame(vec2(1379.f, 210.f), vec2(1669.f, 120.f));
+		anim.AddFrame(vec2(1720.f, 210.f), vec2(2009.f, 120.f));
+		anim.AddFrame(vec2(2060.f, 210.f), vec2(2349.f, 120.f));
+		auto& anim2 = animController.GetAnimation(1);
+		anim2.AddFrame(vec2(2060.f, 210.f), vec2(2349.f, 120.f));
+		anim2.AddFrame(vec2(1720.f, 210.f), vec2(2009.f, 120.f));
+		anim2.AddFrame(vec2(1379.f, 210.f), vec2(1669.f, 120.f));
+		anim2.AddFrame(vec2(1040.f, 210.f), vec2(1330.f, 120.f));
+		anim2.AddFrame(vec2(700.f, 210.f), vec2(989.f, 120.f));
+		anim2.AddFrame(vec2(360.f, 210.f), vec2(649.f, 120.f));
+		anim2.AddFrame(vec2(20.f, 210.f), vec2(310.f, 120.f));
+		//Makes it repeat
+		anim.SetRepeating(false);
+		anim2.SetRepeating(false);
+		//Sets the time between frames
+		anim.SetSecPerFrame(0.14f);
+		anim2.SetSecPerFrame(0.14f);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth()+10), float(tempSpr.GetHeight()),
+			vec2(0.f, 0.f),
+			CollisionIDs::Environment(), (0x0), false);
+
+
+		ECS::GetComponent<Sprite>(entity).LoadSprite(Door, 30, 13, true, &animController);
+
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(30.f, -50.f, 99.f));
+
+		//Sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::AnimationBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "RegularDoor");
+	}
 	//level 2 begins
 
 

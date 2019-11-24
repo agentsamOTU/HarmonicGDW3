@@ -407,6 +407,22 @@ void Game::KeyboardDown()
 		printf("Enter has been pressed");
 
 	}
+	if (Input::GetKeyDown(Key::Space))
+	{
+		auto view = m_register->view<Door>();
+		for (auto entity : view)
+		{
+			auto& doorLoc = ECS::GetComponent<Transform>(entity);
+			auto& doorPhs = ECS::GetComponent<PhysicsBody>(entity);
+			auto& doorAnim = ECS::GetComponent<AnimationController>(entity);
+			auto& playLoc = ECS::GetComponent<Transform>(EntityIdentifier::MainPlayer());
+			vec2 delta = vec2(playLoc.GetPositionX() - doorLoc.GetPositionX(), playLoc.GetPositionY() - doorLoc.GetPositionY());
+			if (delta.GetMagnitude() < 25)
+			{
+				ECS::GetComponent<Door>(entity).DoorToggle(&doorPhs,&doorAnim);
+			}
+		}
+	}
 }
 
 void Game::KeyboardUp()
