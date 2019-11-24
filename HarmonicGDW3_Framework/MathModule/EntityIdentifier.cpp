@@ -129,7 +129,7 @@ unsigned int EntityIdentifier::VertScrollCameraBit()
 	return m_vertScrollCameraBit;
 }
 
-unsigned int EntityIdentifier::PLayerWeaponBit()
+unsigned int EntityIdentifier::PlayerWeaponBit()
 {
 	return m_playerWeaponBit;
 }

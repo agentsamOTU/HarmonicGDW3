@@ -52,6 +52,7 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 		ECS::AttachComponent<AnimationController>(entity);
 		ECS::AttachComponent<PhysicsBody>(entity);
 		ECS::AttachComponent<PlayerWeapons>(entity);
+		ECS::AttachComponent<HealthArmour>(entity);
 
 		//sets up components
 		std::string fileName = "DoomGuy_Walk.png";
@@ -70,7 +71,7 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 		//sets time between frames
 		anim.SetSecPerFrame(0.1667f);
 		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 24, 24, true, &animController);
-		ECS::GetComponent<Transform>(entity).SetPosition(vec3(0.f, -60.f, 10.f));
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(0.f, -60.f, 100.f));
 		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
 		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
 
@@ -80,10 +81,11 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 			CollisionIDs::Player(), (CollisionIDs::Environment() | CollisionIDs::Enemy()), true);
 		tempPhsBody.SetGravity(false);
 		tempPhsBody.SetFriction(1.f);
+		ECS::GetComponent<HealthArmour>(entity).SetHealth(100);
 
 		//sets up the identifier
 		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::AnimationBit() 
-			| EntityIdentifier::PhysicsBit() | EntityIdentifier::HealthArmourBit() | EntityIdentifier::PLayerWeaponBit();
+			| EntityIdentifier::PhysicsBit() | EntityIdentifier::HealthArmourBit() | EntityIdentifier::PlayerWeaponBit();
 		ECS::SetUpIdentifier(entity, bitHolder, "doomGuy");
 		ECS::SetIsMainPlayer(entity, true);
 	}
@@ -144,7 +146,7 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 
 		ECS::GetComponent<Sprite>(entity).LoadSprite(Zombie, 24, 24, true, &animController);
 
-		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-20.f, 360.f, 100.f));
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-20.f, 360.f, 10.f));
 		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
 		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
 

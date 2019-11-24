@@ -112,6 +112,17 @@ inline void to_json(nlohmann::json& j, const Scene& scene)
 
 			j[std::to_string(counter)]["VertScrollCam"] = scene.GetScene()->get<VerticalScroll>(entity);
 		}
+		if (identity & EntityIdentifier::HealthArmourBit())
+		{
+
+			j[std::to_string(counter)]["HealthArmour"] = scene.GetScene()->get<HealthArmour>(entity);
+		}
+		if (identity & EntityIdentifier::PlayerWeaponBit())
+		{
+
+			j[std::to_string(counter)]["PlayerWeapons"] = scene.GetScene()->get<PlayerWeapons>(entity);
+		}
+		
 
 		//For each loop increase the counter
 		counter++;
@@ -250,6 +261,21 @@ inline void from_json(const nlohmann::json& j, Scene& scene)
 			reg.get<VerticalScroll>(entity) = j["Scene"][std::to_string(i)]["VertScrollCam"];
 
 			scrollVert = true;
+		}
+		if (identity & EntityIdentifier::HealthArmourBit())
+		{
+			//adds horizontal scroll
+			reg.assign<HealthArmour>(entity);
+
+			reg.get<HealthArmour>(entity) = j["Scene"][std::to_string(i)]["HealthArmour"];
+
+		}
+		if (identity & EntityIdentifier::PlayerWeaponBit())
+		{
+			//adds horizontal scroll
+			reg.assign<PlayerWeapons>(entity);
+
+			reg.get<PlayerWeapons>(entity) = j["Scene"][std::to_string(i)]["PlayerWeapons"];
 		}
 	}
 	if (scrollHori)

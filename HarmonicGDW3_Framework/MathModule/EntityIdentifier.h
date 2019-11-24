@@ -34,7 +34,7 @@ public:
 	static unsigned int HealthBarBit();
 	static unsigned int HoriScrollCameraBit();
 	static unsigned int VertScrollCameraBit();
-	static unsigned int PLayerWeaponBit();
+	static unsigned int PlayerWeaponBit();
 	static unsigned int HealthArmourBit();
 	static unsigned int ZombieBit();
 	static unsigned int ImpBit();

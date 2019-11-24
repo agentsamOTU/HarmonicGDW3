@@ -134,6 +134,8 @@ void Game::Routines()
 	auto view = m_register->view<Zombie>();
 	for (auto entity : view)
 	{
+		auto& enemLoc = ECS::GetComponent<Transform>(entity);
+		auto& enemPhs = ECS::GetComponent<PhysicsBody>(entity);
 		auto& health = ECS::GetComponent<HealthArmour>(entity);
 		auto& zomb = ECS::GetComponent<Zombie>(entity);
 		if (health.GetDamaged())
@@ -143,24 +145,43 @@ void Game::Routines()
 			if (health.GetHealth() <= 0)
 			{
 				zomb.SetActive(false);
+				enemPhs.SetBodyID(0x0);
+				enemPhs.SetCollideID(0x0);
+				enemPhs.SetVelocity(vec3(0.f, 0.f, 0.f));
 			}
 		}
 		if (zomb.GetActive())
 		{
-			auto& enemLoc = ECS::GetComponent<Transform>(entity);
-			auto& enemPhs = ECS::GetComponent<PhysicsBody>(entity);
-			auto& playLoc = ECS::GetComponent<Transform>(EntityIdentifier::MainPlayer());
-			vec2 delta = vec2(playLoc.GetPositionX() - enemLoc.GetPositionX(), playLoc.GetPositionY() - enemLoc.GetPositionY());
-			m_velocityEn1 = vec2(delta.Normalize()) * 10.f;
-			if (delta.GetMagnitude() < 60)
+			if (zomb.GetShoot())
 			{
-				printf("He would shoot now\n");
+				zomb.AddTime(Timer::deltaTime);
+				if (zomb.GetTime() > 0.25f&&!zomb.GetShotDone())
+				{
+					zomb.Shoot(&enemLoc);
+				}
+				if (zomb.GetTime() > 2.f)
+				{
+					zomb.ResetShoot();
+				}
 			}
-			else if (delta.GetMagnitude() < 150)
+			else
 			{
-				enemPhs.SetVelocity(vec3(m_velocityEn1.x, m_velocityEn1.y, 0.f));
+				
+				auto& playLoc = ECS::GetComponent<Transform>(EntityIdentifier::MainPlayer());
+				vec2 delta = vec2(playLoc.GetPositionX() - enemLoc.GetPositionX(), playLoc.GetPositionY() - enemLoc.GetPositionY());
+				vec2 tempDirec = vec2(delta.Normalize()) * 15.f;
+				if (delta.GetMagnitude() < 60)
+				{
+					zomb.SetShoot(true);
+					zomb.SetDirection(tempDirec.x, tempDirec.y);
+				}
+				else if (delta.GetMagnitude() < 150)
+				{
+					enemPhs.SetVelocity(vec3(tempDirec.x, tempDirec.y, 0.f));
+				}
+				enemLoc.SetRotationAngleZ(atan2(delta.y, delta.x) + PI / 2);
+
 			}
-			enemLoc.SetRotationAngleZ(atan2(delta.y, delta.x) + PI / 2);
 		}
 	}
 	
