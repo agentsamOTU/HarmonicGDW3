@@ -1,9 +1,8 @@
 #include "HealthArmour.h"
 
-HealthArmour::HealthArmour(int health, int armour)
+HealthArmour::HealthArmour()
 {
-	m_health = health;
-	m_armour = armour;
+
 }
 
 void HealthArmour::TakeDamage(int dam)
@@ -30,4 +29,34 @@ void HealthArmour::AddHealth(int hea)
 void HealthArmour::AddArmour(int arm)
 {
 	m_armour += arm;
+}
+
+bool HealthArmour::GetDamaged()
+{
+	return inDamage;
+}
+
+void HealthArmour::SetDamaged(bool dam)
+{
+	inDamage = dam;
+}
+
+int HealthArmour::GetArmour() const
+{
+	return m_armour;
+}
+
+int HealthArmour::GetHealth() const
+{
+	return m_health;
+}
+
+void HealthArmour::SetArmour(int arm)
+{
+	m_armour = arm;
+}
+
+void HealthArmour::SetHealth(int hea)
+{
+	m_health = hea;
 }

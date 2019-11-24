@@ -99,9 +99,14 @@ void PhysicsSystem::Run(entt::registry* reg)
 								//once it collides we stop
 								body1.SetAcceleration(vec3(0.f, 0.f, 0.f));
 								body1.SetVelocity(vec3(0.f, 0.f, 0.f));
-								if (body1.GetBodyID()==CollisionIDs::Bullet())
+								if (body1.GetBodyID()&CollisionIDs::Bullet())
 								{
 									ECS::DestroyEntity(entity);
+									if (ECS::GetComponent<EntityIdentifier>(entity2).GetIdentifier()& EntityIdentifier::HealthArmourBit())
+									{
+										printf("hit obj has health");
+										ECS::GetComponent<HealthArmour>(entity2).SetDamaged(true);
+									}
 									break;
 								}
 							}

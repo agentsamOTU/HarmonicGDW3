@@ -131,20 +131,39 @@ void Game::CheckEvents()
 
 void Game::Routines()
 {
-	auto& enemLoc = ECS::GetComponent<Transform>(3);
-	auto& enemPhs = ECS::GetComponent<PhysicsBody>(3);
-	auto& playLoc = ECS::GetComponent<Transform>(EntityIdentifier::MainPlayer());
-	vec2 delta =vec2(playLoc.GetPositionX() - enemLoc.GetPositionX(), playLoc.GetPositionY() - enemLoc.GetPositionY());
-	m_velocityEn1 = vec2(delta.Normalize())*10.f;
-	if (delta.GetMagnitude() < 60)
+	auto view = m_register->view<Zombie>();
+	for (auto entity : view)
 	{
-		printf("He would shoot now\n");
+		auto& health = ECS::GetComponent<HealthArmour>(entity);
+		auto& zomb = ECS::GetComponent<Zombie>(entity);
+		if (health.GetDamaged())
+		{
+			health.AddHealth(-10);
+			health.SetDamaged(false);
+			if (health.GetHealth() <= 0)
+			{
+				zomb.SetActive(false);
+			}
+		}
+		if (zomb.GetActive())
+		{
+			auto& enemLoc = ECS::GetComponent<Transform>(entity);
+			auto& enemPhs = ECS::GetComponent<PhysicsBody>(entity);
+			auto& playLoc = ECS::GetComponent<Transform>(EntityIdentifier::MainPlayer());
+			vec2 delta = vec2(playLoc.GetPositionX() - enemLoc.GetPositionX(), playLoc.GetPositionY() - enemLoc.GetPositionY());
+			m_velocityEn1 = vec2(delta.Normalize()) * 10.f;
+			if (delta.GetMagnitude() < 60)
+			{
+				printf("He would shoot now\n");
+			}
+			else if (delta.GetMagnitude() < 150)
+			{
+				enemPhs.SetVelocity(vec3(m_velocityEn1.x, m_velocityEn1.y, 0.f));
+			}
+			enemLoc.SetRotationAngleZ(atan2(delta.y, delta.x) + PI / 2);
+		}
 	}
-	else if (delta.GetMagnitude() < 150)
-	{
-		enemPhs.SetVelocity(vec3(m_velocityEn1.x, m_velocityEn1.y, 0.f));
-	}
-	enemLoc.SetRotationAngleZ(atan2(delta.y, delta.x)+PI/2);
+	
 }
 
 void Game::AcceptInput()

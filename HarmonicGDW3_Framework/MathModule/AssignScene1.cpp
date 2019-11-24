@@ -82,7 +82,8 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 		tempPhsBody.SetFriction(1.f);
 
 		//sets up the identifier
-		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::AnimationBit()|EntityIdentifier::PhysicsBit();
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::AnimationBit() 
+			| EntityIdentifier::PhysicsBit() | EntityIdentifier::HealthArmourBit() | EntityIdentifier::PLayerWeaponBit();
 		ECS::SetUpIdentifier(entity, bitHolder, "doomGuy");
 		ECS::SetIsMainPlayer(entity, true);
 	}
@@ -116,6 +117,8 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 		ECS::AttachComponent<Transform>(entity);
 		ECS::AttachComponent<AnimationController>(entity);
 		ECS::AttachComponent<PhysicsBody>(entity);
+		ECS::AttachComponent<HealthArmour>(entity);
+		ECS::AttachComponent<Zombie>(entity);
 
 		//Sets up components
 		std::string Zombie = "Zombie_Walk.png";
@@ -151,8 +154,11 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 		tempPhsBody.SetGravity(false);
 		tempPhsBody.SetFriction(1.f);
 
+		ECS::GetComponent<HealthArmour>(entity).SetHealth(30);
+
 		//Sets up the identifier
-		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::AnimationBit() | EntityIdentifier::PhysicsBit();
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::AnimationBit() 
+			|EntityIdentifier::PhysicsBit()| EntityIdentifier::HealthArmourBit()| EntityIdentifier::ZombieBit();
 		ECS::SetUpIdentifier(entity, bitHolder, "Zombie");
 	}
 	//level 1 begins
