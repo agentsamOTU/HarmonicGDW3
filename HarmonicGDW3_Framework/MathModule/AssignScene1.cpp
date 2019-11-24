@@ -530,7 +530,7 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 		anim2.SetSecPerFrame(0.14f);
 		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
 		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
-		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth() + 10), float(tempSpr.GetHeight()),
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth() + 20), float(tempSpr.GetHeight()),
 			vec2(0.f, 0.f),
 			CollisionIDs::Environment(), (0x0), false);
 
@@ -589,7 +589,7 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 		anim2.SetSecPerFrame(0.14f);
 		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
 		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
-		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth() + 10), float(tempSpr.GetHeight()),
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth() + 20), float(tempSpr.GetHeight()),
 			vec2(0.f, 0.f),
 			CollisionIDs::Environment(), (0x0), false);
 
@@ -933,7 +933,7 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 		anim2.SetSecPerFrame(0.14f);
 		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
 		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
-		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth() + 10), float(tempSpr.GetHeight()),
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth() + 20), float(tempSpr.GetHeight()),
 			vec2(0.f, 0.f),
 			CollisionIDs::Environment(), (0x0), false);
 
@@ -992,7 +992,7 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 		anim2.SetSecPerFrame(0.14f);
 		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
 		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
-		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth() + 10), float(tempSpr.GetHeight()),
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth() + 20), float(tempSpr.GetHeight()),
 			vec2(0.f, 0.f),
 			CollisionIDs::Environment(), (0x0), false);
 
