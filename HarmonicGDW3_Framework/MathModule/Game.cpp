@@ -132,7 +132,7 @@ void Game::CheckEvents()
 void Game::Routines()
 {
 	ECS::GetComponent<PlayerWeapons>(EntityIdentifier::MainPlayer()).AddAcidTime(Timer::deltaTime);
-	printf("%f\n", ECS::GetComponent<PlayerWeapons>(EntityIdentifier::MainPlayer()).GetAcid());
+	
 	auto& playHealth = ECS::GetComponent<HealthArmour>(EntityIdentifier::MainPlayer());
 	if (playHealth.GetDamaged())
 	{
@@ -424,6 +424,10 @@ void Game::KeyboardDown()
 				ECS::GetComponent<Door>(entity).DoorToggle(&doorPhs,&doorAnim);
 			}
 		}
+	}
+	if (Input::GetKeyDown(Key::Q))
+	{
+		ECS::GetComponent<PlayerWeapons>(EntityIdentifier::MainPlayer()).ChangeWeapon();
 	}
 }
 

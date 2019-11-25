@@ -7,7 +7,7 @@ public:
 	PlayerWeapons();
 	void Shoot(Transform* trans);
 	void AddAmmo(int type, int quantity);
-	void ChangeWeapon(int weap);
+	void ChangeWeapon();
 	int GetAmmo();
 	void SetAmmo(int pist,int shot);
 	int GetPistol() const;

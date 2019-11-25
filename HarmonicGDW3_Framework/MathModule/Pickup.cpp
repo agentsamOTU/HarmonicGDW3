@@ -14,6 +14,7 @@ void Pickup::Collect()
 	weap.AddShotgun(ammShot);
 	if (giveShot == 1)
 	{
+		printf("got shotgun");
 		weap.SetHasShotgun(true);
 	}
 }

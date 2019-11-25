@@ -1043,6 +1043,7 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 			CollisionIDs::Pickup(), CollisionIDs::Player(), false);
 
 		ECS::GetComponent<Pickup>(entity).SetHealth(20,0);
+		ECS::GetComponent<Pickup>(entity).SetAmmo(0, 12, 1);
 		ECS::GetComponent<Sprite>(entity).LoadSprite(Potion, 7, 10, true, &animController);
 
 		ECS::GetComponent<Transform>(entity).SetPosition(vec3(0.f, 80.f, 101.f));
