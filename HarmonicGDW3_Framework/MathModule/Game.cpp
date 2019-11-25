@@ -55,6 +55,7 @@ void Game::InitGame()
 
 bool Game::Run()
 {
+	mciSendString("play assets/sound/d_e1m1.mp3", NULL, 0, NULL);
 	//While window is still open
 	while (m_window->isOpen())
 	{
@@ -157,6 +158,7 @@ void Game::Routines()
 			health.SetDamaged(false);
 			if (health.GetHealth() <= 0)
 			{
+				mciSendString("play assets/sound/dsdmpain.wav", NULL, 0, NULL);
 				zomb.SetActive(false);
 				enemPhs.SetBodyID(0x0);
 				enemPhs.SetCollideID(0x0);
