@@ -14,7 +14,24 @@ void Pickup::Collect()
 	weap.AddShotgun(ammShot);
 	if (giveShot == 1)
 	{
+		printf("got shotgun");
 		weap.SetHasShotgun(true);
+	}
+	if (giveRed == 1)
+	{
+		weap.SetRed();
+	}
+	if (giveBlue==1)
+	{
+		weap.SetBlue();
+	}
+	if (giveGree == 1)
+	{
+		weap.SetGreen();
+	}
+	if (giveYell == 1)
+	{
+		weap.SetYellow();
 	}
 }
 
@@ -29,4 +46,12 @@ void Pickup::SetHealth(int hea, int arm)
 {
 	healthUp = hea;
 	armUp = arm;
+}
+
+void Pickup::SetLocks(int red, int blue, int green, int yellow)
+{
+	giveRed = red;
+	giveBlue = blue;
+	giveGree = green;
+	giveYell = yellow;
 }
