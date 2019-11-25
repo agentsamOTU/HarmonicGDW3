@@ -42,11 +42,11 @@ void ControlTab::CreateEditor()
 			float posX = transKen.GetPosition().x;
 			float posY = transKen.GetPosition().y;
 			float posZ = transKen.GetPosition().z;
-			if (ImGui::DragFloat("PosX", &posX , 0.01f, -400.f, 400.f))
+			if (ImGui::DragFloat("PosX", &posX , 0.01f, -1000.f, 1000.f))
 			{
 				transKen.SetPosition(vec3(posX, posY, posZ));
 			}
-			if (ImGui::DragFloat("PosY", &posY, 0.01f, -400.f, 400.f))
+			if (ImGui::DragFloat("PosY", &posY, 0.01f, -1000.f, 1000.f))
 			{
 				transKen.SetPosition(vec3(posX, posY, posZ));
 			}
