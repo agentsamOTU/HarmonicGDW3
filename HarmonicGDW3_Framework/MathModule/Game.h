@@ -6,6 +6,10 @@
 #include "MyScene.h"
 #include "Xinput.h"
 #include "AssignScene1.h"
+#include <Windows.h>
+#include <conio.h>
+#pragma comment(lib, "winmm.lib")
+
 
 
 //Our main class for running our game
