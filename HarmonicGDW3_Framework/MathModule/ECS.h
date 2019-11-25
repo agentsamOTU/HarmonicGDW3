@@ -15,6 +15,9 @@
 #include "PlayerWeapons.h"
 #include "HealthArmour.h"
 #include "Zombie.h"
+#include "Door.h"
+#include "Pickup.h"
+#include "Imp.h"
 
 class ECS abstract
 {

@@ -1,68 +1,70 @@
-#include "Zombie.h"
+#include "Imp.h"
 #include "ECS.h"
 
-Zombie::Zombie()
+Imp::Imp()
 {
 }
 
-bool Zombie::GetActive()
+bool Imp::GetActive()
 {
 	return active;
 }
 
-void Zombie::SetActive(bool act)
+void Imp::SetActive(bool act)
 {
 	active = act;
 }
 
-bool Zombie::GetShoot()
+bool Imp::GetShoot()
 {
 	return inShoot;
 }
 
-void Zombie::SetShoot(bool shot)
+void Imp::SetShoot(bool shot)
 {
 	inShoot = shot;
 	shotDone = !shot;
 }
 
-void Zombie::AddTime(float delta)
+void Imp::AddTime(float delta)
 {
 	shootTime += delta;
 }
 
-float Zombie::GetTime()
+float Imp::GetTime()
 {
 	return shootTime;
 }
 
-void Zombie::ResetShoot()
+void Imp::ResetShoot()
 {
 	shootTime = 0.f;
 	inShoot = false;
 }
 
-vec2 Zombie::GetDirection()
+vec2 Imp::GetDirection()
 {
 	return shotDir;
 }
 
-void Zombie::SetDirection(float x, float y)
+void Imp::SetDirection(float x, float y)
 {
 	shotDir.x = x;
 	shotDir.y = y;
 }
 
-void Zombie::Shoot(Transform* trans)
+void Imp::Shoot(Transform* trans)
 {
 	auto entity = ECS::CreateEntity();
 	ECS::AttachComponent<Sprite>(entity);
 	ECS::AttachComponent<Transform>(entity);
 	ECS::AttachComponent<PhysicsBody>(entity);
 	ECS::AttachComponent<AnimationController>(entity);
-	std::string Potion = "bulletanim.png";
+
+	//Sets up components
+	std::string FireBall = "FireBall.png";
 	auto& animController = ECS::GetComponent<AnimationController>(entity);
-	animController.InitUVs(Potion);
+	animController.InitUVs(FireBall);
 	//Adds first animation
 	animController.AddAnimation(Animation());
 	//Sets active animation
@@ -70,9 +72,16 @@ void Zombie::Shoot(Transform* trans)
 
 	//gets first animation
 	auto& anim = animController.GetAnimation(0);
-	anim.AddFrame(vec2(149.f, 199.f), vec2(179.f, 120.f));
-	anim.AddFrame(vec2(490.f, 199.f), vec2(520.f, 120.f));
-	ECS::GetComponent<Sprite>(entity).LoadSprite(Potion, 3, 6, true, &animController);
+	anim.AddFrame(vec2(140.f, 199.f), vec2(211.f, 70.f));
+	anim.AddFrame(vec2(480.f, 199.f), vec2(549.f, 70.f));
+	anim.AddFrame(vec2(819.f, 199.f), vec2(889.f, 70.f));
+
+	//Makes it repeat
+	anim.SetRepeating(true);
+	//Sets the time between frames
+	anim.SetSecPerFrame(0.1667f);
+
+	ECS::GetComponent<Sprite>(entity).LoadSprite(FireBall, 10, 15, true, &animController);
 	ECS::GetComponent<Transform>(entity).SetPosition(trans->GetPosition());
 	ECS::GetComponent<Transform>(entity).SetRotationAngleZ(trans->GetRotationAngleZ());
 	auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
@@ -82,14 +91,14 @@ void Zombie::Shoot(Transform* trans)
 		CollisionIDs::Bullet(), (CollisionIDs::Environment() | CollisionIDs::Player()), true);
 	Degrees angle = trans->GetRotationAngleZ();
 	vec2 tempVec = shotDir.Normalize();
-	tempPhsBody.SetVelocity(vec3(tempVec.x *100.f, tempVec.y*100.f, 0.f));
+	tempPhsBody.SetVelocity(vec3(tempVec.x * 100.f, tempVec.y * 100.f, 0.f));
 	tempPhsBody.SetFriction(0.f);
 	unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::PhysicsBit();
-	ECS::SetUpIdentifier(entity, bitHolder, "bullet");
+	ECS::SetUpIdentifier(entity, bitHolder, "fireball");
 	shotDone = true;
 }
 
-bool Zombie::GetShotDone()
+bool Imp::GetShotDone()
 {
 	return shotDone;
 }

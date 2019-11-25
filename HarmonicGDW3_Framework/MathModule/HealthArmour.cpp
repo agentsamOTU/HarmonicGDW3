@@ -19,6 +19,7 @@ void HealthArmour::TakeDamage(int dam)
 		m_armour = 0;
 	}
 	m_health -= dam + armTook;
+	SetDamaged(false);
 }
 
 void HealthArmour::AddHealth(int hea)

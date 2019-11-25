@@ -131,6 +131,19 @@ void Game::CheckEvents()
 
 void Game::Routines()
 {
+	ECS::GetComponent<PlayerWeapons>(EntityIdentifier::MainPlayer()).AddAcidTime(Timer::deltaTime);
+	ECS::GetComponent<PlayerWeapons>(EntityIdentifier::MainPlayer()).AddGunTime(Timer::deltaTime);
+	auto& playHealth = ECS::GetComponent<HealthArmour>(EntityIdentifier::MainPlayer());
+	if (playHealth.GetDamaged())
+	{
+		playHealth.TakeDamage(10);
+		printf("PlayerHealth:%i\n", playHealth.GetHealth());
+		if (playHealth.GetHealth() <= 0)
+		{
+			printf("GAMEOVER");
+			exit(0);
+		}
+	}
 	auto view = m_register->view<Zombie>();
 	for (auto entity : view)
 	{
@@ -229,7 +242,26 @@ void Game::GamepadStroke(XInputController* con)
 	//gamepad button press
 	if (con->IsButtonStroked(Buttons::A))
 	{
-		printf("A stroked\n");
+		auto view = m_register->view<Door>();
+		for (auto entity : view)
+		{
+			auto& doorLoc = ECS::GetComponent<Transform>(entity);
+			auto& doorPhs = ECS::GetComponent<PhysicsBody>(entity);
+			auto& doorAnim = ECS::GetComponent<AnimationController>(entity);
+			auto& playLoc = ECS::GetComponent<Transform>(EntityIdentifier::MainPlayer());
+			vec2 delta = vec2(playLoc.GetPositionX() - doorLoc.GetPositionX(), playLoc.GetPositionY() - doorLoc.GetPositionY());
+			if (delta.GetMagnitude() < 25 && delta.GetMagnitude() > 10)
+			{
+				if (ECS::GetComponent<Door>(entity).LockCheck())
+				{
+					ECS::GetComponent<Door>(entity).DoorToggle(&doorPhs, &doorAnim);
+				}
+			}
+		}
+	}
+	if (con->IsButtonStroked(Buttons::LB))
+	{
+		ECS::GetComponent<PlayerWeapons>(EntityIdentifier::MainPlayer()).ChangeWeapon();
 	}
 }
 
@@ -347,14 +379,17 @@ void Game::GamepadTrigger(XInputController* con)
 	Triggers triggers;
 	con->GetTriggers(triggers);
 
-	if (triggers.RT > 0.5f && triggers.RT < 0.8f)
+	if (triggers.RT > 0.5f && triggers.RT > 0.8f)
 	{
-		printf("Half press\n");
+		auto& shot = ECS::GetComponent<PlayerWeapons>(EntityIdentifier::MainPlayer());
+		auto& trans = ECS::GetComponent<Transform>(EntityIdentifier::MainPlayer());
+		if (shot.GetAmmo() > 0)
+		{
+			shot.Shoot(&trans);
+			printf("Player Ammo:%i\n", shot.GetAmmo());
+		}
 	}
-	if (triggers.RT > 0.8f)
-	{
-		printf("Full press\n");
-	}
+	
 }
 
 void Game::KeyboardHold()
@@ -392,6 +427,29 @@ void Game::KeyboardDown()
 	{
 		printf("Enter has been pressed");
 
+	}
+	if (Input::GetKeyDown(Key::Space))
+	{
+		auto view = m_register->view<Door>();
+		for (auto entity : view)
+		{
+			auto& doorLoc = ECS::GetComponent<Transform>(entity);
+			auto& doorPhs = ECS::GetComponent<PhysicsBody>(entity);
+			auto& doorAnim = ECS::GetComponent<AnimationController>(entity);
+			auto& playLoc = ECS::GetComponent<Transform>(EntityIdentifier::MainPlayer());
+			vec2 delta = vec2(playLoc.GetPositionX() - doorLoc.GetPositionX(), playLoc.GetPositionY() - doorLoc.GetPositionY());
+			if (delta.GetMagnitude() < 25&&delta.GetMagnitude()>10)
+			{
+				if (ECS::GetComponent<Door>(entity).LockCheck())
+				{
+					ECS::GetComponent<Door>(entity).DoorToggle(&doorPhs, &doorAnim);
+				}
+			}
+		}
+	}
+	if (Input::GetKeyDown(Key::Q))
+	{
+		ECS::GetComponent<PlayerWeapons>(EntityIdentifier::MainPlayer()).ChangeWeapon();
 	}
 }
 
@@ -453,22 +511,19 @@ void Game::MouseClick(SDL_MouseButtonEvent evnt)
 {
 	if (SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(SDL_BUTTON_LEFT))
 	{
-		printf("Left mouse clicked at (%f,%f)\n", float(evnt.x), float(evnt.y));
 		auto& shot=ECS::GetComponent<PlayerWeapons>(EntityIdentifier::MainPlayer());
 		auto& trans= ECS::GetComponent<Transform>(EntityIdentifier::MainPlayer());
 		if (shot.GetAmmo() > 0)
 		{
 			shot.Shoot(&trans);
-			printf("%i", shot.GetAmmo());
+			printf("Player Ammo:%i\n", shot.GetAmmo());
 		}
 	}
 	if (SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(SDL_BUTTON_RIGHT))
 	{
-		printf("Right mouse clicked at (%f,%f)\n", float(evnt.x), float(evnt.y));
 	}
 	if (SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(SDL_BUTTON_MIDDLE))
 	{
-		printf("Middle mouse clicked at (%f,%f)\n", float(evnt.x), float(evnt.y));
 	}
 	if (m_guiActive)
 	{
