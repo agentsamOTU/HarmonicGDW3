@@ -76,7 +76,6 @@ void PlayerWeapons::Shoot(Transform* trans)
 		tempPhsBody.SetFriction(0.f);
 		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::PhysicsBit();
 		ECS::SetUpIdentifier(entity, bitHolder, "bullet");
-		ammShot -= 1;
 		auto entity2 = ECS::CreateEntity();
 		ECS::AttachComponent<Sprite>(entity2);
 		ECS::AttachComponent<Transform>(entity2);
@@ -108,7 +107,6 @@ void PlayerWeapons::Shoot(Transform* trans)
 		tempPhsBody2.SetFriction(0.f);
 		unsigned int bitHolder2 = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::PhysicsBit();
 		ECS::SetUpIdentifier(entity2, bitHolder2, "bullet");
-		ammShot -= 1;
 		auto entity3 = ECS::CreateEntity();
 		ECS::AttachComponent<Sprite>(entity3);
 		ECS::AttachComponent<Transform>(entity3);
