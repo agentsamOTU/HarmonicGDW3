@@ -100,6 +100,13 @@ void PhysicsSystem::Run(entt::registry* reg)
 									ECS::GetComponent<Pickup>(entity2).Collect();
 									ECS::DestroyEntity(entity2);
 								}
+								else if (body2.GetBodyID() & CollisionIDs::Acid())
+								{
+									if (ECS::GetComponent<PlayerWeapons>(entity).GetAcid() > 6.f)
+									{
+										ECS::GetComponent<HealthArmour>(entity).SetDamaged(true);
+									}
+								}
 								else
 								{
 									//moves dynamic object out of static object it is colliding with

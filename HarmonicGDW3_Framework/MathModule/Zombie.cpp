@@ -59,8 +59,20 @@ void Zombie::Shoot(Transform* trans)
 	ECS::AttachComponent<Sprite>(entity);
 	ECS::AttachComponent<Transform>(entity);
 	ECS::AttachComponent<PhysicsBody>(entity);
-	std::string fileName = "DoomGuy_Walk.png";
-	ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 1, 5, true);
+	ECS::AttachComponent<AnimationController>(entity);
+	std::string Potion = "bulletanim.png";
+	auto& animController = ECS::GetComponent<AnimationController>(entity);
+	animController.InitUVs(Potion);
+	//Adds first animation
+	animController.AddAnimation(Animation());
+	//Sets active animation
+	animController.SetActiveAnim(0);
+
+	//gets first animation
+	auto& anim = animController.GetAnimation(0);
+	anim.AddFrame(vec2(149.f, 199.f), vec2(179.f, 120.f));
+	anim.AddFrame(vec2(490.f, 199.f), vec2(520.f, 120.f));
+	ECS::GetComponent<Sprite>(entity).LoadSprite(Potion, 3, 6, true, &animController);
 	ECS::GetComponent<Transform>(entity).SetPosition(trans->GetPosition());
 	ECS::GetComponent<Transform>(entity).SetRotationAngleZ(trans->GetRotationAngleZ());
 	auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);

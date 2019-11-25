@@ -78,7 +78,7 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 
 		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
 			vec2(0.f, 0.f),
-			CollisionIDs::Player(), (CollisionIDs::Environment() | CollisionIDs::Enemy()|CollisionIDs::Pickup()), true);
+			CollisionIDs::Player(), (CollisionIDs::Environment() | CollisionIDs::Enemy()|CollisionIDs::Pickup()|CollisionIDs::Acid()), true);
 		tempPhsBody.SetGravity(false);
 		tempPhsBody.SetFriction(1.f);
 		ECS::GetComponent<HealthArmour>(entity).SetHealth(100);

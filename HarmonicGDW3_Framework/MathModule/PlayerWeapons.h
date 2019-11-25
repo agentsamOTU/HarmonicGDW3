@@ -16,11 +16,17 @@ public:
 	void SetHasShotgun(bool has);
 	void AddPistol(int amm);
 	void AddShotgun(int amm);
+	float GetAcid();
+	float GetShotTime();
+	void AddAcidTime(float f);
+	void ResetAcid();
 private:
 	int curWeap = 0;
 	int ammPist=50;
 	int ammShot=0;
 	bool hasShot = false;
+	float acidTime = 0.f;
+	float shotTime = 0.f;
 
 };
 inline void from_json(const nlohmann::json& j, PlayerWeapons& playWeap)
