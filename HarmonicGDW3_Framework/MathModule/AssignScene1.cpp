@@ -78,7 +78,7 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 
 		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
 			vec2(0.f, 0.f),
-			CollisionIDs::Player(), (CollisionIDs::Environment() | CollisionIDs::Enemy()), true);
+			CollisionIDs::Player(), (CollisionIDs::Environment() | CollisionIDs::Enemy()|CollisionIDs::Pickup()), true);
 		tempPhsBody.SetGravity(false);
 		tempPhsBody.SetFriction(1.f);
 		ECS::GetComponent<HealthArmour>(entity).SetHealth(100);
@@ -526,8 +526,8 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 		anim.SetRepeating(false);
 		anim2.SetRepeating(false);
 		//Sets the time between frames
-		anim.SetSecPerFrame(0.14f);
-		anim2.SetSecPerFrame(0.14f);
+		anim.SetSecPerFrame(0.1f);
+		anim2.SetSecPerFrame(0.1f);
 		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
 		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
 		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth() + 20), float(tempSpr.GetHeight()),
@@ -585,8 +585,8 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 		anim.SetRepeating(false);
 		anim2.SetRepeating(false);
 		//Sets the time between frames
-		anim.SetSecPerFrame(0.14f);
-		anim2.SetSecPerFrame(0.14f);
+		anim.SetSecPerFrame(0.1f);
+		anim2.SetSecPerFrame(0.1f);
 		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
 		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
 		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth() + 20), float(tempSpr.GetHeight()),
@@ -929,8 +929,8 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 		anim.SetRepeating(false);
 		anim2.SetRepeating(false);
 		//Sets the time between frames
-		anim.SetSecPerFrame(0.14f);
-		anim2.SetSecPerFrame(0.14f);
+		anim.SetSecPerFrame(0.1f);
+		anim2.SetSecPerFrame(0.1f);
 		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
 		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
 		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth() + 20), float(tempSpr.GetHeight()),
@@ -988,8 +988,8 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 		anim.SetRepeating(false);
 		anim2.SetRepeating(false);
 		//Sets the time between frames
-		anim.SetSecPerFrame(0.14f);
-		anim2.SetSecPerFrame(0.14f);
+		anim.SetSecPerFrame(0.1f);
+		anim2.SetSecPerFrame(0.1f);
 		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
 		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
 		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth() + 20), float(tempSpr.GetHeight()),
@@ -1004,6 +1004,52 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 		//Sets up the identifier
 		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::AnimationBit();
 		ECS::SetUpIdentifier(entity, bitHolder, "RegularDoor");
+	}
+	{
+		//Creates entity 
+		auto entity = ECS::CreateEntity();
+
+		//Add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<AnimationController>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+		ECS::AttachComponent<Pickup>(entity);
+
+		//Sets up components
+		std::string Potion = "HealPot.png";
+		auto& animController = ECS::GetComponent<AnimationController>(entity);
+		animController.InitUVs(Potion);
+		//Adds first animation
+		animController.AddAnimation(Animation());
+		//Sets active animation
+		animController.SetActiveAnim(0);
+
+		//gets first animation
+		auto& anim = animController.GetAnimation(0);
+		anim.AddFrame(vec2(140.f, 229.f), vec2(209.f, 140.f)); //Neutral
+		anim.AddFrame(vec2(280.f, 229.f), vec2(349.f, 140.f)); //Down1
+		anim.AddFrame(vec2(140.f, 229.f), vec2(209.f, 140.f)); //Neutral
+		anim.AddFrame(vec2(410.f, 229.f), vec2(479.f, 140.f)); //Up1
+
+		//Makes it repeat
+		anim.SetRepeating(true);
+		//Sets the time between frames
+		anim.SetSecPerFrame(0.2f);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth() + 20), float(tempSpr.GetHeight()),
+			vec2(0.f, 0.f),
+			CollisionIDs::Pickup(), CollisionIDs::Player(), false);
+
+		ECS::GetComponent<Pickup>(entity).SetHealth(20,0);
+		ECS::GetComponent<Sprite>(entity).LoadSprite(Potion, 7, 10, true, &animController);
+
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(0.f, 80.f, 101.f));
+
+		//Sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::AnimationBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "Potion");
 	}
 	//level 2 ends
 

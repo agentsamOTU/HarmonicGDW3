@@ -82,3 +82,13 @@ void PlayerWeapons::SetHasShotgun(bool has)
 {
 	hasShot = has;
 }
+
+void PlayerWeapons::AddPistol(int amm)
+{
+	ammPist += amm;
+}
+
+void PlayerWeapons::AddShotgun(int amm)
+{
+	ammShot += amm;
+}

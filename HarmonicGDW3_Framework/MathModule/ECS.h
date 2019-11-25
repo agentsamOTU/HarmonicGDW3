@@ -16,6 +16,7 @@
 #include "HealthArmour.h"
 #include "Zombie.h"
 #include "Door.h"
+#include "Pickup.h"
 
 class ECS abstract
 {

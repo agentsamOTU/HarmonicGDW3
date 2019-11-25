@@ -417,7 +417,7 @@ void Game::KeyboardDown()
 			auto& doorAnim = ECS::GetComponent<AnimationController>(entity);
 			auto& playLoc = ECS::GetComponent<Transform>(EntityIdentifier::MainPlayer());
 			vec2 delta = vec2(playLoc.GetPositionX() - doorLoc.GetPositionX(), playLoc.GetPositionY() - doorLoc.GetPositionY());
-			if (delta.GetMagnitude() < 25)
+			if (delta.GetMagnitude() < 25&&delta.GetMagnitude()>10)
 			{
 				ECS::GetComponent<Door>(entity).DoorToggle(&doorPhs,&doorAnim);
 			}

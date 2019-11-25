@@ -94,20 +94,29 @@ void PhysicsSystem::Run(entt::registry* reg)
 						{
 							if (BoxBoxCollision(std::pair<PhysicsBody&, Box>(body1, worldPosB), std::pair<PhysicsBody&, Box>(body2, worldPosB2)))
 							{
-								//moves dynamic object out of static object it is colliding with
-								trans1.SetPosition(trans1.GetPosition() + (-body1.GetVelocity() * (Timer::deltaTime)));
-								//once it collides we stop
-								body1.SetAcceleration(vec3(0.f, 0.f, 0.f));
-								body1.SetVelocity(vec3(0.f, 0.f, 0.f));
-								if (body1.GetBodyID()&CollisionIDs::Bullet())
+								if (body2.GetBodyID() & CollisionIDs::Pickup())
 								{
-									ECS::DestroyEntity(entity);
-									if (ECS::GetComponent<EntityIdentifier>(entity2).GetIdentifier()& EntityIdentifier::HealthArmourBit())
+									printf("This would be a pickup");
+									ECS::GetComponent<Pickup>(entity2).Collect();
+									ECS::DestroyEntity(entity2);
+								}
+								else
+								{
+									//moves dynamic object out of static object it is colliding with
+									trans1.SetPosition(trans1.GetPosition() + (-body1.GetVelocity() * (Timer::deltaTime)));
+									//once it collides we stop
+									body1.SetAcceleration(vec3(0.f, 0.f, 0.f));
+									body1.SetVelocity(vec3(0.f, 0.f, 0.f));
+									if (body1.GetBodyID() & CollisionIDs::Bullet())
 									{
-										printf("hit obj has health");
-										ECS::GetComponent<HealthArmour>(entity2).SetDamaged(true);
+										ECS::DestroyEntity(entity);
+										if (ECS::GetComponent<EntityIdentifier>(entity2).GetIdentifier()& EntityIdentifier::HealthArmourBit())
+										{
+											printf("hit obj has health");
+											ECS::GetComponent<HealthArmour>(entity2).SetDamaged(true);
+										}
+										break;
 									}
-									break;
 								}
 							}
 						}

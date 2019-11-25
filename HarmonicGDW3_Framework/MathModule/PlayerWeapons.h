@@ -14,6 +14,8 @@ public:
 	int GetShot() const;
 	bool GetHasShotgun() const;
 	void SetHasShotgun(bool has);
+	void AddPistol(int amm);
+	void AddShotgun(int amm);
 private:
 	int curWeap = 0;
 	int ammPist=50;
