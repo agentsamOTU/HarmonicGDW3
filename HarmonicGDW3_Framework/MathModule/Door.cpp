@@ -24,3 +24,36 @@ void Door::DoorToggle(PhysicsBody* phys, AnimationController* anim)
 	}
 }
 
+void Door::DoorLock(bool red, bool blue, bool green, bool yellow)
+{
+	reqRed = red;
+	reqBlue = blue;
+	reqYell = yellow;
+	reqGree = green;
+}
+
+bool Door::LockCheck()
+{
+	auto& playKeys = ECS::GetComponent<PlayerWeapons>(EntityIdentifier::MainPlayer());
+	if (reqRed)
+	{
+		return playKeys.GetRed();
+	}
+	else if (reqBlue)
+	{
+		return playKeys.GetBlue();
+	}
+	else if (reqGree)
+	{
+		return playKeys.GetGreen();
+	}
+	else if (reqYell)
+	{
+		return playKeys.GetYellow();
+	}
+	else
+	{
+		return true;
+	}
+}
+

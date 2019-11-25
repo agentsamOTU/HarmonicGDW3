@@ -132,7 +132,7 @@ void Game::CheckEvents()
 void Game::Routines()
 {
 	ECS::GetComponent<PlayerWeapons>(EntityIdentifier::MainPlayer()).AddAcidTime(Timer::deltaTime);
-	
+	ECS::GetComponent<PlayerWeapons>(EntityIdentifier::MainPlayer()).AddGunTime(Timer::deltaTime);
 	auto& playHealth = ECS::GetComponent<HealthArmour>(EntityIdentifier::MainPlayer());
 	if (playHealth.GetDamaged())
 	{
@@ -242,7 +242,26 @@ void Game::GamepadStroke(XInputController* con)
 	//gamepad button press
 	if (con->IsButtonStroked(Buttons::A))
 	{
-		printf("A stroked\n");
+		auto view = m_register->view<Door>();
+		for (auto entity : view)
+		{
+			auto& doorLoc = ECS::GetComponent<Transform>(entity);
+			auto& doorPhs = ECS::GetComponent<PhysicsBody>(entity);
+			auto& doorAnim = ECS::GetComponent<AnimationController>(entity);
+			auto& playLoc = ECS::GetComponent<Transform>(EntityIdentifier::MainPlayer());
+			vec2 delta = vec2(playLoc.GetPositionX() - doorLoc.GetPositionX(), playLoc.GetPositionY() - doorLoc.GetPositionY());
+			if (delta.GetMagnitude() < 25 && delta.GetMagnitude() > 10)
+			{
+				if (ECS::GetComponent<Door>(entity).LockCheck())
+				{
+					ECS::GetComponent<Door>(entity).DoorToggle(&doorPhs, &doorAnim);
+				}
+			}
+		}
+	}
+	if (con->IsButtonStroked(Buttons::LB))
+	{
+		ECS::GetComponent<PlayerWeapons>(EntityIdentifier::MainPlayer()).ChangeWeapon();
 	}
 }
 
@@ -421,7 +440,10 @@ void Game::KeyboardDown()
 			vec2 delta = vec2(playLoc.GetPositionX() - doorLoc.GetPositionX(), playLoc.GetPositionY() - doorLoc.GetPositionY());
 			if (delta.GetMagnitude() < 25&&delta.GetMagnitude()>10)
 			{
-				ECS::GetComponent<Door>(entity).DoorToggle(&doorPhs,&doorAnim);
+				if (ECS::GetComponent<Door>(entity).LockCheck())
+				{
+					ECS::GetComponent<Door>(entity).DoorToggle(&doorPhs, &doorAnim);
+				}
 			}
 		}
 	}

@@ -160,6 +160,7 @@
     <ClInclude Include="HealthBar.h" />
     <ClInclude Include="HelloWorld.h" />
     <ClInclude Include="HorizontalScroll.h" />
+    <ClInclude Include="Imp.h" />
     <ClInclude Include="include\imgui\imconfig.h" />
     <ClInclude Include="include\imgui\imgui.h" />
     <ClInclude Include="include\imgui\imgui_impl.h" />
@@ -219,6 +220,7 @@
     <ClCompile Include="HealthBar.cpp" />
     <ClCompile Include="HelloWorld.cpp" />
     <ClCompile Include="HorizontalScroll.cpp" />
+    <ClCompile Include="Imp.cpp" />
     <ClCompile Include="include\imgui\imgui.cpp" />
     <ClCompile Include="include\imgui\imgui_demo.cpp" />
     <ClCompile Include="include\imgui\imgui_draw.cpp" />
