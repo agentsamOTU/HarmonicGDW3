@@ -170,11 +170,11 @@ void Game::Routines()
 			if (zomb.GetShoot())
 			{
 				zomb.AddTime(Timer::deltaTime);
-				if (zomb.GetTime() > 0.25f&&!zomb.GetShotDone())
+				if (zomb.GetTime() > 0.1f&&!zomb.GetShotDone())
 				{
 					zomb.Shoot(&enemLoc);
 				}
-				if (zomb.GetTime() > 2.f)
+				if (zomb.GetTime() > 1.f)
 				{
 					zomb.ResetShoot();
 				}
@@ -184,7 +184,7 @@ void Game::Routines()
 				
 				auto& playLoc = ECS::GetComponent<Transform>(EntityIdentifier::MainPlayer());
 				vec2 delta = vec2(playLoc.GetPositionX() - enemLoc.GetPositionX(), playLoc.GetPositionY() - enemLoc.GetPositionY());
-				vec2 tempDirec = vec2(delta.Normalize()) * 15.f;
+				vec2 tempDirec = vec2(delta.Normalize()) * 30.f;
 				if (delta.GetMagnitude() < 60)
 				{
 					zomb.SetShoot(true);
@@ -402,19 +402,19 @@ void Game::KeyboardHold()
 
 	if (Input::GetKey(Key::W))
 	{
-		playPhs.ApplyForce(vec3(0.f, 50.f, 0.f));
+		playPhs.ApplyForce(vec3(0.f, 100.f, 0.f));
 	}
 	if (Input::GetKey(Key::A))
 	{
-		playPhs.ApplyForce(vec3(-50.f, 0.f, 0.f));
+		playPhs.ApplyForce(vec3(-100.f, 0.f, 0.f));
 	}
 	if (Input::GetKey(Key::S))
 	{
-		playPhs.ApplyForce(vec3(0.f, -50.f, 0.f));
+		playPhs.ApplyForce(vec3(0.f, -100.f, 0.f));
 	}
 	if (Input::GetKey(Key::D))
 	{
-		playPhs.ApplyForce(vec3(50.f, 0.f,0.f));
+		playPhs.ApplyForce(vec3(100.f, 0.f,0.f));
 	}
 }
 

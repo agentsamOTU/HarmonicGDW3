@@ -81,6 +81,7 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 			CollisionIDs::Player(), (CollisionIDs::Environment() | CollisionIDs::Enemy()|CollisionIDs::Pickup()|CollisionIDs::Acid()), true);
 		tempPhsBody.SetGravity(false);
 		tempPhsBody.SetFriction(1.f);
+		tempPhsBody.SetMaxVelo(100.f);
 		ECS::GetComponent<HealthArmour>(entity).SetHealth(100);
 
 		//sets up the identifier
@@ -526,8 +527,8 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 		anim.SetRepeating(false);
 		anim2.SetRepeating(false);
 		//Sets the time between frames
-		anim.SetSecPerFrame(0.1f);
-		anim2.SetSecPerFrame(0.1f);
+		anim.SetSecPerFrame(0.05f);
+		anim2.SetSecPerFrame(0.05f);
 		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
 		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
 		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth() + 20), float(tempSpr.GetHeight()),
@@ -585,8 +586,8 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 		anim.SetRepeating(false);
 		anim2.SetRepeating(false);
 		//Sets the time between frames
-		anim.SetSecPerFrame(0.1f);
-		anim2.SetSecPerFrame(0.1f);
+		anim.SetSecPerFrame(0.05f);
+		anim2.SetSecPerFrame(0.05f);
 		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
 		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
 		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth() + 20), float(tempSpr.GetHeight()),
@@ -929,8 +930,8 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 		anim.SetRepeating(false);
 		anim2.SetRepeating(false);
 		//Sets the time between frames
-		anim.SetSecPerFrame(0.1f);
-		anim2.SetSecPerFrame(0.1f);
+		anim.SetSecPerFrame(0.05f);
+		anim2.SetSecPerFrame(0.05f);
 		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
 		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
 		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth() + 20), float(tempSpr.GetHeight()),
@@ -988,8 +989,8 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 		anim.SetRepeating(false);
 		anim2.SetRepeating(false);
 		//Sets the time between frames
-		anim.SetSecPerFrame(0.1f);
-		anim2.SetSecPerFrame(0.1f);
+		anim.SetSecPerFrame(0.05f);
+		anim2.SetSecPerFrame(0.05f);
 		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
 		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
 		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth() + 20), float(tempSpr.GetHeight()),
