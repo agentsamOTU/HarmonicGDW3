@@ -150,6 +150,7 @@ void Game::Routines()
 	{
 		auto& enemLoc = ECS::GetComponent<Transform>(entity);
 		auto& enemPhs = ECS::GetComponent<PhysicsBody>(entity);
+		auto& enemAnim = ECS::GetComponent<AnimationController>(entity);
 		auto& health = ECS::GetComponent<HealthArmour>(entity);
 		auto& zomb = ECS::GetComponent<Zombie>(entity);
 		if (health.GetDamaged())
@@ -163,6 +164,9 @@ void Game::Routines()
 				enemPhs.SetBodyID(0x0);
 				enemPhs.SetCollideID(0x0);
 				enemPhs.SetVelocity(vec3(0.f, 0.f, 0.f));
+				ECS::GetComponent<Sprite>(entity).SetHeight(36.f);
+				enemAnim.SetActiveAnim(2);
+
 			}
 		}
 		if (zomb.GetActive())
@@ -173,10 +177,18 @@ void Game::Routines()
 				if (zomb.GetTime() > 0.1f&&!zomb.GetShotDone())
 				{
 					zomb.Shoot(&enemLoc);
+					
+					enemAnim.SetActiveAnim(1);
+					ECS::GetComponent<Sprite>(entity).SetHeight(28.f);
+					
+
 				}
 				if (zomb.GetTime() > 1.f)
 				{
 					zomb.ResetShoot();
+					enemAnim.GetAnimation(1).Reset();
+					ECS::GetComponent<Sprite>(entity).SetHeight(24.f);
+					enemAnim.SetActiveAnim(0);
 				}
 			}
 			else
