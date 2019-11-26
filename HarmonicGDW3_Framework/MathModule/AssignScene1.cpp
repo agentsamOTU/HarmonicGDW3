@@ -124,25 +124,49 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 		ECS::AttachComponent<Zombie>(entity);
 
 		//Sets up components
-		std::string Zombie = "Zombie_Walk.png";
+		std::string Zombie = "ZombieMasterSheet.png";
 		auto& animController = ECS::GetComponent<AnimationController>(entity);
 		animController.InitUVs(Zombie);
 		//Adds first animation
+		animController.AddAnimation(Animation());
+		animController.AddAnimation(Animation());
+		animController.AddAnimation(Animation());
 		animController.AddAnimation(Animation());
 		//Sets active animation
 		animController.SetActiveAnim(0);
 
 		//gets first animation
 		auto& anim = animController.GetAnimation(0);
-		anim.AddFrame(vec2(69.f, 259.f), vec2(279.f, 80.f));
-		anim.AddFrame(vec2(410.f, 259.f), vec2(619.f, 80.f));
-		anim.AddFrame(vec2(69.f, 259.f), vec2(279.f, 80.f));
-		anim.AddFrame(vec2(750.f, 259.f), vec2(959.f, 80.f));
+		anim.AddFrame(vec2(2114.f, 603.f), vec2(2323.f, 424.f));
+		anim.AddFrame(vec2(2454.f, 603.f), vec2(2664.f, 424.f));
+		anim.AddFrame(vec2(2114.f, 603.f), vec2(2323.f, 424.f));
+		anim.AddFrame(vec2(2794.f, 603.f), vec2(3004.f, 424.f));
+		auto& anim2 = animController.GetAnimation(1);
+		anim2.AddFrame(vec2(2114.f, 633.f), vec2(2323.f, 424.f));
+		anim2.AddFrame(vec2(2114.f, 291.f), vec2(2323.f, 82.f));
+		anim2.AddFrame(vec2(2454.f, 291.f), vec2(2663.f, 82.f));
+		anim2.AddFrame(vec2(2794.f, 291.f), vec2(3003.f, 82.f));
+		auto& anim3 = animController.GetAnimation(2);
+		anim3.AddFrame(vec2(39.f, 632.f), vec2(309.f, 372.f));
+		anim3.AddFrame(vec2(381.f, 632.f), vec2(651.f, 372.f));
+		anim3.AddFrame(vec2(1061.f, 632.f), vec2(1330.f, 372.f));
+		anim3.AddFrame(vec2(1400.f, 632.f), vec2(1670.f, 372.f));
+		anim3.AddFrame(vec2(1741.f, 632.f), vec2(2010.f, 372.f));
+		auto& anim4 = animController.GetAnimation(3);
+		anim4.AddFrame(vec2(2114.f, 603.f), vec2(2323.f, 424.f));
+		anim4.AddFrame(vec2(70.f, 260.f), vec2(280.f, 81.f));
+
 
 		//Makes it repeat
 		anim.SetRepeating(true);
+		anim2.SetRepeating(false);
+		anim3.SetRepeating(false);
+		anim4.SetRepeating(false);
 		//Sets the time between frames
 		anim.SetSecPerFrame(0.1667f);
+		anim2.SetSecPerFrame(0.1667f);
+		anim3.SetSecPerFrame(0.1667f);
+		anim4.SetSecPerFrame(0.1667f);
 
 
 		ECS::GetComponent<Sprite>(entity).LoadSprite(Zombie, 24, 24, true, &animController);
