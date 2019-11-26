@@ -76,7 +76,7 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
 
 
-		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth()/0.9), float(tempSpr.GetHeight()/0.9),
 			vec2(0.f, 0.f),
 			CollisionIDs::Player(), (CollisionIDs::Environment() | CollisionIDs::Enemy()|CollisionIDs::Pickup()|CollisionIDs::Acid()), true);
 		tempPhsBody.SetGravity(false);
@@ -1126,7 +1126,7 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 		anim2.SetSecPerFrame(0.1f);
 		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
 		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
-		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth() + 50), float(tempSpr.GetHeight()),
+		tempPhsBody = PhysicsBody(float(tempSpr.GetHeight()), float(tempSpr.GetWidth() + 50),
 			vec2(0.f, 0.f),
 			CollisionIDs::Environment(), (0x0), false);
 

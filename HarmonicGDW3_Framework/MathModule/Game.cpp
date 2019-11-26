@@ -164,7 +164,7 @@ void Game::Routines()
 				enemPhs.SetBodyID(0x0);
 				enemPhs.SetCollideID(0x0);
 				enemPhs.SetVelocity(vec3(0.f, 0.f, 0.f));
-				ECS::GetComponent<Sprite>(entity).SetHeight(40.f);
+				ECS::GetComponent<Sprite>(entity).SetHeight(36.f);
 				enemAnim.SetActiveAnim(2);
 
 			}
