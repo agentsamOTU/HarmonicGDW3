@@ -193,6 +193,82 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 			|EntityIdentifier::PhysicsBit()| EntityIdentifier::HealthArmourBit()| EntityIdentifier::ZombieBit();
 		ECS::SetUpIdentifier(entity, bitHolder, "Zombie");
 	}
+	{
+		//Creates entity 
+		auto entity = ECS::CreateEntity();
+
+		//Add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<AnimationController>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+		ECS::AttachComponent<HealthArmour>(entity);
+		ECS::AttachComponent<Imp>(entity);
+
+		//Sets up components
+		std::string Demon = "DemonMasterSheet.png";
+		auto& animController = ECS::GetComponent<AnimationController>(entity);
+		animController.InitUVs(Demon);
+		//Adds first animation
+		animController.AddAnimation(Animation());
+		animController.AddAnimation(Animation());
+		animController.AddAnimation(Animation());
+		//Sets active animation
+		animController.SetActiveAnim(0);
+
+		//gets first animation
+		auto& anim = animController.GetAnimation(0);
+		anim.AddFrame(vec2(68.f, 905.f), vec2(277.f, 766.f));
+		anim.AddFrame(vec2(408.f, 903.f), vec2(617.f, 764.f));
+		anim.AddFrame(vec2(68.f, 905.f), vec2(277.f, 766.f));
+		anim.AddFrame(vec2(743.f, 911.f), vec2(953.f, 772.f));
+		auto& anim2 = animController.GetAnimation(1);
+		anim2.AddFrame(vec2(67.f, 895.f), vec2(277.f, 766.f));
+		anim2.AddFrame(vec2(71.f, 572.f), vec2(280.f, 442.f));
+		anim2.AddFrame(vec2(411.f, 572.f), vec2(620.f, 442.f));
+		anim2.AddFrame(vec2(751.f, 573.f), vec2(960.f, 443.f));
+		anim2.AddFrame(vec2(1091.f, 573.f), vec2(1300.f, 443.f));
+		anim2.AddFrame(vec2(751.f, 573.f), vec2(960.f, 443.f));
+		anim2.AddFrame(vec2(411.f, 572.f), vec2(620.f, 442.f));
+		anim2.AddFrame(vec2(71.f, 572.f), vec2(280.f, 442.f));
+		anim2.AddFrame(vec2(67.f, 895.f), vec2(277.f, 766.f));
+		auto& anim3 = animController.GetAnimation(2);
+		anim3.AddFrame(vec2(28.f, 290.f), vec2(298.f, 41.f));
+		anim3.AddFrame(vec2(371.f, 290.f), vec2(640.f, 41.f));
+		anim3.AddFrame(vec2(711.f, 290.f), vec2(980.f, 41.f));
+		anim3.AddFrame(vec2(1051.f, 290.f), vec2(1321.f, 41.f));
+		anim3.AddFrame(vec2(1391.f, 290.f), vec2(1660.f, 41.f));
+
+
+		//Makes it repeat
+		anim.SetRepeating(true);
+		anim2.SetRepeating(false);
+		anim3.SetRepeating(false);
+		//Sets the time between frames
+		anim.SetSecPerFrame(0.1667f);
+		anim2.SetSecPerFrame(0.1667f);
+		anim3.SetSecPerFrame(0.1667f);
+
+
+		ECS::GetComponent<Sprite>(entity).LoadSprite(Demon, 22, 22, true, &animController);
+
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(20.f, 360.f, 10.f));
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
+			vec2(0.f, 0.f),
+			CollisionIDs::Enemy(), (CollisionIDs::Player() | CollisionIDs::Environment()), true);
+		tempPhsBody.SetGravity(false);
+		tempPhsBody.SetFriction(1.f);
+
+		ECS::GetComponent<HealthArmour>(entity).SetHealth(30);
+
+		//Sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::AnimationBit() 
+			|EntityIdentifier::PhysicsBit()| EntityIdentifier::HealthArmourBit()| EntityIdentifier::ImpBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "Imp");
+	}
 	//level 1 begins
 
 	{

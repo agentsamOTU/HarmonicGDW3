@@ -55,7 +55,7 @@ void Game::InitGame()
 
 bool Game::Run()
 {
-	mciSendString("play assets/sound/d_e1m1.mp3", NULL, 0, NULL);
+	mciSendString("play assets/sound/d_e1m1.mp3 repeat", NULL, 0, NULL);
 	//While window is still open
 	while (m_window->isOpen())
 	{
@@ -83,7 +83,7 @@ bool Game::Run()
 			AcceptInput();
 		}
 		//hacky but works
-		ECS::GetComponent<Camera>(EntityIdentifier::MainCamera()).SetPosition(ECS::GetComponent<Transform>(EntityIdentifier::MainPlayer()).GetPosition());
+		//ECS::GetComponent<Camera>(EntityIdentifier::MainCamera()).SetPosition(ECS::GetComponent<Transform>(EntityIdentifier::MainPlayer()).GetPosition());
 	}
 
 	return true;
@@ -211,7 +211,72 @@ void Game::Routines()
 			}
 		}
 	}
-	
+	auto view2 = m_register->view<Imp>();
+	for (auto entity : view2)
+	{
+		auto& enemLoc = ECS::GetComponent<Transform>(entity);
+		auto& enemPhs = ECS::GetComponent<PhysicsBody>(entity);
+		auto& enemAnim = ECS::GetComponent<AnimationController>(entity);
+		auto& health = ECS::GetComponent<HealthArmour>(entity);
+		auto& Im = ECS::GetComponent<Imp>(entity);
+		if (health.GetDamaged())
+		{
+			health.AddHealth(-10);
+			health.SetDamaged(false);
+			if (health.GetHealth() <= 0)
+			{
+				mciSendString("play assets/sound/dspopain.wav", NULL, 0, NULL);
+				Im.SetActive(false);
+				enemPhs.SetBodyID(0x0);
+				enemPhs.SetCollideID(0x0);
+				enemPhs.SetVelocity(vec3(0.f, 0.f, 0.f));
+				ECS::GetComponent<Sprite>(entity).SetHeight(36.f);
+				enemAnim.SetActiveAnim(2);
+
+			}
+		}
+		if (Im.GetActive())
+		{
+			if (Im.GetShoot())
+			{
+				Im.AddTime(Timer::deltaTime);
+				if (Im.GetTime() > 0.1f && !Im.GetShotDone())
+				{
+					Im.Shoot(&enemLoc);
+
+					enemAnim.SetActiveAnim(1);
+					ECS::GetComponent<Sprite>(entity).SetHeight(22.f);
+
+
+				}
+				if (Im.GetTime() > 0.5f)
+				{
+					Im.ResetShoot();
+					enemAnim.GetAnimation(1).Reset();
+					ECS::GetComponent<Sprite>(entity).SetHeight(22.f);
+					enemAnim.SetActiveAnim(0);
+				}
+			}
+			else
+			{
+
+				auto& playLoc = ECS::GetComponent<Transform>(EntityIdentifier::MainPlayer());
+				vec2 delta = vec2(playLoc.GetPositionX() - enemLoc.GetPositionX(), playLoc.GetPositionY() - enemLoc.GetPositionY());
+				vec2 tempDirec = vec2(delta.Normalize()) * 30.f;
+				if (delta.GetMagnitude() < 90)
+				{
+					Im.SetShoot(true);
+					Im.SetDirection(tempDirec.x, tempDirec.y);
+				}
+				else if (delta.GetMagnitude() < 150)
+				{
+					enemPhs.SetVelocity(vec3(tempDirec.x, tempDirec.y, 0.f));
+				}
+				enemLoc.SetRotationAngleZ(atan2(delta.y, delta.x) + PI / 2);
+
+			}
+		}
+	}
 }
 
 void Game::AcceptInput()
