@@ -28,7 +28,7 @@ Game::~Game()
 void Game::InitGame()
 {
 	//Scene names and clear colors
-	m_name = "Hello World";
+	m_name = "DOOM";
 	m_clearColor = vec4(0.15f, 0.33f, 0.58f, 1.f);
 
 	//Initializes the backend
@@ -326,19 +326,39 @@ void Game::GamepadStick(XInputController* con)
 	vec2 totalForce = vec2(0.f, 0.f);
 	if (sticks[0].y > 0.3f)
 	{
-		playPhs.ApplyForce(vec3(0.f, 50.f, 0.f));
+		if (playPhs.GetVelocity().y != 300.f)
+		{
+			playPhs.ApplyForce(vec3(0.f, 50.f, 0.f));
+			auto& animController = ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer());
+			animController.SetActiveAnim(0);
+		}
 	}
 	if (sticks[0].x < -0.3f)
 	{
+		if (playPhs.GetVelocity().y != 300.f)
+		{
 		playPhs.ApplyForce(vec3(-50.f, 0.f, 0.f));
+		auto& animController = ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer());
+		animController.SetActiveAnim(0);
+		}
 	}
 	if (sticks[0].x > 0.3f)
 	{
+		if (playPhs.GetVelocity().y != 300.f)
+		{
 		playPhs.ApplyForce(vec3(50.f, 0.f, 0.f));
+		auto& animController = ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer());
+		animController.SetActiveAnim(0);
+		}
 	}
 	if (sticks[0].y < -0.3f)
 	{
+		if (playPhs.GetVelocity().y != 300.f)
+		{
 		playPhs.ApplyForce(vec3(0.f, -50.f, 0.f));
+		auto& animController = ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer());
+		animController.SetActiveAnim(0);
+		}
 	}
 
 	
@@ -414,19 +434,39 @@ void Game::KeyboardHold()
 
 	if (Input::GetKey(Key::W))
 	{
-		playPhs.ApplyForce(vec3(0.f, 100.f, 0.f));
+		if (playPhs.GetVelocity().y != 300.f)
+		{
+			playPhs.ApplyForce(vec3(0.f, 100.f, 0.f));
+			auto& animController = ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer());
+			animController.SetActiveAnim(0);
+		}
 	}
 	if (Input::GetKey(Key::A))
 	{
-		playPhs.ApplyForce(vec3(-100.f, 0.f, 0.f));
+		if (playPhs.GetVelocity().x != -300.f)
+		{
+			playPhs.ApplyForce(vec3(-100.f, 0.f, 0.f));
+			auto& animController = ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer());
+			animController.SetActiveAnim(0);
+		}
 	}
 	if (Input::GetKey(Key::S))
 	{
-		playPhs.ApplyForce(vec3(0.f, -100.f, 0.f));
+		if (playPhs.GetVelocity().y != -300.f)
+		{
+			playPhs.ApplyForce(vec3(0.f, -100.f, 0.f));
+			auto& animController = ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer());
+			animController.SetActiveAnim(0);
+		}
 	}
 	if (Input::GetKey(Key::D))
 	{
-		playPhs.ApplyForce(vec3(100.f, 0.f,0.f));
+		if (playPhs.GetVelocity().x != 300.f)
+		{
+			playPhs.ApplyForce(vec3(100.f, 0.f, 0.f));
+			auto& animController = ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer());
+			animController.SetActiveAnim(0);
+		}
 	}
 }
 
@@ -477,25 +517,26 @@ void Game::KeyboardUp()
 		}
 		m_guiActive = !m_guiActive;
 	}
-
-	if (Input::GetKeyUp(Key::K))
+	if (Input::GetKeyUp(Key::W))
 	{
-		//switches between ken's two animations
 		auto& animController = ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer());
-		if (animController.GetActiveAnim() == 0)
-		{
-			animController.SetActiveAnim(1);
-		}
-		else
-		{
-			animController.SetActiveAnim(0);
-		}
+		animController.SetActiveAnim(1);
 	}
-	if (Input::GetKeyUp(Key::P))
+	if (Input::GetKeyUp(Key::A))
 	{
-		PhysicsBody::SetDraw(!PhysicsBody::GetDraw());
+		auto& animController = ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer());
+		animController.SetActiveAnim(1);
 	}
-	
+	if (Input::GetKeyUp(Key::S))
+	{
+		auto& animController = ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer());
+		animController.SetActiveAnim(1);
+	}
+	if (Input::GetKeyUp(Key::D))
+	{	
+		auto& animController = ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer());
+		animController.SetActiveAnim(1);
+	}	
 }
 
 void Game::MouseMotion(SDL_MouseMotionEvent evnt)
