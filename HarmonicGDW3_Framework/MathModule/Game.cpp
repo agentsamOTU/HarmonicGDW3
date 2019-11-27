@@ -55,7 +55,7 @@ void Game::InitGame()
 
 bool Game::Run()
 {
-	mciSendString("play assets/sound/d_e1m1.mp3", NULL, 0, NULL);
+	mciSendString("play assets/sound/d_e1m1.mp3 repeat", NULL, 0, NULL);
 	//While window is still open
 	while (m_window->isOpen())
 	{
@@ -83,7 +83,7 @@ bool Game::Run()
 			AcceptInput();
 		}
 		//hacky but works
-		ECS::GetComponent<Camera>(EntityIdentifier::MainCamera()).SetPosition(ECS::GetComponent<Transform>(EntityIdentifier::MainPlayer()).GetPosition());
+		//ECS::GetComponent<Camera>(EntityIdentifier::MainCamera()).SetPosition(ECS::GetComponent<Transform>(EntityIdentifier::MainPlayer()).GetPosition());
 	}
 
 	return true;
@@ -225,10 +225,12 @@ void Game::Routines()
 			health.SetDamaged(false);
 			if (health.GetHealth() <= 0)
 			{
+				mciSendString("play assets/sound/dspopain.wav", NULL, 0, NULL);
 				Im.SetActive(false);
 				enemPhs.SetBodyID(0x0);
 				enemPhs.SetCollideID(0x0);
 				enemPhs.SetVelocity(vec3(0.f, 0.f, 0.f));
+				ECS::GetComponent<Sprite>(entity).SetHeight(36.f);
 				enemAnim.SetActiveAnim(2);
 
 			}

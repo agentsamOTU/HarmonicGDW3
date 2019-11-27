@@ -233,11 +233,11 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 		anim2.AddFrame(vec2(71.f, 572.f), vec2(280.f, 442.f));
 		anim2.AddFrame(vec2(67.f, 895.f), vec2(277.f, 766.f));
 		auto& anim3 = animController.GetAnimation(2);
-		anim.AddFrame(vec2(28.f, 290.f), vec2(298.f, 41.f));
-		anim.AddFrame(vec2(371.f, 290.f), vec2(640.f, 41.f));
-		anim.AddFrame(vec2(711.f, 290.f), vec2(980.f, 41.f));
-		anim.AddFrame(vec2(1051.f, 290.f), vec2(1321.f, 41.f));
-		anim.AddFrame(vec2(1391.f, 290.f), vec2(1660.f, 41.f));
+		anim3.AddFrame(vec2(28.f, 290.f), vec2(298.f, 41.f));
+		anim3.AddFrame(vec2(371.f, 290.f), vec2(640.f, 41.f));
+		anim3.AddFrame(vec2(711.f, 290.f), vec2(980.f, 41.f));
+		anim3.AddFrame(vec2(1051.f, 290.f), vec2(1321.f, 41.f));
+		anim3.AddFrame(vec2(1391.f, 290.f), vec2(1660.f, 41.f));
 
 
 		//Makes it repeat
