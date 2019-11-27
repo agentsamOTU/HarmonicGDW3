@@ -146,8 +146,6 @@ void BackEnd::Draw(entt::registry* mainReg)
 {
 	//Call draw on the register using the rendering system
 	RenderingSystem::Draw(mainReg);
-
-	PhysicsSystem::Draw(mainReg);
 }
 
 void BackEnd::Update(entt::registry* mainReg)
@@ -161,8 +159,6 @@ void BackEnd::Update(entt::registry* mainReg)
 void BackEnd::GUI(entt::registry* reg, Scene* scene)
 {
 	SceneEditor::CreateTab(reg, scene);
-	EffectManager::CreateTab();
-	//ControlTab::CreateTab();
 }
 
 void BackEnd::ReshapeWindow(int w, int h, entt::registry * mainReg)
@@ -180,12 +176,13 @@ void BackEnd::ReshapeWindow(int w, int h, entt::registry * mainReg)
 
 	//Adjusts for aspect ratio
 	vec4 temp = mainReg->get<Camera>(EntityIdentifier::MainCamera()).GetOrthoSize();
-	Camera tempCam = mainReg->get<Camera>(EntityIdentifier::MainCamera());
+	auto& tempCam = mainReg->get<Camera>(EntityIdentifier::MainCamera());
 
 	//Set values
 	mainReg->get<Camera>(EntityIdentifier::MainCamera()).SetWindowSize(vec2(float(m_windowWidth), float(m_windowHeight)));
 	mainReg->get<Camera>(EntityIdentifier::MainCamera()).Orthographic(m_aspectRatio, temp.x, temp.y, temp.z, temp.w, tempCam.GetNear(), tempCam.GetFar());
 
+	tempCam.SetPosition(tempCam.GetPosition());
 }
 
 Window * BackEnd::GetWindow()
