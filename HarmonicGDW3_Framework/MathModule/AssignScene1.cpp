@@ -59,6 +59,7 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 		auto& animController = ECS::GetComponent<AnimationController>(entity);
 		animController.InitUVs(fileName);
 		animController.AddAnimation(Animation());
+		animController.AddAnimation(Animation());
 		animController.SetActiveAnim(0);
 		//adds first animation
 		auto& anim = animController.GetAnimation(0);
@@ -66,10 +67,14 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 		anim.AddFrame(vec2(739.f, 289.f), vec2(949.f, 110.f));
 		anim.AddFrame(vec2(60.f, 289.f), vec2(269.f, 110.f));
 		anim.AddFrame(vec2(739.f, 629.f), vec2(949.f, 450.f));
+		auto& anim2 = animController.GetAnimation(1);
+		anim2.AddFrame(vec2(60.f, 289.f), vec2(269.f, 110.f));
 
 		anim.SetRepeating(true);
+		anim2.SetRepeating(false);
 		//sets time between frames
 		anim.SetSecPerFrame(0.1667f);
+		animController.SetActiveAnim(1);
 		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 24, 24, true, &animController);
 		ECS::GetComponent<Transform>(entity).SetPosition(vec3(0.f, 200.f, 100.f));
 		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
