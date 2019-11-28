@@ -41,7 +41,428 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 		ECS::SetUpIdentifier(entity, bitHolder, "Main Camera");
 		ECS::SetIsMainCamera(entity, true);
 	}
-	
+	{
+		//Creates entity 
+		auto entity = ECS::CreateEntity();
+
+		//Add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<AnimationController>(entity);
+
+		//Sets up components
+		std::string RedNum = "NumberLineR.png";
+		auto& animController = ECS::GetComponent<AnimationController>(entity);
+		animController.InitUVs(RedNum);
+		//Adds first animation
+		animController.AddAnimation(Animation());
+		animController.AddAnimation(Animation());
+		animController.AddAnimation(Animation());
+		animController.AddAnimation(Animation());
+		animController.AddAnimation(Animation());
+		animController.AddAnimation(Animation());
+		animController.AddAnimation(Animation());
+		animController.AddAnimation(Animation());
+		animController.AddAnimation(Animation());
+		animController.AddAnimation(Animation());
+
+		//Sets active animation
+		animController.SetActiveAnim(0);
+
+		//gets first animation
+		auto& anim = animController.GetAnimation(0);
+		anim.AddFrame(vec2(9.f, 79.f), vec2(70.f, 0.f));
+		auto& anim1 = animController.GetAnimation(1);
+		anim1.AddFrame(vec2(95.f, 79.f), vec2(154.f, 0.f));
+		auto& anim2 = animController.GetAnimation(2);
+		anim2.AddFrame(vec2(170.f, 79.f), vec2(230.f, 0.f));
+		auto& anim3 = animController.GetAnimation(3);
+		anim3.AddFrame(vec2(250.f, 79.f), vec2(309.f, 0.f));
+		auto& anim4 = animController.GetAnimation(4);
+		anim4.AddFrame(vec2(330.f, 79.f), vec2(389.f, 0.f));
+		auto& anim5 = animController.GetAnimation(5);
+		anim5.AddFrame(vec2(410.f, 79.f), vec2(469.f, 0.f));
+		auto& anim6 = animController.GetAnimation(6);
+		anim6.AddFrame(vec2(490.f, 79.f), vec2(549.f, 0.f));
+		auto& anim7 = animController.GetAnimation(7);
+		anim7.AddFrame(vec2(570.f, 79.f), vec2(629.f, 0.f));
+		auto& anim8 = animController.GetAnimation(8);
+		anim8.AddFrame(vec2(650.f, 79.f), vec2(709.f, 0.f));
+		auto& anim9 = animController.GetAnimation(9);
+		anim9.AddFrame(vec2(730.f, 79.f), vec2(789.f, 0.f));
+
+		//Makes it repeat
+		anim.SetRepeating(true);
+		//Sets the time between frames
+		anim.SetSecPerFrame(0.1667f);
+
+
+		ECS::GetComponent<Sprite>(entity).LoadSprite(RedNum, 6, 7.5, true, &animController);
+
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-80.f, 10.f, 101.f));
+
+		//Sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::AnimationBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "NumbersR");
+	}
+	{
+		//Creates entity 
+		auto entity = ECS::CreateEntity();
+
+		//Add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<AnimationController>(entity);
+
+		//Sets up components
+		std::string RedNum = "NumberLineR.png";
+		auto& animController = ECS::GetComponent<AnimationController>(entity);
+		animController.InitUVs(RedNum);
+		//Adds first animation
+		animController.AddAnimation(Animation());
+		animController.AddAnimation(Animation());
+		animController.AddAnimation(Animation());
+		animController.AddAnimation(Animation());
+		animController.AddAnimation(Animation());
+		animController.AddAnimation(Animation());
+		animController.AddAnimation(Animation());
+		animController.AddAnimation(Animation());
+		animController.AddAnimation(Animation());
+		animController.AddAnimation(Animation());
+
+		//Sets active animation
+		animController.SetActiveAnim(0);
+
+		//gets first animation
+		auto& anim = animController.GetAnimation(0);
+		anim.AddFrame(vec2(9.f, 79.f), vec2(70.f, 0.f));
+		auto& anim1 = animController.GetAnimation(1);
+		anim1.AddFrame(vec2(95.f, 79.f), vec2(154.f, 0.f));
+		auto& anim2 = animController.GetAnimation(2);
+		anim2.AddFrame(vec2(170.f, 79.f), vec2(230.f, 0.f));
+		auto& anim3 = animController.GetAnimation(3);
+		anim3.AddFrame(vec2(250.f, 79.f), vec2(309.f, 0.f));
+		auto& anim4 = animController.GetAnimation(4);
+		anim4.AddFrame(vec2(330.f, 79.f), vec2(389.f, 0.f));
+		auto& anim5 = animController.GetAnimation(5);
+		anim5.AddFrame(vec2(410.f, 79.f), vec2(469.f, 0.f));
+		auto& anim6 = animController.GetAnimation(6);
+		anim6.AddFrame(vec2(490.f, 79.f), vec2(549.f, 0.f));
+		auto& anim7 = animController.GetAnimation(7);
+		anim7.AddFrame(vec2(570.f, 79.f), vec2(629.f, 0.f));
+		auto& anim8 = animController.GetAnimation(8);
+		anim8.AddFrame(vec2(650.f, 79.f), vec2(709.f, 0.f));
+		auto& anim9 = animController.GetAnimation(9);
+		anim9.AddFrame(vec2(730.f, 79.f), vec2(789.f, 0.f));
+
+		//Makes it repeat
+		anim.SetRepeating(true);
+		//Sets the time between frames
+		anim.SetSecPerFrame(0.1667f);
+
+
+		ECS::GetComponent<Sprite>(entity).LoadSprite(RedNum, 6,7.5, true, &animController);
+
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-80.f, 10.f, 101.f));
+
+		//Sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::AnimationBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "NumbersR");
+	}
+	{
+		// Creates entity
+		auto entity = ECS::CreateEntity();
+
+		//Add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<AnimationController>(entity);
+
+		//Sets up components
+		std::string BlueNum = "NumberLineB.png";
+		auto& animController = ECS::GetComponent<AnimationController>(entity);
+		animController.InitUVs(BlueNum);
+		//Adds first animation
+		animController.AddAnimation(Animation());
+		animController.AddAnimation(Animation());
+		animController.AddAnimation(Animation());
+		animController.AddAnimation(Animation());
+		animController.AddAnimation(Animation());
+		animController.AddAnimation(Animation());
+		animController.AddAnimation(Animation());
+		animController.AddAnimation(Animation());
+		animController.AddAnimation(Animation());
+		animController.AddAnimation(Animation());
+
+		//Sets active animation
+		animController.SetActiveAnim(0);
+
+		//gets first animation
+		auto& anim = animController.GetAnimation(0);
+		anim.AddFrame(vec2(9.f, 79.f), vec2(70.f, 0.f));
+		auto& anim1 = animController.GetAnimation(1);
+		anim1.AddFrame(vec2(95.f, 79.f), vec2(154.f, 0.f));
+		auto& anim2 = animController.GetAnimation(2);
+		anim2.AddFrame(vec2(170.f, 79.f), vec2(230.f, 0.f));
+		auto& anim3 = animController.GetAnimation(3);
+		anim3.AddFrame(vec2(250.f, 79.f), vec2(309.f, 0.f));
+		auto& anim4 = animController.GetAnimation(4);
+		anim4.AddFrame(vec2(330.f, 79.f), vec2(389.f, 0.f));
+		auto& anim5 = animController.GetAnimation(5);
+		anim5.AddFrame(vec2(410.f, 79.f), vec2(469.f, 0.f));
+		auto& anim6 = animController.GetAnimation(6);
+		anim6.AddFrame(vec2(490.f, 79.f), vec2(549.f, 0.f));
+		auto& anim7 = animController.GetAnimation(7);
+		anim7.AddFrame(vec2(570.f, 79.f), vec2(629.f, 0.f));
+		auto& anim8 = animController.GetAnimation(8);
+		anim8.AddFrame(vec2(650.f, 79.f), vec2(709.f, 0.f));
+		auto& anim9 = animController.GetAnimation(9);
+		anim9.AddFrame(vec2(730.f, 79.f), vec2(789.f, 0.f));
+
+		//Makes it repeat
+		anim.SetRepeating(true);
+		//Sets the time between frames
+		anim.SetSecPerFrame(0.1667f);
+
+
+		ECS::GetComponent<Sprite>(entity).LoadSprite(BlueNum, 6, 7.5, true, &animController);
+
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-80.f, -10.f, 101.f));
+
+		//Sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::AnimationBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "NumbersB");
+	}
+	{
+		// Creates entity
+		auto entity = ECS::CreateEntity();
+
+		//Add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<AnimationController>(entity);
+
+		//Sets up components
+		std::string BlueNum = "NumberLineB.png";
+		auto& animController = ECS::GetComponent<AnimationController>(entity);
+		animController.InitUVs(BlueNum);
+		//Adds first animation
+		animController.AddAnimation(Animation());
+		animController.AddAnimation(Animation());
+		animController.AddAnimation(Animation());
+		animController.AddAnimation(Animation());
+		animController.AddAnimation(Animation());
+		animController.AddAnimation(Animation());
+		animController.AddAnimation(Animation());
+		animController.AddAnimation(Animation());
+		animController.AddAnimation(Animation());
+		animController.AddAnimation(Animation());
+
+		//Sets active animation
+		animController.SetActiveAnim(0);
+
+		//gets first animation
+		auto& anim = animController.GetAnimation(0);
+		anim.AddFrame(vec2(9.f, 79.f), vec2(70.f, 0.f));
+		auto& anim1 = animController.GetAnimation(1);
+		anim1.AddFrame(vec2(95.f, 79.f), vec2(154.f, 0.f));
+		auto& anim2 = animController.GetAnimation(2);
+		anim2.AddFrame(vec2(170.f, 79.f), vec2(230.f, 0.f));
+		auto& anim3 = animController.GetAnimation(3);
+		anim3.AddFrame(vec2(250.f, 79.f), vec2(309.f, 0.f));
+		auto& anim4 = animController.GetAnimation(4);
+		anim4.AddFrame(vec2(330.f, 79.f), vec2(389.f, 0.f));
+		auto& anim5 = animController.GetAnimation(5);
+		anim5.AddFrame(vec2(410.f, 79.f), vec2(469.f, 0.f));
+		auto& anim6 = animController.GetAnimation(6);
+		anim6.AddFrame(vec2(490.f, 79.f), vec2(549.f, 0.f));
+		auto& anim7 = animController.GetAnimation(7);
+		anim7.AddFrame(vec2(570.f, 79.f), vec2(629.f, 0.f));
+		auto& anim8 = animController.GetAnimation(8);
+		anim8.AddFrame(vec2(650.f, 79.f), vec2(709.f, 0.f));
+		auto& anim9 = animController.GetAnimation(9);
+		anim9.AddFrame(vec2(730.f, 79.f), vec2(789.f, 0.f));
+
+		//Makes it repeat
+		anim.SetRepeating(true);
+		//Sets the time between frames
+		anim.SetSecPerFrame(0.1667f);
+
+
+		ECS::GetComponent<Sprite>(entity).LoadSprite(BlueNum, 6,7.5, true, &animController);
+
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-80.f, -10.f, 101.f));
+
+		//Sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::AnimationBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "NumbersB");
+	}
+	{
+		//Creates entity 
+		auto entity = ECS::CreateEntity();
+
+		//Add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<AnimationController>(entity);
+
+		//Sets up components
+		std::string YellowNum = "NumberLineY.png";
+		auto& animController = ECS::GetComponent<AnimationController>(entity);
+		animController.InitUVs(YellowNum);
+		//Adds first animation
+		animController.AddAnimation(Animation());
+		animController.AddAnimation(Animation());
+		animController.AddAnimation(Animation());
+		animController.AddAnimation(Animation());
+		animController.AddAnimation(Animation());
+		animController.AddAnimation(Animation());
+		animController.AddAnimation(Animation());
+		animController.AddAnimation(Animation());
+		animController.AddAnimation(Animation());
+		animController.AddAnimation(Animation());
+
+		//Sets active animation
+		animController.SetActiveAnim(0);
+
+		//gets first animation
+		auto& anim = animController.GetAnimation(0);
+		anim.AddFrame(vec2(9.f, 79.f), vec2(70.f, 0.f));
+		auto& anim1 = animController.GetAnimation(1);
+		anim1.AddFrame(vec2(95.f, 79.f), vec2(154.f, 0.f));
+		auto& anim2 = animController.GetAnimation(2);
+		anim2.AddFrame(vec2(170.f, 79.f), vec2(230.f, 0.f));
+		auto& anim3 = animController.GetAnimation(3);
+		anim3.AddFrame(vec2(250.f, 79.f), vec2(309.f, 0.f));
+		auto& anim4 = animController.GetAnimation(4);
+		anim4.AddFrame(vec2(330.f, 79.f), vec2(389.f, 0.f));
+		auto& anim5 = animController.GetAnimation(5);
+		anim5.AddFrame(vec2(410.f, 79.f), vec2(469.f, 0.f));
+		auto& anim6 = animController.GetAnimation(6);
+		anim6.AddFrame(vec2(490.f, 79.f), vec2(549.f, 0.f));
+		auto& anim7 = animController.GetAnimation(7);
+		anim7.AddFrame(vec2(570.f, 79.f), vec2(629.f, 0.f));
+		auto& anim8 = animController.GetAnimation(8);
+		anim8.AddFrame(vec2(650.f, 79.f), vec2(709.f, 0.f));
+		auto& anim9 = animController.GetAnimation(9);
+		anim9.AddFrame(vec2(730.f, 79.f), vec2(789.f, 0.f));
+
+		//Makes it repeat
+		anim.SetRepeating(true);
+		//Sets the time between frames
+		anim.SetSecPerFrame(0.1667f);
+
+
+		ECS::GetComponent<Sprite>(entity).LoadSprite(YellowNum, 6,7.5, true, &animController);
+
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-80.f, -30.f, 101.f));
+
+		//Sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::AnimationBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "NumbersY");
+	}
+	{
+		//Creates entity 
+		auto entity = ECS::CreateEntity();
+
+		//Add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<AnimationController>(entity);
+
+		//Sets up components
+		std::string YellowNum = "NumberLineY.png";
+		auto& animController = ECS::GetComponent<AnimationController>(entity);
+		animController.InitUVs(YellowNum);
+		//Adds first animation
+		animController.AddAnimation(Animation());
+		animController.AddAnimation(Animation());
+		animController.AddAnimation(Animation());
+		animController.AddAnimation(Animation());
+		animController.AddAnimation(Animation());
+		animController.AddAnimation(Animation());
+		animController.AddAnimation(Animation());
+		animController.AddAnimation(Animation());
+		animController.AddAnimation(Animation());
+		animController.AddAnimation(Animation());
+
+		//Sets active animation
+		animController.SetActiveAnim(0);
+
+		//gets first animation
+		auto& anim = animController.GetAnimation(0);
+		anim.AddFrame(vec2(9.f, 79.f), vec2(70.f, 0.f));
+		auto& anim1 = animController.GetAnimation(1);
+		anim1.AddFrame(vec2(95.f, 79.f), vec2(154.f, 0.f));
+		auto& anim2 = animController.GetAnimation(2);
+		anim2.AddFrame(vec2(170.f, 79.f), vec2(230.f, 0.f));
+		auto& anim3 = animController.GetAnimation(3);
+		anim3.AddFrame(vec2(250.f, 79.f), vec2(309.f, 0.f));
+		auto& anim4 = animController.GetAnimation(4);
+		anim4.AddFrame(vec2(330.f, 79.f), vec2(389.f, 0.f));
+		auto& anim5 = animController.GetAnimation(5);
+		anim5.AddFrame(vec2(410.f, 79.f), vec2(469.f, 0.f));
+		auto& anim6 = animController.GetAnimation(6);
+		anim6.AddFrame(vec2(490.f, 79.f), vec2(549.f, 0.f));
+		auto& anim7 = animController.GetAnimation(7);
+		anim7.AddFrame(vec2(570.f, 79.f), vec2(629.f, 0.f));
+		auto& anim8 = animController.GetAnimation(8);
+		anim8.AddFrame(vec2(650.f, 79.f), vec2(709.f, 0.f));
+		auto& anim9 = animController.GetAnimation(9);
+		anim9.AddFrame(vec2(730.f, 79.f), vec2(789.f, 0.f));
+
+		//Makes it repeat
+		anim.SetRepeating(true);
+		//Sets the time between frames
+		anim.SetSecPerFrame(0.1667f);
+
+
+		ECS::GetComponent<Sprite>(entity).LoadSprite(YellowNum, 6, 7.5, true, &animController);
+
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-80.f, -30.f, 101.f));
+
+		//Sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::AnimationBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "NumbersY");
+	}
+	{
+		//Creates entity 
+		auto entity = ECS::CreateEntity();
+
+		//Add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+
+		//Sets up components
+		std::string Stats = "Stats.png";
+
+		ECS::GetComponent<Sprite>(entity).LoadSprite(Stats, 20, 25);
+
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-80.f, -80.f, 101.f));
+
+		//Sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "Stats");
+	}
+	{
+		//Creates entity 
+		auto entity = ECS::CreateEntity();
+
+		//Add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+
+		//Sets up components
+		std::string Stats = "false.png";
+
+		ECS::GetComponent<Sprite>(entity).LoadSprite(Stats, 36, 34);
+
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-80.f, -80.f, 99.f));
+
+		//Sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "black box");
+	}
 	{
 		//creates entity
 		auto entity = ECS::CreateEntity();
@@ -86,8 +507,8 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 			CollisionIDs::Player(), (CollisionIDs::Environment() | CollisionIDs::Enemy()|CollisionIDs::Pickup()|CollisionIDs::Acid()), true);
 		tempPhsBody.SetGravity(false);
 		tempPhsBody.SetFriction(1.f);
-		tempPhsBody.SetMaxVelo(70.f);
-		ECS::GetComponent<HealthArmour>(entity).SetHealth(100);
+		tempPhsBody.SetMaxVelo(60.f);
+		ECS::GetComponent<HealthArmour>(entity).SetHealth(75);
 
 		//sets up the identifier
 		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::AnimationBit() 
@@ -3464,6 +3885,109 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 		ECS::SetUpIdentifier(entity, bitHolder, "Zombie");
 	}
 	//level 7 ends
+	// level 8
+	{
+		//creates entity
+		auto entity = ECS::CreateEntity();
+
+		//add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+
+		//sets up components
+		std::string fileName = "surface.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 120, 108);
+
+
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-814.2f, 651.f, 0.f));
+
+
+
+		//sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "floor8");
+	}
+	{
+		//creates entity
+		auto entity = ECS::CreateEntity();
+
+		//add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+
+		//sets up components
+		std::string fileName = "HalfSideWall.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 20, 108);
+
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-884.f, 650.8f, 10.f));
+
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
+			vec2(0.f, 0.f),
+			CollisionIDs::Environment(), (0x0), false);
+
+
+		//sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "HalfSideWall8");
+	}
+	{
+		//creates entity
+		auto entity = ECS::CreateEntity();
+
+		//add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+
+		//sets up components
+		std::string fileName = "HalfWall.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 120, 20);
+
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-833.7f, 587.3f, 10.f));
+
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
+			vec2(0.f, 0.f),
+			CollisionIDs::Environment(), (0x0), false);
+
+
+		//sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "HalfWall8");
+	}
+	{
+		//creates entity
+		auto entity = ECS::CreateEntity();
+
+		//add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+
+		//sets up components
+		std::string fileName = "HalfWall.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 120, 20);
+
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-833.7f, 714.8f, 10.f));
+
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
+			vec2(0.f, 0.f),
+			CollisionIDs::Environment(), (0x0), false);
+
+
+		//sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "HalfWall8");
+	}
 
 	ECS::GetComponent<VerticalScroll>(EntityIdentifier::MainCamera()).SetFocus(&ECS::GetComponent<Transform>(EntityIdentifier::MainPlayer()));
 	ECS::GetComponent<HorizontalScroll>(EntityIdentifier::MainCamera()).SetFocus(&ECS::GetComponent<Transform>(EntityIdentifier::MainPlayer()));
