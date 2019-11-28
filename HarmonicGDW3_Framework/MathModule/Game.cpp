@@ -156,8 +156,8 @@ void Game::Routines()
 	else
 	{
 		std::string temp = std::to_string(playHealth.GetHealth());
-		ECS::GetComponent<AnimationController>(3).SetActiveAnim(0);
-		ECS::GetComponent<AnimationController>(4).SetActiveAnim(temp[0] - '0');
+		ECS::GetComponent<AnimationController>(1).SetActiveAnim(0);
+		ECS::GetComponent<AnimationController>(2).SetActiveAnim(temp[0] - '0');
 	}
 	if (playHealth.GetArmour() >= 10)
 	{
@@ -168,8 +168,8 @@ void Game::Routines()
 	else
 	{
 		std::string temp = std::to_string(playHealth.GetArmour());
-		ECS::GetComponent<AnimationController>(5).SetActiveAnim(0);
-		ECS::GetComponent<AnimationController>(6).SetActiveAnim(temp[0] - '0');
+		ECS::GetComponent<AnimationController>(3).SetActiveAnim(0);
+		ECS::GetComponent<AnimationController>(4).SetActiveAnim(temp[0] - '0');
 	}
 	if (weaps.GetAmmo() >= 10)
 	{
@@ -180,8 +180,8 @@ void Game::Routines()
 	else
 	{
 		std::string temp = std::to_string(weaps.GetAmmo());
-		ECS::GetComponent<AnimationController>(3).SetActiveAnim(0);
-		ECS::GetComponent<AnimationController>(4).SetActiveAnim(temp[0] - '0');
+		ECS::GetComponent<AnimationController>(5).SetActiveAnim(0);
+		ECS::GetComponent<AnimationController>(6).SetActiveAnim(temp[0] - '0');
 	}
 	if (weaps.GetWeapon() == 1)
 	{
