@@ -29,14 +29,14 @@ void Game::InitGame()
 {
 	//Scene names and clear colors
 	m_name = "DOOM";
-	m_clearColor = vec4(0.15f, 0.33f, 0.58f, 1.f);
+	m_clearColor = vec4(0.57f, 0, 0, 1.f);
 
 	//Initializes the backend
 	BackEnd::InitBackEnd(m_name);
 
 	//Grabs the initialized window
 	m_window = BackEnd::GetWindow();
-
+	BackEnd::GetWindow()->SetFullscreen(true);
 	//creates a new HelloWorld scene
 	m_scenes.push_back(new HelloWorld("Horizontal scrolling scene"));
 	m_scenes.push_back(new MyScene("My Scene"));
@@ -528,30 +528,69 @@ void Game::KeyboardHold()
 	if (Input::GetKey(Key::W))
 	{
 		playPhs.ApplyForce(vec3(0.f, 100.f, 0.f));
-		auto& animController = ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer());
-		animController.SetActiveAnim(0);
+		if (ECS::GetComponent<PlayerWeapons>(EntityIdentifier::MainPlayer()).curWeap == 1)
+		{
+			auto& animController = ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer());
+			animController.SetActiveAnim(2);
+		}
+		if (ECS::GetComponent<PlayerWeapons>(EntityIdentifier::MainPlayer()).curWeap == 0)
+		{
+			auto& animController = ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer());
+			animController.SetActiveAnim(0);
+		}
+		ECS::GetComponent<Sprite>(EntityIdentifier::MainPlayer()).SetHeight(24);
+		ECS::GetComponent<Sprite>(EntityIdentifier::MainPlayer()).SetWidth(24);
 	}
 	if (Input::GetKey(Key::A))
 	{
 	
 		playPhs.ApplyForce(vec3(-100.f, 0.f, 0.f));
-		auto& animController = ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer());
-		animController.SetActiveAnim(0);
-	
+		if (ECS::GetComponent<PlayerWeapons>(EntityIdentifier::MainPlayer()).curWeap == 1)
+		{
+			auto& animController = ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer());
+			animController.SetActiveAnim(2);
+		}
+		if (ECS::GetComponent<PlayerWeapons>(EntityIdentifier::MainPlayer()).curWeap == 0)
+		{
+			auto& animController = ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer());
+			animController.SetActiveAnim(0);
+		}
+		ECS::GetComponent<Sprite>(EntityIdentifier::MainPlayer()).SetHeight(24);
+		ECS::GetComponent<Sprite>(EntityIdentifier::MainPlayer()).SetWidth(24);
 	}
 	if (Input::GetKey(Key::S))
 	{
 		
 		playPhs.ApplyForce(vec3(0.f, -100.f, 0.f));
-		auto& animController = ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer());
-		animController.SetActiveAnim(0);
+		if (ECS::GetComponent<PlayerWeapons>(EntityIdentifier::MainPlayer()).curWeap == 1)
+		{
+			auto& animController = ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer());
+			animController.SetActiveAnim(2);
+		}
+		if (ECS::GetComponent<PlayerWeapons>(EntityIdentifier::MainPlayer()).curWeap == 0)
+		{
+			auto& animController = ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer());
+			animController.SetActiveAnim(0);
+		}
+		ECS::GetComponent<Sprite>(EntityIdentifier::MainPlayer()).SetHeight(24);
+		ECS::GetComponent<Sprite>(EntityIdentifier::MainPlayer()).SetWidth(24);
 	}
 	if (Input::GetKey(Key::D))
 	{
 		
 		playPhs.ApplyForce(vec3(100.f, 0.f, 0.f));
-		auto& animController = ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer());
-		animController.SetActiveAnim(0);
+		if (ECS::GetComponent<PlayerWeapons>(EntityIdentifier::MainPlayer()).curWeap == 1)
+		{
+			auto& animController = ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer());
+			animController.SetActiveAnim(2);
+		}
+		if (ECS::GetComponent<PlayerWeapons>(EntityIdentifier::MainPlayer()).curWeap == 0)
+		{
+			auto& animController = ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer());
+			animController.SetActiveAnim(0);
+		}
+		ECS::GetComponent<Sprite>(EntityIdentifier::MainPlayer()).SetHeight(24);
+		ECS::GetComponent<Sprite>(EntityIdentifier::MainPlayer()).SetWidth(24);
 	}
 }
 
@@ -589,6 +628,16 @@ void Game::KeyboardDown()
 	if (Input::GetKeyDown(Key::Q))
 	{
 		ECS::GetComponent<PlayerWeapons>(EntityIdentifier::MainPlayer()).ChangeWeapon();
+		if (ECS::GetComponent<PlayerWeapons>(EntityIdentifier::MainPlayer()).curWeap == 1)
+		{
+			auto& animController = ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer());
+			animController.SetActiveAnim(3);
+		}
+		if (ECS::GetComponent<PlayerWeapons>(EntityIdentifier::MainPlayer()).curWeap == 0)
+		{
+			auto& animController = ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer());
+			animController.SetActiveAnim(1);
+		}
 	}
 }
 
@@ -604,23 +653,55 @@ void Game::KeyboardUp()
 	}
 	if (Input::GetKeyUp(Key::W))
 	{
-		auto& animController = ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer());
-		animController.SetActiveAnim(1);
+		if (ECS::GetComponent<PlayerWeapons>(EntityIdentifier::MainPlayer()).curWeap == 1)
+		{
+			auto& animController = ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer());
+			animController.SetActiveAnim(3);
+		}
+		if (ECS::GetComponent<PlayerWeapons>(EntityIdentifier::MainPlayer()).curWeap == 0)
+		{
+			auto& animController = ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer());
+			animController.SetActiveAnim(1);
+		}
 	}
 	if (Input::GetKeyUp(Key::A))
 	{
-		auto& animController = ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer());
-		animController.SetActiveAnim(1);
+		if (ECS::GetComponent<PlayerWeapons>(EntityIdentifier::MainPlayer()).curWeap == 1)
+		{
+			auto& animController = ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer());
+			animController.SetActiveAnim(3);
+		}
+		if (ECS::GetComponent<PlayerWeapons>(EntityIdentifier::MainPlayer()).curWeap == 0)
+		{
+			auto& animController = ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer());
+			animController.SetActiveAnim(1);
+		}
 	}
 	if (Input::GetKeyUp(Key::S))
 	{
-		auto& animController = ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer());
-		animController.SetActiveAnim(1);
+		if (ECS::GetComponent<PlayerWeapons>(EntityIdentifier::MainPlayer()).curWeap == 1)
+		{
+			auto& animController = ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer());
+			animController.SetActiveAnim(3);
+		}
+		if (ECS::GetComponent<PlayerWeapons>(EntityIdentifier::MainPlayer()).curWeap == 0)
+		{
+			auto& animController = ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer());
+			animController.SetActiveAnim(1);
+		}
 	}
 	if (Input::GetKeyUp(Key::D))
 	{	
-		auto& animController = ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer());
-		animController.SetActiveAnim(1);
+		if (ECS::GetComponent<PlayerWeapons>(EntityIdentifier::MainPlayer()).curWeap == 1)
+		{
+			auto& animController = ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer());
+			animController.SetActiveAnim(3);
+		}
+		if (ECS::GetComponent<PlayerWeapons>(EntityIdentifier::MainPlayer()).curWeap == 0)
+		{
+			auto& animController = ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer());
+			animController.SetActiveAnim(1);
+		}
 	}	
 }
 
@@ -656,7 +737,6 @@ void Game::MouseClick(SDL_MouseButtonEvent evnt)
 		if (shot.GetAmmo() > 0)
 		{
 			shot.Shoot(&trans);
-			printf("Player Ammo:%i\n", shot.GetAmmo());
 		}
 	}
 	if (SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(SDL_BUTTON_RIGHT))

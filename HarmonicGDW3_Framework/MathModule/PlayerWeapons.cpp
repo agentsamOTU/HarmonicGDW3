@@ -10,6 +10,9 @@ void PlayerWeapons::Shoot(Transform* trans)
 	{
 		if (GetGunTime() > 0.5f)
 		{
+			auto& animController2 = ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer());
+			animController2.SetActiveAnim(1);
+			ECS::GetComponent<Sprite>(EntityIdentifier::MainPlayer()).SetHeight(28.f);
 			auto entity = ECS::CreateEntity();
 			ECS::AttachComponent<Sprite>(entity);
 			ECS::AttachComponent<Transform>(entity);
@@ -44,12 +47,16 @@ void PlayerWeapons::Shoot(Transform* trans)
 			ECS::SetUpIdentifier(entity, bitHolder, "bullet");
 			ammPist -= 1;
 			ResetGunTime();
+			animController2.SetActiveAnim(5);
 		}
 	}
 	else if (curWeap == 1)//shotgun
 	{
 		if (GetGunTime() > 1.f)
 		{
+			auto& animController4 = ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer());
+			animController4.SetActiveAnim(3);
+			ECS::GetComponent<Sprite>(EntityIdentifier::MainPlayer()).SetHeight(28.f);
 			auto entity = ECS::CreateEntity();
 			ECS::AttachComponent<Sprite>(entity);
 			ECS::AttachComponent<Transform>(entity);
@@ -146,6 +153,7 @@ void PlayerWeapons::Shoot(Transform* trans)
 			ECS::SetUpIdentifier(entity3, bitHolder3, "bullet");
 			ammShot -= 1;
 			ResetGunTime();
+			animController4.SetActiveAnim(4);
 		}
 	}
 
@@ -161,7 +169,6 @@ void PlayerWeapons::ChangeWeapon()
 	{
 		if (hasShot == true)
 		{
-			printf("curWeap is 1 shotgun");
 			curWeap = 1;
 		}
 	}

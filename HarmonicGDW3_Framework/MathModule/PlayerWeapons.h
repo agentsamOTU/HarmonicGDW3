@@ -30,8 +30,8 @@ public:
 	void SetRed();
 	void SetGreen();
 	void SetYellow();
-private:
 	int curWeap = 0;
+private:
 	int ammPist=50;
 	int ammShot=50;
 	bool hasShot = false;

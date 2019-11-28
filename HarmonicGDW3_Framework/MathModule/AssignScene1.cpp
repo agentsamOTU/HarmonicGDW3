@@ -476,25 +476,61 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 		ECS::AttachComponent<HealthArmour>(entity);
 
 		//sets up components
-		std::string fileName = "DoomGuy_Walk.png";
+		std::string fileName = "DoomGuyMasterSheet.png";
 		auto& animController = ECS::GetComponent<AnimationController>(entity);
 		animController.InitUVs(fileName);
 		animController.AddAnimation(Animation());
 		animController.AddAnimation(Animation());
+		animController.AddAnimation(Animation());
+		animController.AddAnimation(Animation());
+		animController.AddAnimation(Animation());
+		animController.AddAnimation(Animation());
+		animController.AddAnimation(Animation());
 		animController.SetActiveAnim(0);
-		//adds first animation
+		//Walking w/ pistol
 		auto& anim = animController.GetAnimation(0);
-		anim.AddFrame(vec2(60.f, 289.f), vec2(269.f, 110.f));
-		anim.AddFrame(vec2(739.f, 289.f), vec2(949.f, 110.f));
-		anim.AddFrame(vec2(60.f, 289.f), vec2(269.f, 110.f));
-		anim.AddFrame(vec2(739.f, 629.f), vec2(949.f, 450.f));
+		anim.AddFrame(vec2(740.f, 629.f), vec2(950.f, 450.f));
+		anim.AddFrame(vec2(1080.f, 969.f), vec2(1289.f, 790.f));
+		anim.AddFrame(vec2(740.f, 629.f), vec2(950.f, 450.f));
+		anim.AddFrame(vec2(59.f, 1309.f), vec2(269.f, 1130.f));
+		//Static 
 		auto& anim2 = animController.GetAnimation(1);
-		anim2.AddFrame(vec2(60.f, 289.f), vec2(269.f, 110.f));
+		anim2.AddFrame(vec2(740.f, 629.f), vec2(950.f, 450.f));
+		//Shot gun walk
+		auto& anim3 = animController.GetAnimation(2);
+		anim3.AddFrame(vec2(400.f, 1319.f), vec2(609.f, 1130.f));
+		anim3.AddFrame(vec2(1420.f, 979.f), vec2(1629.f, 790.f));
+		anim3.AddFrame(vec2(400.f, 1319.f), vec2(609.f, 1130.f));
+		anim3.AddFrame(vec2(1420.f, 1319.f), vec2(1629.f, 1130.f));
+		//Shot gun static
+		auto& anim4 = animController.GetAnimation(3);
+		anim4.AddFrame(vec2(400.f, 1319.f), vec2(609.f, 1130.f));
+		//Doom Guy(shot)
+		auto& anim5 = animController.GetAnimation(4);
+		anim5.AddFrame(vec2(400.f, 1349.f), vec2(609.f, 1129.f));
+		anim5.AddFrame(vec2(1080.f, 1349.f), vec2(1289.f, 1129.f));
+		anim5.AddFrame(vec2(1420.f, 329.f), vec2(1629.f, 110.f));
+		anim5.AddFrame(vec2(1420.f, 670.f), vec2(1629.f, 450.f));
+		anim5.AddFrame(vec2(400.f, 1349.f), vec2(609.f, 1129.f));
+		//Doom Shoot(pist)
+		auto& anim6 = animController.GetAnimation(5);
+		anim6.AddFrame(vec2(739.f, 659.f), vec2(949.f, 450.f));
+		anim6.AddFrame(vec2(1080.f, 659.f), vec2(1289.f, 450.f));
+		anim6.AddFrame(vec2(61.f, 999.f), vec2(269.f, 789.f));
+		anim6.AddFrame(vec2(400.f, 999.f), vec2(610.f, 789.f));
+		anim6.AddFrame(vec2(739.f, 659.f), vec2(949.f, 450.f));
 
 		anim.SetRepeating(true);
 		anim2.SetRepeating(false);
+		anim3.SetRepeating(true);
+		anim4.SetRepeating(false);
+		anim5.SetRepeating(true);
+		anim6.SetRepeating(true);
 		//sets time between frames
 		anim.SetSecPerFrame(0.1667f);
+		anim3.SetSecPerFrame(0.1667f);
+		anim5.SetSecPerFrame(0.05f);
+		anim6.SetSecPerFrame(0.05f);
 		animController.SetActiveAnim(1);
 		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 24, 24, true, &animController);
 		ECS::GetComponent<Transform>(entity).SetPosition(vec3(0.f, 200.f, 100.f));
