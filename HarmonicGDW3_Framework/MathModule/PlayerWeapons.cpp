@@ -318,3 +318,8 @@ void PlayerWeapons::SetYellow()
 {
 	hasYellow = true;
 }
+
+int PlayerWeapons::GetWeapon()
+{
+	return curWeap;
+}
