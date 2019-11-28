@@ -28,7 +28,7 @@ Game::~Game()
 void Game::InitGame()
 {
 	//Scene names and clear colors
-	m_name = "Hello World";
+	m_name = "DOOM";
 	m_clearColor = vec4(0.15f, 0.33f, 0.58f, 1.f);
 
 	//Initializes the backend
@@ -55,7 +55,7 @@ void Game::InitGame()
 
 bool Game::Run()
 {
-	mciSendString("play assets/sound/d_e1m1.mp3", NULL, 0, NULL);
+	mciSendString("play assets/sound/d_e1m1.mp3 repeat", NULL, 0, NULL);
 	//While window is still open
 	while (m_window->isOpen())
 	{
@@ -83,7 +83,7 @@ bool Game::Run()
 			AcceptInput();
 		}
 		//hacky but works
-		ECS::GetComponent<Camera>(EntityIdentifier::MainCamera()).SetPosition(ECS::GetComponent<Transform>(EntityIdentifier::MainPlayer()).GetPosition());
+		//ECS::GetComponent<Camera>(EntityIdentifier::MainCamera()).SetPosition(ECS::GetComponent<Transform>(EntityIdentifier::MainPlayer()).GetPosition());
 	}
 
 	return true;
@@ -150,6 +150,7 @@ void Game::Routines()
 	{
 		auto& enemLoc = ECS::GetComponent<Transform>(entity);
 		auto& enemPhs = ECS::GetComponent<PhysicsBody>(entity);
+		auto& enemAnim = ECS::GetComponent<AnimationController>(entity);
 		auto& health = ECS::GetComponent<HealthArmour>(entity);
 		auto& zomb = ECS::GetComponent<Zombie>(entity);
 		if (health.GetDamaged())
@@ -163,6 +164,9 @@ void Game::Routines()
 				enemPhs.SetBodyID(0x0);
 				enemPhs.SetCollideID(0x0);
 				enemPhs.SetVelocity(vec3(0.f, 0.f, 0.f));
+				ECS::GetComponent<Sprite>(entity).SetHeight(36.f);
+				enemAnim.SetActiveAnim(2);
+
 			}
 		}
 		if (zomb.GetActive())
@@ -173,10 +177,18 @@ void Game::Routines()
 				if (zomb.GetTime() > 0.1f&&!zomb.GetShotDone())
 				{
 					zomb.Shoot(&enemLoc);
+					
+					enemAnim.SetActiveAnim(1);
+					ECS::GetComponent<Sprite>(entity).SetHeight(28.f);
+					
+
 				}
 				if (zomb.GetTime() > 1.f)
 				{
 					zomb.ResetShoot();
+					enemAnim.GetAnimation(1).Reset();
+					ECS::GetComponent<Sprite>(entity).SetHeight(24.f);
+					enemAnim.SetActiveAnim(0);
 				}
 			}
 			else
@@ -199,7 +211,72 @@ void Game::Routines()
 			}
 		}
 	}
-	
+	auto view2 = m_register->view<Imp>();
+	for (auto entity : view2)
+	{
+		auto& enemLoc = ECS::GetComponent<Transform>(entity);
+		auto& enemPhs = ECS::GetComponent<PhysicsBody>(entity);
+		auto& enemAnim = ECS::GetComponent<AnimationController>(entity);
+		auto& health = ECS::GetComponent<HealthArmour>(entity);
+		auto& Im = ECS::GetComponent<Imp>(entity);
+		if (health.GetDamaged())
+		{
+			health.AddHealth(-10);
+			health.SetDamaged(false);
+			if (health.GetHealth() <= 0)
+			{
+				mciSendString("play assets/sound/dspopain.wav", NULL, 0, NULL);
+				Im.SetActive(false);
+				enemPhs.SetBodyID(0x0);
+				enemPhs.SetCollideID(0x0);
+				enemPhs.SetVelocity(vec3(0.f, 0.f, 0.f));
+				ECS::GetComponent<Sprite>(entity).SetHeight(36.f);
+				enemAnim.SetActiveAnim(2);
+
+			}
+		}
+		if (Im.GetActive())
+		{
+			if (Im.GetShoot())
+			{
+				Im.AddTime(Timer::deltaTime);
+				if (Im.GetTime() > 0.1f && !Im.GetShotDone())
+				{
+					Im.Shoot(&enemLoc);
+
+					enemAnim.SetActiveAnim(1);
+					ECS::GetComponent<Sprite>(entity).SetHeight(22.f);
+
+
+				}
+				if (Im.GetTime() > 0.5f)
+				{
+					Im.ResetShoot();
+					enemAnim.GetAnimation(1).Reset();
+					ECS::GetComponent<Sprite>(entity).SetHeight(22.f);
+					enemAnim.SetActiveAnim(0);
+				}
+			}
+			else
+			{
+
+				auto& playLoc = ECS::GetComponent<Transform>(EntityIdentifier::MainPlayer());
+				vec2 delta = vec2(playLoc.GetPositionX() - enemLoc.GetPositionX(), playLoc.GetPositionY() - enemLoc.GetPositionY());
+				vec2 tempDirec = vec2(delta.Normalize()) * 30.f;
+				if (delta.GetMagnitude() < 90)
+				{
+					Im.SetShoot(true);
+					Im.SetDirection(tempDirec.x, tempDirec.y);
+				}
+				else if (delta.GetMagnitude() < 150)
+				{
+					enemPhs.SetVelocity(vec3(tempDirec.x, tempDirec.y, 0.f));
+				}
+				enemLoc.SetRotationAngleZ(atan2(delta.y, delta.x) + PI / 2);
+
+			}
+		}
+	}
 }
 
 void Game::AcceptInput()
@@ -314,19 +391,39 @@ void Game::GamepadStick(XInputController* con)
 	vec2 totalForce = vec2(0.f, 0.f);
 	if (sticks[0].y > 0.3f)
 	{
-		playPhs.ApplyForce(vec3(0.f, 50.f, 0.f));
+		if (playPhs.GetVelocity().y != 300.f)
+		{
+			playPhs.ApplyForce(vec3(0.f, 50.f, 0.f));
+			auto& animController = ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer());
+			animController.SetActiveAnim(0);
+		}
 	}
 	if (sticks[0].x < -0.3f)
 	{
+		if (playPhs.GetVelocity().y != 300.f)
+		{
 		playPhs.ApplyForce(vec3(-50.f, 0.f, 0.f));
+		auto& animController = ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer());
+		animController.SetActiveAnim(0);
+		}
 	}
 	if (sticks[0].x > 0.3f)
 	{
+		if (playPhs.GetVelocity().y != 300.f)
+		{
 		playPhs.ApplyForce(vec3(50.f, 0.f, 0.f));
+		auto& animController = ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer());
+		animController.SetActiveAnim(0);
+		}
 	}
 	if (sticks[0].y < -0.3f)
 	{
+		if (playPhs.GetVelocity().y != 300.f)
+		{
 		playPhs.ApplyForce(vec3(0.f, -50.f, 0.f));
+		auto& animController = ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer());
+		animController.SetActiveAnim(0);
+		}
 	}
 
 	
@@ -402,19 +499,39 @@ void Game::KeyboardHold()
 
 	if (Input::GetKey(Key::W))
 	{
-		playPhs.ApplyForce(vec3(0.f, 100.f, 0.f));
+		if (playPhs.GetVelocity().y != 300.f)
+		{
+			playPhs.ApplyForce(vec3(0.f, 100.f, 0.f));
+			auto& animController = ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer());
+			animController.SetActiveAnim(0);
+		}
 	}
 	if (Input::GetKey(Key::A))
 	{
-		playPhs.ApplyForce(vec3(-100.f, 0.f, 0.f));
+		if (playPhs.GetVelocity().x != -300.f)
+		{
+			playPhs.ApplyForce(vec3(-100.f, 0.f, 0.f));
+			auto& animController = ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer());
+			animController.SetActiveAnim(0);
+		}
 	}
 	if (Input::GetKey(Key::S))
 	{
-		playPhs.ApplyForce(vec3(0.f, -100.f, 0.f));
+		if (playPhs.GetVelocity().y != -300.f)
+		{
+			playPhs.ApplyForce(vec3(0.f, -100.f, 0.f));
+			auto& animController = ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer());
+			animController.SetActiveAnim(0);
+		}
 	}
 	if (Input::GetKey(Key::D))
 	{
-		playPhs.ApplyForce(vec3(100.f, 0.f,0.f));
+		if (playPhs.GetVelocity().x != 300.f)
+		{
+			playPhs.ApplyForce(vec3(100.f, 0.f, 0.f));
+			auto& animController = ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer());
+			animController.SetActiveAnim(0);
+		}
 	}
 }
 
@@ -465,25 +582,26 @@ void Game::KeyboardUp()
 		}
 		m_guiActive = !m_guiActive;
 	}
-
-	if (Input::GetKeyUp(Key::K))
+	if (Input::GetKeyUp(Key::W))
 	{
-		//switches between ken's two animations
 		auto& animController = ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer());
-		if (animController.GetActiveAnim() == 0)
-		{
-			animController.SetActiveAnim(1);
-		}
-		else
-		{
-			animController.SetActiveAnim(0);
-		}
+		animController.SetActiveAnim(1);
 	}
-	if (Input::GetKeyUp(Key::P))
+	if (Input::GetKeyUp(Key::A))
 	{
-		PhysicsBody::SetDraw(!PhysicsBody::GetDraw());
+		auto& animController = ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer());
+		animController.SetActiveAnim(1);
 	}
-	
+	if (Input::GetKeyUp(Key::S))
+	{
+		auto& animController = ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer());
+		animController.SetActiveAnim(1);
+	}
+	if (Input::GetKeyUp(Key::D))
+	{	
+		auto& animController = ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer());
+		animController.SetActiveAnim(1);
+	}	
 }
 
 void Game::MouseMotion(SDL_MouseMotionEvent evnt)
