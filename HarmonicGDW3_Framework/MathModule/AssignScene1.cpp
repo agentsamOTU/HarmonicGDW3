@@ -524,8 +524,8 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 		anim2.SetRepeating(false);
 		anim3.SetRepeating(true);
 		anim4.SetRepeating(false);
-		anim5.SetRepeating(true);
-		anim6.SetRepeating(true);
+		anim5.SetRepeating(false);
+		anim6.SetRepeating(false);
 		//sets time between frames
 		anim.SetSecPerFrame(0.1667f);
 		anim3.SetSecPerFrame(0.1667f);
