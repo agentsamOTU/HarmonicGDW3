@@ -25,11 +25,19 @@ void HealthArmour::TakeDamage(int dam)
 void HealthArmour::AddHealth(int hea)
 {
 	m_health += hea;
+	if (m_health > 99)
+	{
+		m_health = 99;
+	}
 }
 
 void HealthArmour::AddArmour(int arm)
 {
 	m_armour += arm;
+	if (m_armour > 99)
+	{
+		m_armour = 99;
+	}
 }
 
 bool HealthArmour::GetDamaged()

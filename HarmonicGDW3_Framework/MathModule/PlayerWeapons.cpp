@@ -212,11 +212,19 @@ void PlayerWeapons::SetHasShotgun(bool has)
 void PlayerWeapons::AddPistol(int amm)
 {
 	ammPist += amm;
+	if (ammPist > 99)
+	{
+		ammPist = 99;
+	}
 }
 
 void PlayerWeapons::AddShotgun(int amm)
 {
 	ammShot += amm;
+	if (ammShot > 99)
+	{
+		ammShot = 99;
+	}
 }
 
 float PlayerWeapons::GetAcid()

@@ -96,7 +96,6 @@ void PhysicsSystem::Run(entt::registry* reg)
 							{
 								if (body2.GetBodyID() & CollisionIDs::Pickup())
 								{
-									printf("This would be a pickup");
 									ECS::GetComponent<Pickup>(entity2).Collect();
 									ECS::DestroyEntity(entity2);
 								}
@@ -119,7 +118,6 @@ void PhysicsSystem::Run(entt::registry* reg)
 										ECS::DestroyEntity(entity);
 										if (ECS::GetComponent<EntityIdentifier>(entity2).GetIdentifier()& EntityIdentifier::HealthArmourBit())
 										{
-											printf("hit obj has health");
 											ECS::GetComponent<HealthArmour>(entity2).SetDamaged(true);
 										}
 										break;

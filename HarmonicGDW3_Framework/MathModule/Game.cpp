@@ -83,7 +83,7 @@ bool Game::Run()
 			AcceptInput();
 		}
 		//hacky but works
-		//ECS::GetComponent<Camera>(EntityIdentifier::MainCamera()).SetPosition(ECS::GetComponent<Transform>(EntityIdentifier::MainPlayer()).GetPosition());
+		ECS::GetComponent<Camera>(EntityIdentifier::MainCamera()).SetPosition(ECS::GetComponent<Transform>(EntityIdentifier::MainPlayer()).GetPosition());
 	}
 
 	return true;
@@ -132,13 +132,59 @@ void Game::CheckEvents()
 
 void Game::Routines()
 {
-	ECS::GetComponent<PlayerWeapons>(EntityIdentifier::MainPlayer()).AddAcidTime(Timer::deltaTime);
-	ECS::GetComponent<PlayerWeapons>(EntityIdentifier::MainPlayer()).AddGunTime(Timer::deltaTime);
+	auto& weaps = ECS::GetComponent<PlayerWeapons>(EntityIdentifier::MainPlayer());
+	weaps.AddAcidTime(Timer::deltaTime);
+	weaps.AddGunTime(Timer::deltaTime);
 	auto& playHealth = ECS::GetComponent<HealthArmour>(EntityIdentifier::MainPlayer());
+	auto& playLoc = ECS::GetComponent<Transform>(EntityIdentifier::MainPlayer());
+	
+	ECS::GetComponent<Transform>(1).SetPosition(playLoc.GetPosition()+vec3(-75.f,-71.f,0.f));
+	ECS::GetComponent<Transform>(2).SetPosition(playLoc.GetPosition() + vec3(-68.f, -71.f, 0.f));
+	ECS::GetComponent<Transform>(3).SetPosition(playLoc.GetPosition() + vec3(-75.f, -81.f, 0.f));
+	ECS::GetComponent<Transform>(4).SetPosition(playLoc.GetPosition() + vec3(-68.f, -81.f, 0.f));
+	ECS::GetComponent<Transform>(5).SetPosition(playLoc.GetPosition() + vec3(-75.f, -91.f, 0.f));
+	ECS::GetComponent<Transform>(6).SetPosition(playLoc.GetPosition() + vec3(-68.f, -91.f, 0.f));
+	ECS::GetComponent<Transform>(7).SetPosition(playLoc.GetPosition()+vec3(-90.f,-80.f,0.f));
+	ECS::GetComponent<Transform>(8).SetPosition(playLoc.GetPosition() + vec3(-83.f, -84.f, 0.f));
+	if (playHealth.GetHealth() >= 10)
+	{
+		std::string temp = std::to_string(playHealth.GetHealth());
+		ECS::GetComponent<AnimationController>(1).SetActiveAnim(temp[0]-'0');
+		ECS::GetComponent<AnimationController>(2).SetActiveAnim(temp[1] - '0');
+	}
+	else
+	{
+		std::string temp = std::to_string(playHealth.GetHealth());
+		ECS::GetComponent<AnimationController>(3).SetActiveAnim(0);
+		ECS::GetComponent<AnimationController>(4).SetActiveAnim(temp[0] - '0');
+	}
+	if (playHealth.GetArmour() >= 10)
+	{
+		std::string temp = std::to_string(playHealth.GetArmour());
+		ECS::GetComponent<AnimationController>(3).SetActiveAnim(temp[0] - '0');
+		ECS::GetComponent<AnimationController>(4).SetActiveAnim(temp[1] - '0');
+	}
+	else
+	{
+		std::string temp = std::to_string(playHealth.GetArmour());
+		ECS::GetComponent<AnimationController>(5).SetActiveAnim(0);
+		ECS::GetComponent<AnimationController>(6).SetActiveAnim(temp[0] - '0');
+	}
+	if (weaps.GetAmmo() >= 10)
+	{
+		std::string temp = std::to_string(weaps.GetAmmo());
+		ECS::GetComponent<AnimationController>(5).SetActiveAnim(temp[0] - '0');
+		ECS::GetComponent<AnimationController>(6).SetActiveAnim(temp[1] - '0');
+	}
+	else
+	{
+		std::string temp = std::to_string(weaps.GetAmmo());
+		ECS::GetComponent<AnimationController>(3).SetActiveAnim(0);
+		ECS::GetComponent<AnimationController>(4).SetActiveAnim(temp[0] - '0');
+	}
 	if (playHealth.GetDamaged())
 	{
 		playHealth.TakeDamage(10);
-		printf("PlayerHealth:%i\n", playHealth.GetHealth());
 		if (playHealth.GetHealth() <= 0)
 		{
 			printf("GAMEOVER");
@@ -193,8 +239,6 @@ void Game::Routines()
 			}
 			else
 			{
-				
-				auto& playLoc = ECS::GetComponent<Transform>(EntityIdentifier::MainPlayer());
 				vec2 delta = vec2(playLoc.GetPositionX() - enemLoc.GetPositionX(), playLoc.GetPositionY() - enemLoc.GetPositionY());
 				vec2 tempDirec = vec2(delta.Normalize()) * 30.f;
 				if (delta.GetMagnitude() < 60)
@@ -259,8 +303,6 @@ void Game::Routines()
 			}
 			else
 			{
-
-				auto& playLoc = ECS::GetComponent<Transform>(EntityIdentifier::MainPlayer());
 				vec2 delta = vec2(playLoc.GetPositionX() - enemLoc.GetPositionX(), playLoc.GetPositionY() - enemLoc.GetPositionY());
 				vec2 tempDirec = vec2(delta.Normalize()) * 30.f;
 				if (delta.GetMagnitude() < 90)
@@ -391,42 +433,28 @@ void Game::GamepadStick(XInputController* con)
 	vec2 totalForce = vec2(0.f, 0.f);
 	if (sticks[0].y > 0.3f)
 	{
-		if (playPhs.GetVelocity().y != 300.f)
-		{
-			playPhs.ApplyForce(vec3(0.f, 50.f, 0.f));
-			auto& animController = ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer());
-			animController.SetActiveAnim(0);
-		}
+		playPhs.ApplyForce(vec3(0.f, 50.f, 0.f));
+		auto& animController = ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer());
+		animController.SetActiveAnim(0);
 	}
 	if (sticks[0].x < -0.3f)
 	{
-		if (playPhs.GetVelocity().y != 300.f)
-		{
 		playPhs.ApplyForce(vec3(-50.f, 0.f, 0.f));
 		auto& animController = ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer());
 		animController.SetActiveAnim(0);
-		}
 	}
 	if (sticks[0].x > 0.3f)
 	{
-		if (playPhs.GetVelocity().y != 300.f)
-		{
 		playPhs.ApplyForce(vec3(50.f, 0.f, 0.f));
 		auto& animController = ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer());
 		animController.SetActiveAnim(0);
-		}
 	}
 	if (sticks[0].y < -0.3f)
 	{
-		if (playPhs.GetVelocity().y != 300.f)
-		{
 		playPhs.ApplyForce(vec3(0.f, -50.f, 0.f));
 		auto& animController = ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer());
 		animController.SetActiveAnim(0);
-		}
 	}
-
-	
 	if (sticks[1].x > 0.3f && sticks[1].y > 0.3f)
 	{
 		angle = PI - PI/4;
@@ -499,39 +527,31 @@ void Game::KeyboardHold()
 
 	if (Input::GetKey(Key::W))
 	{
-		if (playPhs.GetVelocity().y != 300.f)
-		{
-			playPhs.ApplyForce(vec3(0.f, 100.f, 0.f));
-			auto& animController = ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer());
-			animController.SetActiveAnim(0);
-		}
+		playPhs.ApplyForce(vec3(0.f, 100.f, 0.f));
+		auto& animController = ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer());
+		animController.SetActiveAnim(0);
 	}
 	if (Input::GetKey(Key::A))
 	{
-		if (playPhs.GetVelocity().x != -300.f)
-		{
-			playPhs.ApplyForce(vec3(-100.f, 0.f, 0.f));
-			auto& animController = ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer());
-			animController.SetActiveAnim(0);
-		}
+	
+		playPhs.ApplyForce(vec3(-100.f, 0.f, 0.f));
+		auto& animController = ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer());
+		animController.SetActiveAnim(0);
+	
 	}
 	if (Input::GetKey(Key::S))
 	{
-		if (playPhs.GetVelocity().y != -300.f)
-		{
-			playPhs.ApplyForce(vec3(0.f, -100.f, 0.f));
-			auto& animController = ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer());
-			animController.SetActiveAnim(0);
-		}
+		
+		playPhs.ApplyForce(vec3(0.f, -100.f, 0.f));
+		auto& animController = ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer());
+		animController.SetActiveAnim(0);
 	}
 	if (Input::GetKey(Key::D))
 	{
-		if (playPhs.GetVelocity().x != 300.f)
-		{
-			playPhs.ApplyForce(vec3(100.f, 0.f, 0.f));
-			auto& animController = ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer());
-			animController.SetActiveAnim(0);
-		}
+		
+		playPhs.ApplyForce(vec3(100.f, 0.f, 0.f));
+		auto& animController = ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer());
+		animController.SetActiveAnim(0);
 	}
 }
 
