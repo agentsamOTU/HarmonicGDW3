@@ -2741,6 +2741,202 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 	}
 
 
+	//level 5 starts
+	{
+		//creates entity
+		auto entity = ECS::CreateEntity();
+
+		//add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+
+		//sets up components
+		std::string fileName = "surface.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 220, 64);
+
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(450.3f, 651.6f, 0.f));
+
+
+		//sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "hallway5");
+	}
+	{
+		//creates entity
+		auto entity = ECS::CreateEntity();
+
+		//add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+
+		//sets up components
+		std::string fileName = "surface.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 64, 185);
+
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(592.1f, 712.8f, 0.f));
+
+
+		//sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "hallway5");
+	}
+	{
+		//creates entity
+		auto entity = ECS::CreateEntity();
+
+		//add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+
+		//sets up components
+		std::string fileName = "longWall.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 264, 20);
+
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(492.1, 610.5, 99.f));
+
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
+			vec2(0.f, 0.f),
+			CollisionIDs::Environment(), (0x0), false);
+
+		//sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "LongWall5");
+	}
+	{
+		//creates entity
+		auto entity = ECS::CreateEntity();
+
+		//add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+
+		//sets up components
+		std::string fileName = "longWall.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 200, 20);
+
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(460.1, 693.4f, 99.f));
+
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
+			vec2(0.f, 0.f),
+			CollisionIDs::Environment(), (0x0), false);
+
+		//sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "LongWall5");
+	}
+	{
+		//creates entity
+		auto entity = ECS::CreateEntity();
+
+		//add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+
+		//sets up components
+		std::string fileName = "longWall.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 200, 20);
+
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(640.1, 813.3, 99.f));
+
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
+			vec2(0.f, 0.f),
+			CollisionIDs::Environment(), (0x0), false);
+
+		//sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "LongWall5");
+	}
+	{
+		//creates entity
+		auto entity = ECS::CreateEntity();
+
+		//add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+
+		//sets up components
+		std::string fileName = "HalfWall.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 115, 20);
+
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(682.4f, 736.8f, 10.f));
+
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
+			vec2(0.f, 0.f),
+			CollisionIDs::Environment(), (0x0), false);
+
+
+		//sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "HalfWall5");
+	}
+	{
+		//creates entity
+		auto entity = ECS::CreateEntity();
+
+		//add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+
+		//sets up components
+		std::string fileName = "HalfSideWall.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 20, 100);
+
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(550.f, 753.3f, 10.f));
+
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
+			vec2(0.f, 0.f),
+			CollisionIDs::Environment(), (0x0), false);
+
+
+		//sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "HalfSideWall5");
+	}
+	{
+		//creates entity
+		auto entity = ECS::CreateEntity();
+
+		//add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+
+		//sets up components
+		std::string fileName = "HalfSideWall.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 20, 147);
+
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(634.1f, 673.3f, 10.f));
+
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
+			vec2(0.f, 0.f),
+			CollisionIDs::Environment(), (0x0), false);
+
+
+		//sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "HalfSideWall5");
+	}
+
 
 	//level 7 starts
 	{
