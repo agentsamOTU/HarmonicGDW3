@@ -86,8 +86,8 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 			CollisionIDs::Player(), (CollisionIDs::Environment() | CollisionIDs::Enemy()|CollisionIDs::Pickup()|CollisionIDs::Acid()), true);
 		tempPhsBody.SetGravity(false);
 		tempPhsBody.SetFriction(1.f);
-		tempPhsBody.SetMaxVelo(70.f);
-		ECS::GetComponent<HealthArmour>(entity).SetHealth(100);
+		tempPhsBody.SetMaxVelo(60.f);
+		ECS::GetComponent<HealthArmour>(entity).SetHealth(75);
 
 		//sets up the identifier
 		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::AnimationBit() 
