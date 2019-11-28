@@ -83,7 +83,7 @@ bool Game::Run()
 			AcceptInput();
 		}
 		//hacky but works
-		//ECS::GetComponent<Camera>(EntityIdentifier::MainCamera()).SetPosition(ECS::GetComponent<Transform>(EntityIdentifier::MainPlayer()).GetPosition());
+		ECS::GetComponent<Camera>(EntityIdentifier::MainCamera()).SetPosition(ECS::GetComponent<Transform>(EntityIdentifier::MainPlayer()).GetPosition());
 	}
 
 	return true;
@@ -137,14 +137,15 @@ void Game::Routines()
 	weaps.AddGunTime(Timer::deltaTime);
 	auto& playHealth = ECS::GetComponent<HealthArmour>(EntityIdentifier::MainPlayer());
 	auto& playLoc = ECS::GetComponent<Transform>(EntityIdentifier::MainPlayer());
-	/*
-	ECS::GetComponent<Transform>(1).SetPosition(playLoc.GetPosition());
-	ECS::GetComponent<Transform>(2).SetPosition(playLoc.GetPosition());
-	ECS::GetComponent<Transform>(3).SetPosition(playLoc.GetPosition());
-	ECS::GetComponent<Transform>(4).SetPosition(playLoc.GetPosition());
-	ECS::GetComponent<Transform>(5).SetPosition(playLoc.GetPosition());
-	ECS::GetComponent<Transform>(6).SetPosition(playLoc.GetPosition());
-	ECS::GetComponent<Transform>(7).SetPosition(playLoc.GetPosition());
+	
+	ECS::GetComponent<Transform>(1).SetPosition(playLoc.GetPosition()+vec3(-75.f,-71.f,0.f));
+	ECS::GetComponent<Transform>(2).SetPosition(playLoc.GetPosition() + vec3(-68.f, -71.f, 0.f));
+	ECS::GetComponent<Transform>(3).SetPosition(playLoc.GetPosition() + vec3(-75.f, -81.f, 0.f));
+	ECS::GetComponent<Transform>(4).SetPosition(playLoc.GetPosition() + vec3(-68.f, -81.f, 0.f));
+	ECS::GetComponent<Transform>(5).SetPosition(playLoc.GetPosition() + vec3(-75.f, -91.f, 0.f));
+	ECS::GetComponent<Transform>(6).SetPosition(playLoc.GetPosition() + vec3(-68.f, -91.f, 0.f));
+	ECS::GetComponent<Transform>(7).SetPosition(playLoc.GetPosition()+vec3(-90.f,-80.f,0.f));
+	ECS::GetComponent<Transform>(8).SetPosition(playLoc.GetPosition() + vec3(-83.f, -84.f, 0.f));
 	if (playHealth.GetHealth() >= 10)
 	{
 		std::string temp = std::to_string(playHealth.GetHealth());
@@ -181,11 +182,9 @@ void Game::Routines()
 		ECS::GetComponent<AnimationController>(3).SetActiveAnim(0);
 		ECS::GetComponent<AnimationController>(4).SetActiveAnim(temp[0] - '0');
 	}
-	*/
 	if (playHealth.GetDamaged())
 	{
 		playHealth.TakeDamage(10);
-		printf("PlayerHealth:%i\n", playHealth.GetHealth());
 		if (playHealth.GetHealth() <= 0)
 		{
 			printf("GAMEOVER");
