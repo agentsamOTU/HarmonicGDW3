@@ -486,6 +486,8 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 		animController.AddAnimation(Animation());
 		animController.AddAnimation(Animation());
 		animController.AddAnimation(Animation());
+		animController.AddAnimation(Animation());
+		animController.AddAnimation(Animation());
 		animController.SetActiveAnim(0);
 		//Walking w/ pistol
 		auto& anim = animController.GetAnimation(0);
@@ -519,6 +521,21 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 		anim6.AddFrame(vec2(61.f, 999.f), vec2(269.f, 789.f));
 		anim6.AddFrame(vec2(400.f, 999.f), vec2(610.f, 789.f));
 		anim6.AddFrame(vec2(739.f, 659.f), vec2(949.f, 450.f));
+		//Doom Guy damage pist
+		auto& anim7 = animController.GetAnimation(6);
+		anim7.AddFrame(vec2(740.f, 629.f), vec2(950.f, 450.f));
+		anim7.AddFrame(vec2(740.f, 969.f), vec2(949.f, 790.f));
+		//Doom Guy damage shot
+		auto& anim8 = animController.GetAnimation(7);
+		anim8.AddFrame(vec2(400.f, 1319.f), vec2(609.f, 1130.f));
+		anim8.AddFrame(vec2(740.f, 1319.f), vec2(949.f, 1130.f));
+		//Doom Guy Dead
+		auto& anim9 = animController.GetAnimation(8);
+		anim9.AddFrame(vec2(40.f, 271.f), vec2(310.f, 22.f));
+		anim9.AddFrame(vec2(380.f, 271.f), vec2(649.f, 21.f));
+		anim9.AddFrame(vec2(1059.f, 279.f), vec2(1329.f, 30.f));
+		anim9.AddFrame(vec2(39.f, 619.f), vec2(309.f, 369.f));
+		anim9.AddFrame(vec2(380.f, 619.f), vec2(659.f, 369.f));
 
 		anim.SetRepeating(true);
 		anim2.SetRepeating(false);
@@ -526,11 +543,17 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 		anim4.SetRepeating(false);
 		anim5.SetRepeating(false);
 		anim6.SetRepeating(false);
+		anim7.SetRepeating(true);
+		anim8.SetRepeating(true);
+		anim9.SetRepeating(false);
 		//sets time between frames
 		anim.SetSecPerFrame(0.1667f);
 		anim3.SetSecPerFrame(0.1667f);
 		anim5.SetSecPerFrame(0.05f);
 		anim6.SetSecPerFrame(0.05f);
+		anim7.SetSecPerFrame(0.1667f);
+		anim8.SetSecPerFrame(0.1667f);
+		anim9.SetSecPerFrame(0.1667f);
 		animController.SetActiveAnim(1);
 		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 24, 24, true, &animController);
 		ECS::GetComponent<Transform>(entity).SetPosition(vec3(0.f, 200.f, 100.f));
@@ -538,7 +561,7 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
 
 
-		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth()/0.9), float(tempSpr.GetHeight()/0.9),
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth()/1.2), float(tempSpr.GetHeight()/1.2),
 			vec2(0.f, 0.f),
 			CollisionIDs::Player(), (CollisionIDs::Environment() | CollisionIDs::Enemy()|CollisionIDs::Pickup()|CollisionIDs::Acid()), true);
 		tempPhsBody.SetGravity(false);
@@ -567,6 +590,28 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 
 		ECS::GetComponent<Transform>(entity).SetPosition(vec3(0.f, 0.f, 0.f));
 		
+
+
+		//sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "Dark Background");
+	}
+	{
+		//creates entity
+		auto entity = ECS::CreateEntity();
+
+		//add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+
+		//sets up components
+		std::string fileName = "surface.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 50, 50);
+
+
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(0.f, 0.f, 20.f));
+
 
 
 		//sets up the identifier
@@ -1606,6 +1651,7 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 
 		ECS::GetComponent<Pickup>(entity).SetHealth(20,0);
 		ECS::GetComponent<Pickup>(entity).SetAmmo(0, 12, 1);
+		ECS::GetComponent<Pickup>(entity).SetLocks(0, 0, 0, 1);
 		ECS::GetComponent<Sprite>(entity).LoadSprite(Potion, 7, 10, true, &animController);
 
 		ECS::GetComponent<Transform>(entity).SetPosition(vec3(0.f, 80.f, 101.f));
@@ -2147,7 +2193,6 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 		ECS::AttachComponent<AnimationController>(entity);
 		ECS::AttachComponent<PhysicsBody>(entity);
 		ECS::AttachComponent<Door>(entity);
-
 		//Sets up components
 		std::string Door = "RegularDoor.png";
 		auto& animController = ECS::GetComponent<AnimationController>(entity);
@@ -2365,9 +2410,9 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 		ECS::AttachComponent<AnimationController>(entity);
 		ECS::AttachComponent<PhysicsBody>(entity);
 		ECS::AttachComponent<Door>(entity);
-
+		ECS::GetComponent<Door>(entity).DoorLock(false, false, false, true);
 		//Sets up components
-		std::string Door = "RegularDoor.png";
+		std::string Door = "YellowDoor.png";
 		auto& animController = ECS::GetComponent<AnimationController>(entity);
 		animController.InitUVs(Door);
 		//Adds first animation
@@ -2478,6 +2523,7 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 		ECS::SetUpIdentifier(entity, bitHolder, "RegularDoor");
 	}
 	{
+
 		//creates entity
 		auto entity = ECS::CreateEntity();
 
@@ -2669,8 +2715,9 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 		ECS::AttachComponent<PhysicsBody>(entity);
 		ECS::AttachComponent<Door>(entity);
 
+		ECS::GetComponent<Door>(entity).DoorLock(false, false, false, true);
 		//Sets up components
-		std::string Door = "RegularDoor.png";
+		std::string Door = "YellowDoor.png";
 		auto& animController = ECS::GetComponent<AnimationController>(entity);
 		animController.InitUVs(Door);
 		//Adds first animation

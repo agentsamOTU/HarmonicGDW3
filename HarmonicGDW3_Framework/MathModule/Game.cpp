@@ -1,5 +1,5 @@
 #include "Game.h"
-
+#include"Timer.h"
 #include <random>
 
 
@@ -36,7 +36,7 @@ void Game::InitGame()
 
 	//Grabs the initialized window
 	m_window = BackEnd::GetWindow();
-	BackEnd::GetWindow()->SetFullscreen(true);
+	//BackEnd::GetWindow()->SetFullscreen(true);
 	//creates a new HelloWorld scene
 	m_scenes.push_back(new HelloWorld("Horizontal scrolling scene"));
 	m_scenes.push_back(new MyScene("My Scene"));
@@ -214,8 +214,10 @@ void Game::Routines()
 	if (playHealth.GetDamaged())
 	{
 		playHealth.TakeDamage(10);
+
 		if (playHealth.GetHealth() <= 0)
 		{
+
 			printf("GAMEOVER");
 			exit(0);
 		}
@@ -240,6 +242,7 @@ void Game::Routines()
 				enemPhs.SetCollideID(0x0);
 				enemPhs.SetVelocity(vec3(0.f, 0.f, 0.f));
 				ECS::GetComponent<Sprite>(entity).SetHeight(36.f);
+				enemLoc.SetPositionZ(5);
 				enemAnim.SetActiveAnim(2);
 
 			}
@@ -304,6 +307,7 @@ void Game::Routines()
 				enemPhs.SetCollideID(0x0);
 				enemPhs.SetVelocity(vec3(0.f, 0.f, 0.f));
 				ECS::GetComponent<Sprite>(entity).SetHeight(36.f);
+				enemLoc.SetPositionZ(5);
 				enemAnim.SetActiveAnim(2);
 
 			}
@@ -322,7 +326,7 @@ void Game::Routines()
 
 
 				}
-				if (Im.GetTime() > 0.5f)
+				if (Im.GetTime() > 1.2f)
 				{
 					Im.ResetShoot();
 					enemAnim.GetAnimation(1).Reset();
@@ -537,7 +541,6 @@ void Game::GamepadTrigger(XInputController* con)
 			printf("Player Ammo:%i\n", shot.GetAmmo());
 		}
 	}
-	
 }
 
 void Game::KeyboardHold()
@@ -604,7 +607,7 @@ void Game::KeyboardDown()
 			auto& animController = ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer());
 			animController.SetActiveAnim(3);
 		}
-		if (ECS::GetComponent<PlayerWeapons>(EntityIdentifier::MainPlayer()).GetWeapon() == 0)
+		if (ECS::GetComponent<PlayerWeapons>(EntityIdentifier::MainPlayer()).GetWeapon() == 0 && ECS::GetComponent<PlayerWeapons>(EntityIdentifier::MainPlayer()).GetHasShotgun() == true)
 		{
 			auto& animController = ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer());
 			animController.SetActiveAnim(1);
