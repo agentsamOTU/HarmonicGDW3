@@ -464,6 +464,7 @@ void Game::GamepadStick(XInputController* con)
 	auto& playPhs = ECS::GetComponent<PhysicsBody>(EntityIdentifier::MainPlayer());
 
 	vec2 totalForce = vec2(0.f, 0.f);
+	/*
 	if (sticks[0].y > 0.3f)
 	{
 		playPhs.ApplyForce(vec3(0.f, 50.f, 0.f));
@@ -479,51 +480,11 @@ void Game::GamepadStick(XInputController* con)
 	if (sticks[0].y < -0.3f)
 	{
 		playPhs.ApplyForce(vec3(0.f, -50.f, 0.f));
-	}
-	if (sticks[1].x > 0.3f && sticks[1].y > 0.3f)
-	{
-		angle = PI - PI/4;
-		look.SetRotationAngleZ(angle);
-	}
-	else if (sticks[1].x < -0.3f && sticks[1].y > 0.3f)
-	{
-		angle = PI + PI/4;
-		look.SetRotationAngleZ(angle);
-	}
-	else if(sticks[1].y < -0.3f&& sticks[1].x > 0.3f)
-	{
-		angle = PI/4;
-		look.SetRotationAngleZ(angle);
-	}
-	else if(sticks[1].y < -0.3f&& sticks[1].x < -0.3f)
-	{
-		angle = 2*PI -PI/4;
-		look.SetRotationAngleZ(angle);
-	}
-	else if (sticks[1].y > 0.3f)
-	{
-		//printf("Up Pointing\n");
-		angle = PI;
-		look.SetRotationAngleZ(angle);
-	}
-	else if (sticks[1].x < -0.3f)
-	{
-		//printf("Left Pointing\n");
-		angle = PI/2 + PI;
-		look.SetRotationAngleZ(angle);
-	}
-	else if (sticks[1].x > 0.3f)
-	{
-		//printf("Right Pointing\n");
-		angle = PI/2;
-		look.SetRotationAngleZ(angle);
-	}
-	else if (sticks[1].y < -0.3f)
-	{
-		//printf("Down Pointing\n");
-		angle = 0;
-		look.SetRotationAngleZ(angle);
-	}
+	}*/
+	playPhs.ApplyForce(vec3(sticks[0].x, sticks[0].y, 0.f)*100.f);
+	angle = atan2(sticks[1].x,sticks[1].y);//fix if want mouse
+	look.SetRotationAngleZ(-angle+PI);
+	
 }
 
 void Game::GamepadTrigger(XInputController* con)
@@ -538,7 +499,23 @@ void Game::GamepadTrigger(XInputController* con)
 		if (shot.GetAmmo() > 0)
 		{
 			shot.Shoot(&trans);
-			printf("Player Ammo:%i\n", shot.GetAmmo());
+			if (shot.GetGunTime() == 0)
+			{
+				if (ECS::GetComponent<PlayerWeapons>(EntityIdentifier::MainPlayer()).GetWeapon() == 1)
+				{
+					ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer()).GetAnimation(4).Reset();
+					auto& animController = ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer());
+					animController.SetActiveAnim(4);
+				}
+				if (ECS::GetComponent<PlayerWeapons>(EntityIdentifier::MainPlayer()).GetWeapon() == 0)
+				{
+					ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer()).GetAnimation(5).Reset();
+					auto& animController = ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer());
+					animController.SetActiveAnim(5);
+				}
+				ECS::GetComponent<Sprite>(EntityIdentifier::MainPlayer()).SetHeight(28);
+				ECS::GetComponent<Sprite>(EntityIdentifier::MainPlayer()).SetWidth(24);
+			}
 		}
 	}
 }
