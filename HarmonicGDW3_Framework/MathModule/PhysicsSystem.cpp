@@ -101,8 +101,9 @@ void PhysicsSystem::Run(entt::registry* reg)
 								}
 								else if (body2.GetBodyID() & CollisionIDs::Acid())
 								{
-									if (ECS::GetComponent<PlayerWeapons>(entity).GetAcid() > 6.f)
+									if (ECS::GetComponent<PlayerWeapons>(entity).GetAcid() > 1.5f)
 									{
+										ECS::GetComponent<PlayerWeapons>(entity).ResetAcid();
 										ECS::GetComponent<HealthArmour>(entity).SetDamaged(true);
 									}
 								}

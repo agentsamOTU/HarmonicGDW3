@@ -608,6 +608,13 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 		//sets up components
 		std::string fileName = "surface.png";
 		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 50, 50);
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+
+
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
+			vec2(0.f, 0.f),
+			CollisionIDs::Acid(), CollisionIDs::Player(), true);
 
 
 		ECS::GetComponent<Transform>(entity).SetPosition(vec3(0.f, 0.f, 20.f));
