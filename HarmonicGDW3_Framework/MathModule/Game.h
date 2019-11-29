@@ -103,6 +103,7 @@ private:
 	vec2 m_velocityEn1 = vec2(0.f, 0.f);
 
 	float m_mass = 2.f;
+	XINPUT_VIBRATION vibration;
 };
 
 

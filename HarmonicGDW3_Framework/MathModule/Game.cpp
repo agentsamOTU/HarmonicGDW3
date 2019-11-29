@@ -61,6 +61,9 @@ bool Game::Run()
 	{
 		//Clear window with clearColor
 		m_window->Clear(m_clearColor);
+		ZeroMemory(&vibration, sizeof(XINPUT_VIBRATION));
+		vibration.wLeftMotorSpeed = 0; // use any value between 0-65535 here
+		vibration.wRightMotorSpeed = 0; // use any value between 0-65535 here
 		//Updates the game
 		Update();
 		//Draws the game
@@ -214,6 +217,7 @@ void Game::Routines()
 	if (playHealth.GetDamaged())
 	{
 		playHealth.TakeDamage(10);
+		vibration.wLeftMotorSpeed = 65535; // use any value between 0-65535 here
 
 		if (playHealth.GetHealth() <= 0)
 		{
@@ -380,13 +384,13 @@ void Game::GamepadInput()
 		{
 			tempCon = XInputManager::GetController(i);
 			tempCon->SetStickDeadZone(0.1f);
-
 			//if the controller is connected we run the different input types
 			GamepadStroke(tempCon);
 			GamepadUp(tempCon);
 			GamepadDown(tempCon);
 			GamepadStick(tempCon);
 			GamepadTrigger(tempCon);
+			XInputSetState(i, &vibration);
 		}
 	}
 }
@@ -515,6 +519,10 @@ void Game::GamepadTrigger(XInputController* con)
 				}
 				ECS::GetComponent<Sprite>(EntityIdentifier::MainPlayer()).SetHeight(28);
 				ECS::GetComponent<Sprite>(EntityIdentifier::MainPlayer()).SetWidth(24);
+			}
+			if (shot.GetGunTime() < 0.15f)
+			{
+				vibration.wRightMotorSpeed = 65535;
 			}
 		}
 	}
