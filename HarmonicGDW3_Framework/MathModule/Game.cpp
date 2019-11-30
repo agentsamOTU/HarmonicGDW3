@@ -216,12 +216,20 @@ void Game::Routines()
 	}
 	if (playHealth.GetDamaged())
 	{
+		auto& animController = ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer());
 		playHealth.TakeDamage(10);
 		vibration.wLeftMotorSpeed = 65535; // use any value between 0-65535 here
+		if (weaps.GetWeapon() == 1)
+		{
+			animController.SetActiveAnim(9);
+		}
+		if (weaps.GetWeapon() == 0)
+		{
+			animController.SetActiveAnim(10);
+		}
 
 		if (playHealth.GetHealth() <= 0)
 		{
-
 			printf("GAMEOVER");
 			exit(0);
 		}
