@@ -31,7 +31,10 @@ public:
 	void SetGreen();
 	void SetYellow();
 	int GetWeapon();
+	bool GetActive();
+	void EndGame();
 private:
+	bool active = true;
 	int curWeap = 0;
 	int ammPist=50;
 	int ammShot=50;
