@@ -631,7 +631,7 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 			CollisionIDs::Acid(), CollisionIDs::Player(), true);
 
 
-		ECS::GetComponent<Transform>(entity).SetPosition(vec3(0.f, 0.f, 20.f));
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(0.f, 0.f, 2.f));
 
 
 
@@ -679,7 +679,7 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 		ECS::GetComponent<Pickup>(entity).SetAmmo(5, 0, 1);
 		ECS::GetComponent<Sprite>(entity).LoadSprite(ammo, 6, 6, true, &animController);
 
-		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-20.f, 80.f, 101.f));
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-20.f, 80.f, 5.f));
 
 		//Sets up the identifier
 		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::AnimationBit();
@@ -725,57 +725,11 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 		ECS::GetComponent<Pickup>(entity).SetAmmo(0, 5, 1);
 		ECS::GetComponent<Sprite>(entity).LoadSprite(ammo, 6, 6, true, &animController);
 
-		ECS::GetComponent<Transform>(entity).SetPosition(vec3(20.f, 80.f, 101.f));
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(20.f, 80.f, 5.f));
 
 		//Sets up the identifier
 		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::AnimationBit();
 		ECS::SetUpIdentifier(entity, bitHolder, "Shotam");
-	}
-	{
-		//Creates entity 
-		auto entity = ECS::CreateEntity();
-
-		//Add components
-		ECS::AttachComponent<Sprite>(entity);
-		ECS::AttachComponent<Transform>(entity);
-		ECS::AttachComponent<AnimationController>(entity);
-		ECS::AttachComponent<PhysicsBody>(entity);
-		ECS::AttachComponent<Pickup>(entity);
-
-		//Sets up components
-		std::string helm = "HelmetArmor.png";
-		auto& animController = ECS::GetComponent<AnimationController>(entity);
-		animController.InitUVs(helm);
-		//Adds first animation
-		animController.AddAnimation(Animation());
-		//Sets active animation
-		animController.SetActiveAnim(0);
-
-		//gets first animation
-		auto& anim = animController.GetAnimation(0);
-		anim.AddFrame(vec2(130.f, 189.f), vec2(199.f, 130.f));
-		anim.AddFrame(vec2(470.f, 189.f), vec2(539.f, 130.f));
-		anim.AddFrame(vec2(130.f, 189.f), vec2(199.f, 130.f));
-		anim.AddFrame(vec2(810.f, 189.f), vec2(879.f, 130.f));
-
-		//Makes it repeat
-		anim.SetRepeating(true);
-		//Sets the time between frames
-		anim.SetSecPerFrame(0.2f);
-		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
-		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
-		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
-			vec2(0.f, 0.f),
-			CollisionIDs::Pickup(), CollisionIDs::Player(), false);
-
-		ECS::GetComponent<Pickup>(entity).SetHealth(0,25);
-		ECS::GetComponent<Sprite>(entity).LoadSprite(helm, 8, 8, true, &animController);
-
-		ECS::GetComponent<Transform>(entity).SetPosition(vec3(20.f, 40.f, 101.f));
-
-		//Sets up the identifier
-		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::AnimationBit();
-		ECS::SetUpIdentifier(entity, bitHolder, "Helmar");
 	}
 	{
 		//Creates entity 
@@ -817,7 +771,7 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 		ECS::GetComponent<Pickup>(entity).SetHealth(0, 50);
 		ECS::GetComponent<Sprite>(entity).LoadSprite(chest, 10, 12, true, &animController);
 
-		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-20.f, 40.f, 101.f));
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-20.f, 40.f, 5.f));
 
 		//Sets up the identifier
 		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::AnimationBit();
@@ -863,7 +817,7 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 		ECS::GetComponent<Pickup>(entity).SetHealth(50, 0);
 		ECS::GetComponent<Sprite>(entity).LoadSprite(med, 10, 12, true, &animController);
 
-		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-20.f, 20.f, 101.f));
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-20.f, 20.f, 5.f));
 
 		//Sets up the identifier
 		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::AnimationBit();
@@ -909,7 +863,7 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 		ECS::GetComponent<Pickup>(entity).SetLocks(0, 0, 0, 1);
 		ECS::GetComponent<Sprite>(entity).LoadSprite(card, 7, 12, true, &animController);
 
-		ECS::GetComponent<Transform>(entity).SetPosition(vec3(20.f, 20.f, 101.f));
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(20.f, 20.f, 5.f));
 
 		//Sets up the identifier
 		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::AnimationBit();
@@ -1529,6 +1483,98 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 		ECS::SetUpIdentifier(entity, bitHolder, "Dark Background");
 	}
 	{
+		//Creates entity 
+		auto entity = ECS::CreateEntity();
+
+		//Add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<AnimationController>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+		ECS::AttachComponent<Pickup>(entity);
+
+		//Sets up components
+		std::string Potion = "HealPot.png";
+		auto& animController = ECS::GetComponent<AnimationController>(entity);
+		animController.InitUVs(Potion);
+		//Adds first animation
+		animController.AddAnimation(Animation());
+		//Sets active animation
+		animController.SetActiveAnim(0);
+
+		//gets first animation
+		auto& anim = animController.GetAnimation(0);
+		anim.AddFrame(vec2(140.f, 229.f), vec2(209.f, 140.f)); //Neutral
+		anim.AddFrame(vec2(280.f, 229.f), vec2(349.f, 140.f)); //Down1
+		anim.AddFrame(vec2(140.f, 229.f), vec2(209.f, 140.f)); //Neutral
+		anim.AddFrame(vec2(410.f, 229.f), vec2(479.f, 140.f)); //Up1
+
+		//Makes it repeat
+		anim.SetRepeating(true);
+		//Sets the time between frames
+		anim.SetSecPerFrame(0.2f);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth() + 20), float(tempSpr.GetHeight()),
+			vec2(0.f, 0.f),
+			CollisionIDs::Pickup(), CollisionIDs::Player(), false);
+
+		ECS::GetComponent<Pickup>(entity).SetHealth(15, 0);
+		ECS::GetComponent<Sprite>(entity).LoadSprite(Potion, 7, 10, true, &animController);
+
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-66.290, -1.043, 5.f));
+
+		//Sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::AnimationBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "Potion");
+	}
+	{
+		//Creates entity 
+		auto entity = ECS::CreateEntity();
+
+		//Add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<AnimationController>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+		ECS::AttachComponent<Pickup>(entity);
+
+		//Sets up components
+		std::string helm = "HelmetArmor.png";
+		auto& animController = ECS::GetComponent<AnimationController>(entity);
+		animController.InitUVs(helm);
+		//Adds first animation
+		animController.AddAnimation(Animation());
+		//Sets active animation
+		animController.SetActiveAnim(0);
+
+		//gets first animation
+		auto& anim = animController.GetAnimation(0);
+		anim.AddFrame(vec2(130.f, 189.f), vec2(199.f, 130.f));
+		anim.AddFrame(vec2(470.f, 189.f), vec2(539.f, 130.f));
+		anim.AddFrame(vec2(130.f, 189.f), vec2(199.f, 130.f));
+		anim.AddFrame(vec2(810.f, 189.f), vec2(879.f, 130.f));
+
+		//Makes it repeat
+		anim.SetRepeating(true);
+		//Sets the time between frames
+		anim.SetSecPerFrame(0.2f);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
+			vec2(0.f, 0.f),
+			CollisionIDs::Pickup(), CollisionIDs::Player(), false);
+
+		ECS::GetComponent<Pickup>(entity).SetHealth(0, 25);
+		ECS::GetComponent<Sprite>(entity).LoadSprite(helm, 8, 8, true, &animController);
+
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(66.290, -1.043, 5.f));
+
+		//Sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::AnimationBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "Helmar");
+	}
+	{
 		//creates entity
 		auto entity = ECS::CreateEntity();
 
@@ -1909,54 +1955,7 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::AnimationBit();
 		ECS::SetUpIdentifier(entity, bitHolder, "RegularDoor");
 	}
-	{
-		//Creates entity 
-		auto entity = ECS::CreateEntity();
-
-		//Add components
-		ECS::AttachComponent<Sprite>(entity);
-		ECS::AttachComponent<Transform>(entity);
-		ECS::AttachComponent<AnimationController>(entity);
-		ECS::AttachComponent<PhysicsBody>(entity);
-		ECS::AttachComponent<Pickup>(entity);
-
-		//Sets up components
-		std::string Potion = "HealPot.png";
-		auto& animController = ECS::GetComponent<AnimationController>(entity);
-		animController.InitUVs(Potion);
-		//Adds first animation
-		animController.AddAnimation(Animation());
-		//Sets active animation
-		animController.SetActiveAnim(0);
-
-		//gets first animation
-		auto& anim = animController.GetAnimation(0);
-		anim.AddFrame(vec2(140.f, 229.f), vec2(209.f, 140.f)); //Neutral
-		anim.AddFrame(vec2(280.f, 229.f), vec2(349.f, 140.f)); //Down1
-		anim.AddFrame(vec2(140.f, 229.f), vec2(209.f, 140.f)); //Neutral
-		anim.AddFrame(vec2(410.f, 229.f), vec2(479.f, 140.f)); //Up1
-
-		//Makes it repeat
-		anim.SetRepeating(true);
-		//Sets the time between frames
-		anim.SetSecPerFrame(0.2f);
-		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
-		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
-		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth() + 20), float(tempSpr.GetHeight()),
-			vec2(0.f, 0.f),
-			CollisionIDs::Pickup(), CollisionIDs::Player(), false);
-
-		ECS::GetComponent<Pickup>(entity).SetHealth(20,0);
-		ECS::GetComponent<Pickup>(entity).SetAmmo(0, 12, 1);
-		ECS::GetComponent<Pickup>(entity).SetLocks(0, 0, 0, 1);
-		ECS::GetComponent<Sprite>(entity).LoadSprite(Potion, 7, 10, true, &animController);
-
-		ECS::GetComponent<Transform>(entity).SetPosition(vec3(0.f, 80.f, 101.f));
-
-		//Sets up the identifier
-		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::AnimationBit();
-		ECS::SetUpIdentifier(entity, bitHolder, "Potion");
-	}
+	
 	//level 2 ends
 
 	//level 3 starts
@@ -2538,8 +2537,184 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::AnimationBit();
 		ECS::SetUpIdentifier(entity, bitHolder, "RegularDoor");
 	}
-	//add shotgun
-	//add keycard
+	{
+		//creates entity
+		auto entity = ECS::CreateEntity();
+
+		//add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+
+		//sets up components
+		std::string fileName = "acidpool.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 50, 175);
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+
+
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth() - 30), float(tempSpr.GetHeight() - 30),
+			vec2(0.f, 0.f),
+			CollisionIDs::Acid(), CollisionIDs::Player(), true);
+
+
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(505.975, 75.523, 2.f));
+
+
+
+		//sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "Acid");
+	}
+	{
+		//creates entity
+		auto entity = ECS::CreateEntity();
+
+		//add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+
+		//sets up components
+		std::string fileName = "acidpool.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 50, 175);
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+
+
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth() - 30), float(tempSpr.GetHeight() - 30),
+			vec2(0.f, 0.f),
+			CollisionIDs::Acid(), CollisionIDs::Player(), true);
+
+
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(375.800, 75.523, 2.f));
+
+
+
+		//sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "Acid");
+	}
+	{
+		//creates entity
+		auto entity = ECS::CreateEntity();
+
+		//add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+		ECS::AttachComponent<Pickup>(entity);
+		ECS::AttachComponent<PlayerWeapons>(entity);
+
+		//sets up components
+		std::string shotgun = "shotgunpickup.png";
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
+			vec2(0.f, 0.f),
+			CollisionIDs::Pickup(), CollisionIDs::Player(), false);
+
+		ECS::GetComponent<Pickup>(entity).SetAmmo(0, 5, 1);
+		ECS::GetComponent<PlayerWeapons>(entity).SetHasShotgun(true);
+		ECS::GetComponent<Sprite>(entity).LoadSprite(shotgun, 45, 30, false);
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(442.450, -21.651, 5.f));
+
+		//sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::AnimationBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "Shotgun");
+	}
+	{
+		//Creates entity 
+		auto entity = ECS::CreateEntity();
+
+		//Add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<AnimationController>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+		ECS::AttachComponent<Pickup>(entity);
+
+		//Sets up components
+		std::string ammo = "ammopickup2.png";
+		auto& animController = ECS::GetComponent<AnimationController>(entity);
+		animController.InitUVs(ammo);
+		//Adds first animation
+		animController.AddAnimation(Animation());
+		//Sets active animation
+		animController.SetActiveAnim(0);
+
+		//gets first animation
+		auto& anim = animController.GetAnimation(0);
+		anim.AddFrame(vec2(130.f, 210.f), vec2(200.f, 140.f));
+		anim.AddFrame(vec2(470.f, 210.f), vec2(539.f, 140.f));
+		anim.AddFrame(vec2(130.f, 210.f), vec2(200.f, 140.f));
+		anim.AddFrame(vec2(810.f, 210.f), vec2(879.f, 140.f));
+
+		//Makes it repeat
+		anim.SetRepeating(true);
+		//Sets the time between frames
+		anim.SetSecPerFrame(0.2f);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
+			vec2(0.f, 0.f),
+			CollisionIDs::Pickup(), CollisionIDs::Player(), false);
+
+		ECS::GetComponent<Pickup>(entity).SetAmmo(0, 5, 1);
+		ECS::GetComponent<Sprite>(entity).LoadSprite(ammo, 6, 6, true, &animController);
+
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(505.975, -21.651, 5.f));
+
+		//Sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::AnimationBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "Shotam");
+	}
+	{
+		//Creates entity 
+		auto entity = ECS::CreateEntity();
+
+		//Add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<AnimationController>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+		ECS::AttachComponent<Pickup>(entity);
+
+		//Sets up components
+		std::string ammo = "ammopickup2.png";
+		auto& animController = ECS::GetComponent<AnimationController>(entity);
+		animController.InitUVs(ammo);
+		//Adds first animation
+		animController.AddAnimation(Animation());
+		//Sets active animation
+		animController.SetActiveAnim(0);
+
+		//gets first animation
+		auto& anim = animController.GetAnimation(0);
+		anim.AddFrame(vec2(130.f, 210.f), vec2(200.f, 140.f));
+		anim.AddFrame(vec2(470.f, 210.f), vec2(539.f, 140.f));
+		anim.AddFrame(vec2(130.f, 210.f), vec2(200.f, 140.f));
+		anim.AddFrame(vec2(810.f, 210.f), vec2(879.f, 140.f));
+
+		//Makes it repeat
+		anim.SetRepeating(true);
+		//Sets the time between frames
+		anim.SetSecPerFrame(0.2f);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
+			vec2(0.f, 0.f),
+			CollisionIDs::Pickup(), CollisionIDs::Player(), false);
+
+		ECS::GetComponent<Pickup>(entity).SetAmmo(0, 5, 1);
+		ECS::GetComponent<Sprite>(entity).LoadSprite(ammo, 6, 6, true, &animController);
+
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(375.800, -21.651, 5.f));
+
+		//Sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::AnimationBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "Shotam");
+	}
 
 
 	//level 4 begins
@@ -2603,6 +2778,276 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 		ECS::AttachComponent<PhysicsBody>(entity);
 
 		//sets up components
+		std::string fileName = "Pillar.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 20, 20);
+
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-264.323, 572.136, 10.f));
+
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
+			vec2(0.f, 0.f),
+			CollisionIDs::Environment(), (0x0), false);
+
+
+		//sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "Pillar1");
+	}
+	{
+		//creates entity
+		auto entity = ECS::CreateEntity();
+
+		//add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+
+		//sets up components
+		std::string fileName = "Pillar.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 20, 20);
+
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(264.323, 572.136, 10.f));
+
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
+			vec2(0.f, 0.f),
+			CollisionIDs::Environment(), (0x0), false);
+
+
+		//sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "Pillar1");
+	}
+	{
+		//creates entity
+		auto entity = ECS::CreateEntity();
+
+		//add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+
+		//sets up components
+		std::string fileName = "Pillar.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 20, 20);
+
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-264.323, 592.136, 10.f));
+
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
+			vec2(0.f, 0.f),
+			CollisionIDs::Environment(), (0x0), false);
+
+
+		//sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "Pillar1");
+	}
+	{
+		//creates entity
+		auto entity = ECS::CreateEntity();
+
+		//add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+
+		//sets up components
+		std::string fileName = "Pillar.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 20, 20);
+
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(264.323, 592.136, 10.f));
+
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
+			vec2(0.f, 0.f),
+			CollisionIDs::Environment(), (0x0), false);
+
+
+		//sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "Pillar1");
+	}
+	{
+		//creates entity
+		auto entity = ECS::CreateEntity();
+
+		//add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+
+		//sets up components
+		std::string fileName = "Pillar.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 20, 20);
+
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-244.323, 572.136, 10.f));
+
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
+			vec2(0.f, 0.f),
+			CollisionIDs::Environment(), (0x0), false);
+
+
+		//sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "Pillar1");
+	}
+	{
+		//creates entity
+		auto entity = ECS::CreateEntity();
+
+		//add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+
+		//sets up components
+		std::string fileName = "Pillar.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 20, 20);
+
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(244.323, 572.136, 10.f));
+
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
+			vec2(0.f, 0.f),
+			CollisionIDs::Environment(), (0x0), false);
+
+
+		//sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "Pillar1");
+	}
+	{
+		//creates entity
+		auto entity = ECS::CreateEntity();
+
+		//add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+
+		//sets up components
+		std::string fileName = "Pillar.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 20, 20);
+
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-264.323, 612.136, 10.f));
+
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
+			vec2(0.f, 0.f),
+			CollisionIDs::Environment(), (0x0), false);
+
+
+		//sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "Pillar1");
+	}
+	{
+		//creates entity
+		auto entity = ECS::CreateEntity();
+
+		//add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+
+		//sets up components
+		std::string fileName = "Pillar.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 20, 20);
+
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(264.323, 612.136, 10.f));
+
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
+			vec2(0.f, 0.f),
+			CollisionIDs::Environment(), (0x0), false);
+
+
+		//sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "Pillar1");
+	}
+	{
+		//creates entity
+		auto entity = ECS::CreateEntity();
+
+		//add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+
+		//sets up components
+		std::string fileName = "Pillar.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 20, 20);
+
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-224.323, 572.136, 10.f));
+
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
+			vec2(0.f, 0.f),
+			CollisionIDs::Environment(), (0x0), false);
+
+
+		//sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "Pillar1");
+	}
+	{
+		//creates entity
+		auto entity = ECS::CreateEntity();
+
+		//add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+
+		//sets up components
+		std::string fileName = "Pillar.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 20, 20);
+
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(224.323, 572.136, 10.f));
+
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
+			vec2(0.f, 0.f),
+			CollisionIDs::Environment(), (0x0), false);
+
+
+		//sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "Pillar1");
+	}
+	{
+		//creates entity
+		auto entity = ECS::CreateEntity();
+
+		//add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+
+		//sets up components
 		std::string fileName = "longWall.png";
 		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 200, 20);
 
@@ -2617,6 +3062,650 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 		//sets up the identifier
 		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
 		ECS::SetUpIdentifier(entity, bitHolder, "LongWall4");
+	}
+	{
+		//creates entity
+		auto entity = ECS::CreateEntity();
+
+		//add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+
+		//sets up components
+		std::string fileName = "longWall.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 200, 20);
+
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-132.4, 509.9, 99.f));
+
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
+			vec2(0.f, 0.f),
+			CollisionIDs::Environment(), (0x0), false);
+
+		//sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "LongWall4");
+	}
+	{
+		//creates entity
+		auto entity = ECS::CreateEntity();
+
+		//add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+
+		//sets up components
+		std::string fileName = "longWall.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 200, 20);
+
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(132.4, 509.9, 99.f));
+
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
+			vec2(0.f, 0.f),
+			CollisionIDs::Environment(), (0x0), false);
+
+		//sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "LongWall4");
+	}
+	{
+		//creates entity
+		auto entity = ECS::CreateEntity();
+
+		//add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+
+		//sets up components
+		std::string fileName = "Pillar.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 20, 20);
+
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-264.323, 732.609, 10.f));
+
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
+			vec2(0.f, 0.f),
+			CollisionIDs::Environment(), (0x0), false);
+
+
+		//sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "Pillar1");
+	}
+	{
+		//creates entity
+		auto entity = ECS::CreateEntity();
+
+		//add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+
+		//sets up components
+		std::string fileName = "Pillar.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 20, 20);
+
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(264.323, 732.609, 10.f));
+
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
+			vec2(0.f, 0.f),
+			CollisionIDs::Environment(), (0x0), false);
+
+
+		//sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "Pillar1");
+	}
+	{
+		//creates entity
+		auto entity = ECS::CreateEntity();
+
+		//add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+
+		//sets up components
+		std::string fileName = "Pillar.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 20, 20);
+
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-264.323, 712.609, 10.f));
+
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
+			vec2(0.f, 0.f),
+			CollisionIDs::Environment(), (0x0), false);
+
+
+		//sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "Pillar1");
+	}
+	{
+		//creates entity
+		auto entity = ECS::CreateEntity();
+
+		//add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+
+		//sets up components
+		std::string fileName = "Pillar.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 20, 20);
+
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(264.323, 712.609, 10.f));
+
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
+			vec2(0.f, 0.f),
+			CollisionIDs::Environment(), (0x0), false);
+
+
+		//sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "Pillar1");
+	}
+	{
+		//creates entity
+		auto entity = ECS::CreateEntity();
+
+		//add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+
+		//sets up components
+		std::string fileName = "Pillar.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 20, 20);
+
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-244.323, 732.609, 10.f));
+
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
+			vec2(0.f, 0.f),
+			CollisionIDs::Environment(), (0x0), false);
+
+
+		//sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "Pillar1");
+	}
+	{
+		//creates entity
+		auto entity = ECS::CreateEntity();
+
+		//add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+
+		//sets up components
+		std::string fileName = "Pillar.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 20, 20);
+
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(244.323, 732.609, 10.f));
+
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
+			vec2(0.f, 0.f),
+			CollisionIDs::Environment(), (0x0), false);
+
+
+		//sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "Pillar1");
+	}
+	{
+		//creates entity
+		auto entity = ECS::CreateEntity();
+
+		//add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+
+		//sets up components
+		std::string fileName = "Pillar.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 20, 20);
+
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-264.323, 692.609, 10.f));
+
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
+			vec2(0.f, 0.f),
+			CollisionIDs::Environment(), (0x0), false);
+
+
+		//sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "Pillar1");
+	}
+	{
+		//creates entity
+		auto entity = ECS::CreateEntity();
+
+		//add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+
+		//sets up components
+		std::string fileName = "Pillar.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 20, 20);
+
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(264.323, 692.609, 10.f));
+
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
+			vec2(0.f, 0.f),
+			CollisionIDs::Environment(), (0x0), false);
+
+
+		//sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "Pillar1");
+	}
+	{
+		//creates entity
+		auto entity = ECS::CreateEntity();
+
+		//add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+
+		//sets up components
+		std::string fileName = "Pillar.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 20, 20);
+
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-224.323, 732.609, 10.f));
+
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
+			vec2(0.f, 0.f),
+			CollisionIDs::Environment(), (0x0), false);
+
+
+		//sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "Pillar1");
+	}
+	{
+		//creates entity
+		auto entity = ECS::CreateEntity();
+
+		//add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+
+		//sets up components
+		std::string fileName = "Pillar.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 20, 20);
+
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(224.323, 732.609, 10.f));
+
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
+			vec2(0.f, 0.f),
+			CollisionIDs::Environment(), (0x0), false);
+
+
+		//sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "Pillar1");
+	}
+	{
+		//creates entity
+		auto entity = ECS::CreateEntity();
+
+		//add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+
+		//sets up components
+		std::string fileName = "Pillar.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 20, 20);
+
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(204.323, 732.609, 10.f));
+
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
+			vec2(0.f, 0.f),
+			CollisionIDs::Environment(), (0x0), false);
+
+
+		//sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "Pillar1");
+	}
+	{
+		//creates entity
+		auto entity = ECS::CreateEntity();
+
+		//add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+
+		//sets up components
+		std::string fileName = "Pillar.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 20, 20);
+
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-204.323, 732.609, 10.f));
+
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
+			vec2(0.f, 0.f),
+			CollisionIDs::Environment(), (0x0), false);
+
+
+		//sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "Pillar1");
+	}
+	{
+		//creates entity
+		auto entity = ECS::CreateEntity();
+
+		//add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+
+		//sets up components
+		std::string fileName = "Pillar.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 20, 20);
+
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(184.323, 732.609, 10.f));
+
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
+			vec2(0.f, 0.f),
+			CollisionIDs::Environment(), (0x0), false);
+
+
+		//sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "Pillar1");
+	}
+	{
+		//creates entity
+		auto entity = ECS::CreateEntity();
+
+		//add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+
+		//sets up components
+		std::string fileName = "Pillar.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 20, 20);
+
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(164.323, 732.609, 10.f));
+
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
+			vec2(0.f, 0.f),
+			CollisionIDs::Environment(), (0x0), false);
+
+
+		//sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "Pillar1");
+	}
+	{
+		//creates entity
+		auto entity = ECS::CreateEntity();
+
+		//add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+
+		//sets up components
+		std::string fileName = "Pillar.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 20, 20);
+
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-164.323, 732.609, 10.f));
+
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
+			vec2(0.f, 0.f),
+			CollisionIDs::Environment(), (0x0), false);
+
+
+		//sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "Pillar1");
+	}
+	{
+		//creates entity
+		auto entity = ECS::CreateEntity();
+
+		//add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+
+		//sets up components
+		std::string fileName = "Pillar.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 20, 20);
+
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-184.323, 732.609, 10.f));
+
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
+			vec2(0.f, 0.f),
+			CollisionIDs::Environment(), (0x0), false);
+
+
+		//sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "Pillar1");
+	}
+	{
+		//creates entity
+		auto entity = ECS::CreateEntity();
+
+		//add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+
+		//sets up components
+		std::string fileName = "Pillar.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 20, 20);
+
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-164.323, 572.136, 10.f));
+
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
+			vec2(0.f, 0.f),
+			CollisionIDs::Environment(), (0x0), false);
+
+
+		//sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "Pillar1");
+	}
+	{
+		//creates entity
+		auto entity = ECS::CreateEntity();
+
+		//add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+
+		//sets up components
+		std::string fileName = "Pillar.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 20, 20);
+
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-184.323, 572.136, 10.f));
+
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
+			vec2(0.f, 0.f),
+			CollisionIDs::Environment(), (0x0), false);
+
+
+		//sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "Pillar1");
+	}
+	{
+		//creates entity
+		auto entity = ECS::CreateEntity();
+
+		//add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+
+		//sets up components
+		std::string fileName = "Pillar.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 20, 20);
+
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-204.323, 572.136, 10.f));
+
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
+			vec2(0.f, 0.f),
+			CollisionIDs::Environment(), (0x0), false);
+
+
+		//sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "Pillar1");
+	}
+	{
+		//creates entity
+		auto entity = ECS::CreateEntity();
+
+		//add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+
+		//sets up components
+		std::string fileName = "Pillar.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 20, 20);
+
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(164.323, 572.136, 10.f));
+
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
+			vec2(0.f, 0.f),
+			CollisionIDs::Environment(), (0x0), false);
+
+
+		//sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "Pillar1");
+	}
+	{
+		//creates entity
+		auto entity = ECS::CreateEntity();
+
+		//add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+
+		//sets up components
+		std::string fileName = "Pillar.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 20, 20);
+
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(184.323, 572.136, 10.f));
+
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
+			vec2(0.f, 0.f),
+			CollisionIDs::Environment(), (0x0), false);
+
+
+		//sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "Pillar1");
+	}
+	{
+		//creates entity
+		auto entity = ECS::CreateEntity();
+
+		//add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+
+		//sets up components
+		std::string fileName = "Pillar.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 20, 20);
+
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(204.323, 572.136, 10.f));
+
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
+			vec2(0.f, 0.f),
+			CollisionIDs::Environment(), (0x0), false);
+
+
+		//sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "Pillar1");
 	}
 	{
 		//creates entity
@@ -3082,7 +4171,111 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
 		ECS::SetUpIdentifier(entity, bitHolder, "Dark Background");
 	}
+	{
+		//creates entity
+		auto entity = ECS::CreateEntity();
 
+		//add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+
+		//sets up components
+		std::string fileName = "acidpool.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 100, 100);
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+
+
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth() - 30), float(tempSpr.GetHeight() - 30),
+			vec2(0.f, 0.f),
+			CollisionIDs::Acid(), CollisionIDs::Player(), true);
+
+
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(0.f, 652.4, 2.f));
+
+
+
+		//sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "Acid");
+	}
+	{
+		//Creates entity 
+		auto entity = ECS::CreateEntity();
+
+		//Add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<AnimationController>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+		ECS::AttachComponent<HealthArmour>(entity);
+		ECS::AttachComponent<Imp>(entity);
+
+		//Sets up components
+		std::string Demon = "DemonMasterSheet.png";
+		auto& animController = ECS::GetComponent<AnimationController>(entity);
+		animController.InitUVs(Demon);
+		//Adds first animation
+		animController.AddAnimation(Animation());
+		animController.AddAnimation(Animation());
+		animController.AddAnimation(Animation());
+		//Sets active animation
+		animController.SetActiveAnim(0);
+
+		//gets first animation
+		auto& anim = animController.GetAnimation(0);
+		anim.AddFrame(vec2(68.f, 905.f), vec2(277.f, 766.f));
+		anim.AddFrame(vec2(408.f, 903.f), vec2(617.f, 764.f));
+		anim.AddFrame(vec2(68.f, 905.f), vec2(277.f, 766.f));
+		anim.AddFrame(vec2(743.f, 911.f), vec2(953.f, 772.f));
+		auto& anim2 = animController.GetAnimation(1);
+		anim2.AddFrame(vec2(67.f, 895.f), vec2(277.f, 766.f));
+		anim2.AddFrame(vec2(71.f, 572.f), vec2(280.f, 442.f));
+		anim2.AddFrame(vec2(411.f, 572.f), vec2(620.f, 442.f));
+		anim2.AddFrame(vec2(751.f, 573.f), vec2(960.f, 443.f));
+		anim2.AddFrame(vec2(1091.f, 573.f), vec2(1300.f, 443.f));
+		anim2.AddFrame(vec2(751.f, 573.f), vec2(960.f, 443.f));
+		anim2.AddFrame(vec2(411.f, 572.f), vec2(620.f, 442.f));
+		anim2.AddFrame(vec2(71.f, 572.f), vec2(280.f, 442.f));
+		anim2.AddFrame(vec2(67.f, 895.f), vec2(277.f, 766.f));
+		auto& anim3 = animController.GetAnimation(2);
+		anim3.AddFrame(vec2(28.f, 290.f), vec2(298.f, 41.f));
+		anim3.AddFrame(vec2(371.f, 290.f), vec2(640.f, 41.f));
+		anim3.AddFrame(vec2(711.f, 290.f), vec2(980.f, 41.f));
+		anim3.AddFrame(vec2(1051.f, 290.f), vec2(1321.f, 41.f));
+		anim3.AddFrame(vec2(1391.f, 290.f), vec2(1660.f, 41.f));
+
+
+		//Makes it repeat
+		anim.SetRepeating(true);
+		anim2.SetRepeating(false);
+		anim3.SetRepeating(false);
+		//Sets the time between frames
+		anim.SetSecPerFrame(0.1667f);
+		anim2.SetSecPerFrame(0.1667f);
+		anim3.SetSecPerFrame(0.1667f);
+
+
+		ECS::GetComponent<Sprite>(entity).LoadSprite(Demon, 22, 22, true, &animController);
+
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(0.f, 652.4, 10.f));
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
+			vec2(0.f, 0.f),
+			CollisionIDs::Enemy(), (CollisionIDs::Player() | CollisionIDs::Environment()), true);
+		tempPhsBody.SetGravity(false);
+		tempPhsBody.SetFriction(1.f);
+
+		ECS::GetComponent<HealthArmour>(entity).SetHealth(30);
+
+		//Sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::AnimationBit()
+			| EntityIdentifier::PhysicsBit() | EntityIdentifier::HealthArmourBit() | EntityIdentifier::ImpBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "Imp");
+	}
 
 	//level 5 starts
 	{
