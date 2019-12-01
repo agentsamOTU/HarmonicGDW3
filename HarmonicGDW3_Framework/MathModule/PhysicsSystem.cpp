@@ -107,6 +107,11 @@ void PhysicsSystem::Run(entt::registry* reg)
 										ECS::GetComponent<HealthArmour>(entity).SetDamaged(true);
 									}
 								}
+								else if (body2.GetBodyID() & CollisionIDs::Win())
+								{
+									ECS::GetComponent<PlayerWeapons>(entity).EndGame();
+									//spawn winning entity
+								}
 								else
 								{
 									//moves dynamic object out of static object it is colliding with

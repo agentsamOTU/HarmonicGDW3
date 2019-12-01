@@ -76,14 +76,19 @@ bool Game::Run()
 		//Flips the windows
 		m_window->Flip();
 		//Polls events and then checks them
-		BackEnd::PollEvents(m_register, &m_close, &m_motion, &m_click, &m_wheel);
-		CheckEvents();
-		Routines();
-		//does the window have keyboard focus?
-		if (Input::m_windowFocus)
+		
+		if (ECS::GetComponent<PlayerWeapons>(EntityIdentifier::MainPlayer()).GetActive())
 		{
-			//Accept all input
-			AcceptInput();
+			BackEnd::PollEvents(m_register, &m_close, &m_motion, &m_click, &m_wheel);
+			CheckEvents();
+			
+			//does the window have keyboard focus?
+			if (Input::m_windowFocus)
+			{
+				//Accept all input
+				AcceptInput();
+			}
+			Routines();
 		}
 		//hacky but works
 		ECS::GetComponent<Camera>(EntityIdentifier::MainCamera()).SetPosition(ECS::GetComponent<Transform>(EntityIdentifier::MainPlayer()).GetPosition());
@@ -217,6 +222,7 @@ void Game::Routines()
 	if (playHealth.GetDamaged())
 	{
 		auto& animController = ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer());
+		auto& player = ECS::GetComponent<PlayerWeapons>(EntityIdentifier::MainPlayer());
 		playHealth.TakeDamage(10);
 		vibration.wLeftMotorSpeed = 65535; // use any value between 0-65535 here
 		if (weaps.GetWeapon() == 1)
@@ -230,8 +236,50 @@ void Game::Routines()
 
 		if (playHealth.GetHealth() <= 0)
 		{
-			printf("GAMEOVER");
-			exit(0);
+			animController.SetActiveAnim(8);
+			player.EndGame();
+			ECS::GetComponent<Sprite>(EntityIdentifier::MainPlayer()).SetHeight(28.f);
+			playPhys.SetVelocity(vec3(0.f,0.f,0.f));
+			playPhys.SetAcceleration(vec3(0.f, 0.f, 0.f));
+			playPhys.SetForce(vec3(0.f, 0.f, 0.f));
+			//Creates entity 
+			auto entity = ECS::CreateEntity();
+
+			//Add components
+			ECS::AttachComponent<Sprite>(entity);
+			ECS::AttachComponent<Transform>(entity);
+			ECS::AttachComponent<AnimationController>(entity);
+
+			//Sets up components
+			std::string GameOver = "gameoversheetbig.png";
+			auto& animController = ECS::GetComponent<AnimationController>(entity);
+			animController.InitUVs(GameOver);
+			//Adds first animation
+			animController.AddAnimation(Animation());
+			//Sets active animation
+			animController.SetActiveAnim(0);
+
+			//gets first animation
+			auto& anim = animController.GetAnimation(0);
+			anim.AddFrame(vec2(29.f, 239.f), vec2(529.f, 79.f));
+			anim.AddFrame(vec2(30.f, 508.f), vec2(530.f, 349.f));
+			anim.AddFrame(vec2(590.f, 239.f), vec2(1089.f, 80.f));
+			anim.AddFrame(vec2(590.f, 509.f), vec2(1090.f, 350.f));
+
+			//Makes it repeat
+			anim.SetRepeating(false);
+			//Sets the time between frames
+			anim.SetSecPerFrame(1.f);
+
+
+			ECS::GetComponent<Sprite>(entity).LoadSprite(GameOver, 180, 75, true, &animController);
+
+			ECS::GetComponent<Transform>(entity).SetPosition(vec3(playLoc.GetPosition())+vec3(0.f,10.f,1.f));
+
+			//Sets up the identifier
+			unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::AnimationBit();
+			ECS::SetUpIdentifier(entity, bitHolder, "GameOver");
+			
 		}
 	}
 	auto view = m_register->view<Zombie>();
@@ -617,59 +665,7 @@ void Game::KeyboardUp()
 			UI::InitImGUI();
 		}
 		m_guiActive = !m_guiActive;
-	}/*
-	if (Input::GetKeyUp(Key::W))
-	{
-		if (ECS::GetComponent<PlayerWeapons>(EntityIdentifier::MainPlayer()).curWeap == 1)
-		{
-			auto& animController = ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer());
-			animController.SetActiveAnim(3);
-		}
-		if (ECS::GetComponent<PlayerWeapons>(EntityIdentifier::MainPlayer()).curWeap == 0)
-		{
-			auto& animController = ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer());
-			animController.SetActiveAnim(1);
-		}
 	}
-	if (Input::GetKeyUp(Key::A))
-	{
-		if (ECS::GetComponent<PlayerWeapons>(EntityIdentifier::MainPlayer()).curWeap == 1)
-		{
-			auto& animController = ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer());
-			animController.SetActiveAnim(3);
-		}
-		if (ECS::GetComponent<PlayerWeapons>(EntityIdentifier::MainPlayer()).curWeap == 0)
-		{
-			auto& animController = ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer());
-			animController.SetActiveAnim(1);
-		}
-	}
-	if (Input::GetKeyUp(Key::S))
-	{
-		if (ECS::GetComponent<PlayerWeapons>(EntityIdentifier::MainPlayer()).curWeap == 1)
-		{
-			auto& animController = ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer());
-			animController.SetActiveAnim(3);
-		}
-		if (ECS::GetComponent<PlayerWeapons>(EntityIdentifier::MainPlayer()).curWeap == 0)
-		{
-			auto& animController = ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer());
-			animController.SetActiveAnim(1);
-		}
-	}
-	if (Input::GetKeyUp(Key::D))
-	{	
-		if (ECS::GetComponent<PlayerWeapons>(EntityIdentifier::MainPlayer()).curWeap == 1)
-		{
-			auto& animController = ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer());
-			animController.SetActiveAnim(3);
-		}
-		if (ECS::GetComponent<PlayerWeapons>(EntityIdentifier::MainPlayer()).curWeap == 0)
-		{
-			auto& animController = ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer());
-			animController.SetActiveAnim(1);
-		}
-	}	*/
 }
 
 void Game::MouseMotion(SDL_MouseMotionEvent evnt)

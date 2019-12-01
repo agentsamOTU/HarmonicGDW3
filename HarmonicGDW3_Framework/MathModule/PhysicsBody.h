@@ -25,6 +25,7 @@ public:
 	static unsigned int Bullet();
 	static unsigned int Pickup();
 	static unsigned int Acid();
+	static unsigned int Win();
 private:
 	//holds the IDs
 	static unsigned int m_playerID;
@@ -33,6 +34,7 @@ private:
 	static unsigned int m_bulletID;
 	static unsigned int m_pickupID;
 	static unsigned int m_acidID;
+	static unsigned int m_winID;
 };
 
 class PhysicsBody

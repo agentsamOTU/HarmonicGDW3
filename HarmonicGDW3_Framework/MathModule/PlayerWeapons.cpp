@@ -323,3 +323,13 @@ int PlayerWeapons::GetWeapon()
 {
 	return curWeap;
 }
+
+bool PlayerWeapons::GetActive()
+{
+	return active;
+}
+
+void PlayerWeapons::EndGame()
+{
+	active = false;
+}
