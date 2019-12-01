@@ -107,6 +107,33 @@ void PhysicsSystem::Run(entt::registry* reg)
 										ECS::GetComponent<HealthArmour>(entity).SetDamaged(true);
 									}
 								}
+								else if (body2.GetBodyID() & CollisionIDs::Win())
+								{
+									ECS::GetComponent<PlayerWeapons>(entity).EndGame();
+									auto& playPhys = ECS::GetComponent<PhysicsBody>(EntityIdentifier::MainPlayer());
+									auto& playLoc = ECS::GetComponent<Transform>(EntityIdentifier::MainPlayer());
+									ECS::GetComponent<Sprite>(EntityIdentifier::MainPlayer()).SetHeight(28.f);
+									playPhys.SetVelocity(vec3(0.f, 0.f, 0.f));
+									playPhys.SetAcceleration(vec3(0.f, 0.f, 0.f));
+									playPhys.SetForce(vec3(0.f, 0.f, 0.f));
+									//Creates entity 
+									auto entity = ECS::CreateEntity();
+
+									//Add components
+									ECS::AttachComponent<Sprite>(entity);
+									ECS::AttachComponent<Transform>(entity);
+
+									//Sets up components
+									std::string GameOver = "levelcomplete.png";
+						
+									ECS::GetComponent<Sprite>(entity).LoadSprite(GameOver, 180, 75);
+
+									ECS::GetComponent<Transform>(entity).SetPosition(vec3(playLoc.GetPosition()) + vec3(0.f, 10.f, 1.f));
+
+									//Sets up the identifier
+									unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
+									ECS::SetUpIdentifier(entity, bitHolder, "levelDone");
+								}
 								else
 								{
 									//moves dynamic object out of static object it is colliding with
