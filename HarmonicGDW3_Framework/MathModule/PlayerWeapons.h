@@ -37,7 +37,7 @@ private:
 	bool active = true;
 	int curWeap = 0;
 	int ammPist=50;
-	int ammShot=50;
+	int ammShot=0;
 	bool hasShot = false;
 	float acidTime = 0.f;
 	float shotTime = 0.f;
