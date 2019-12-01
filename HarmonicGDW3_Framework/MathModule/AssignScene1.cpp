@@ -577,7 +577,7 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 
 		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth()/1.2), float(tempSpr.GetHeight()/1.2),
 			vec2(0.f, 0.f),
-			CollisionIDs::Player(), (CollisionIDs::Environment() | CollisionIDs::Enemy()|CollisionIDs::Pickup()|CollisionIDs::Acid()), true);
+			CollisionIDs::Player(), (CollisionIDs::Environment() | CollisionIDs::Enemy()|CollisionIDs::Pickup()|CollisionIDs::Acid()|CollisionIDs::Win()), true);
 		tempPhsBody.SetGravity(false);
 		tempPhsBody.SetFriction(1.f);
 		tempPhsBody.SetMaxVelo(60.f);

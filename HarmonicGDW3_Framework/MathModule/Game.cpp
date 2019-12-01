@@ -279,6 +279,8 @@ void Game::Routines()
 			//Sets up the identifier
 			unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::AnimationBit();
 			ECS::SetUpIdentifier(entity, bitHolder, "GameOver");
+			ECS::GetComponent<AnimationController>(1).SetActiveAnim(0);
+			ECS::GetComponent<AnimationController>(2).SetActiveAnim(0);
 			
 		}
 	}
