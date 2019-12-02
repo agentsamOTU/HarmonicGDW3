@@ -8,7 +8,7 @@ void PlayerWeapons::Shoot(Transform* trans)
 {
 	if (curWeap == 0)//pistol
 	{
-		if (GetGunTime() > 0.5f)
+		if (GetGunTime() > 0.6f)
 		{
 			auto& animController2 = ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer());
 			animController2.SetActiveAnim(1);
@@ -48,6 +48,7 @@ void PlayerWeapons::Shoot(Transform* trans)
 			ammPist -= 1;
 			ResetGunTime();
 			animController2.SetActiveAnim(5);
+			mciSendString("play assets/sound/dspistol.wav", NULL, 0, NULL);
 		}
 	}
 	else if (curWeap == 1)//shotgun
@@ -154,6 +155,7 @@ void PlayerWeapons::Shoot(Transform* trans)
 			ammShot -= 1;
 			ResetGunTime();
 			animController4.SetActiveAnim(4);
+			mciSendString("play assets/sound/dsdshtgn.wav", NULL, 0, NULL);
 		}
 	}
 

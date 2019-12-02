@@ -36,7 +36,7 @@ void Game::InitGame()
 
 	//Grabs the initialized window
 	m_window = BackEnd::GetWindow();
-	//BackEnd::GetWindow()->SetFullscreen(true);
+	BackEnd::GetWindow()->SetFullscreen(true);
 	//creates a new HelloWorld scene
 	m_scenes.push_back(new HelloWorld("Horizontal scrolling scene"));
 	m_scenes.push_back(new MyScene("My Scene"));
@@ -470,6 +470,7 @@ void Game::GamepadStroke(XInputController* con)
 			{
 				if (ECS::GetComponent<Door>(entity).LockCheck())
 				{
+					mciSendString("play assets/sound/dsbdopn.wav", NULL, 0, NULL);
 					ECS::GetComponent<Door>(entity).DoorToggle(&doorPhs, &doorAnim);
 				}
 			}
@@ -637,6 +638,7 @@ void Game::KeyboardDown()
 			{
 				if (ECS::GetComponent<Door>(entity).LockCheck())
 				{
+					mciSendString("play assets/sound/dsbdopn.wav", NULL, 0, NULL);
 					ECS::GetComponent<Door>(entity).DoorToggle(&doorPhs, &doorAnim);
 				}
 			}
