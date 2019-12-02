@@ -456,7 +456,7 @@ void Game::GamepadInput()
 void Game::GamepadStroke(XInputController* con)
 {
 	//gamepad button press
-	if (con->IsButtonStroked(Buttons::A))
+	if (con->IsButtonStroked(Buttons::A)||con->IsButtonStroked(Buttons::RB))
 	{
 		auto view = m_register->view<Door>();
 		for (auto entity : view)
@@ -484,36 +484,12 @@ void Game::GamepadStroke(XInputController* con)
 
 void Game::GamepadUp(XInputController* con)
 {
-	//gamepad button up
-	if (con->IsButtonReleased(Buttons::RB))
-	{
-		//printf("RB released\n");
-	}
+	
 }
 
 void Game::GamepadDown(XInputController* con)
 {
-	//gamepad button down
-	if (con->IsButtonPressed(Buttons::THUMB_LEFT))
-	{
-		printf("Left Thumbsticked Clicked In\n");
-	}
-	if (con->IsButtonPressed(Buttons::DPAD_UP))
-	{
-		printf("Up press registered\n");
-	}
-	if (con->IsButtonPressed(Buttons::DPAD_LEFT))
-	{
-		printf("Left press registered\n");
-	}
-	if (con->IsButtonPressed(Buttons::DPAD_RIGHT))
-	{
-		printf("Right press registered\n");
-	}
-	if (con->IsButtonPressed(Buttons::DPAD_DOWN))
-	{
-		printf("Down press registered\n");
-	}
+	
 }
 
 void Game::GamepadStick(XInputController* con)
