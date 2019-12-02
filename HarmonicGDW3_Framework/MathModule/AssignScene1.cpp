@@ -619,190 +619,6 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 		ECS::AttachComponent<Transform>(entity);
 		ECS::AttachComponent<AnimationController>(entity);
 		ECS::AttachComponent<PhysicsBody>(entity);
-		ECS::AttachComponent<Pickup>(entity);
-
-		//Sets up components
-		std::string ammo = "ammopickup.png";
-		auto& animController = ECS::GetComponent<AnimationController>(entity);
-		animController.InitUVs(ammo);
-		//Adds first animation
-		animController.AddAnimation(Animation());
-		//Sets active animation
-		animController.SetActiveAnim(0);
-
-		//gets first animation
-		auto& anim = animController.GetAnimation(0);
-		anim.AddFrame(vec2(130.f, 210.f), vec2(200.f, 140.f));
-		anim.AddFrame(vec2(470.f, 210.f), vec2(539.f, 140.f));
-		anim.AddFrame(vec2(130.f, 210.f), vec2(200.f, 140.f));
-		anim.AddFrame(vec2(810.f, 210.f), vec2(879.f, 140.f));
-
-		//Makes it repeat
-		anim.SetRepeating(true);
-		//Sets the time between frames
-		anim.SetSecPerFrame(0.2f);
-		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
-		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
-		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
-			vec2(0.f, 0.f),
-			CollisionIDs::Pickup(), CollisionIDs::Player(), false);
-
-		ECS::GetComponent<Pickup>(entity).SetAmmo(5, 0, 0);
-		ECS::GetComponent<Sprite>(entity).LoadSprite(ammo, 6, 6, true, &animController);
-
-		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-20.f, 80.f, 5.f));
-
-		//Sets up the identifier
-		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::AnimationBit();
-		ECS::SetUpIdentifier(entity, bitHolder, "Pistam");
-	}
-	{
-		//Creates entity 
-		auto entity = ECS::CreateEntity();
-
-		//Add components
-		ECS::AttachComponent<Sprite>(entity);
-		ECS::AttachComponent<Transform>(entity);
-		ECS::AttachComponent<AnimationController>(entity);
-		ECS::AttachComponent<PhysicsBody>(entity);
-		ECS::AttachComponent<Pickup>(entity);
-
-		//Sets up components
-		std::string ammo = "ammopickup2.png";
-		auto& animController = ECS::GetComponent<AnimationController>(entity);
-		animController.InitUVs(ammo);
-		//Adds first animation
-		animController.AddAnimation(Animation());
-		//Sets active animation
-		animController.SetActiveAnim(0);
-
-		//gets first animation
-		auto& anim = animController.GetAnimation(0);
-		anim.AddFrame(vec2(130.f, 210.f), vec2(200.f, 140.f));
-		anim.AddFrame(vec2(470.f, 210.f), vec2(539.f, 140.f));
-		anim.AddFrame(vec2(130.f, 210.f), vec2(200.f, 140.f));
-		anim.AddFrame(vec2(810.f, 210.f), vec2(879.f, 140.f));
-
-		//Makes it repeat
-		anim.SetRepeating(true);
-		//Sets the time between frames
-		anim.SetSecPerFrame(0.2f);
-		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
-		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
-		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
-			vec2(0.f, 0.f),
-			CollisionIDs::Pickup(), CollisionIDs::Player(), false);
-
-		ECS::GetComponent<Pickup>(entity).SetAmmo(0, 5, 1);
-		ECS::GetComponent<Sprite>(entity).LoadSprite(ammo, 6, 6, true, &animController);
-
-		ECS::GetComponent<Transform>(entity).SetPosition(vec3(20.f, 80.f, 5.f));
-
-		//Sets up the identifier
-		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::AnimationBit();
-		ECS::SetUpIdentifier(entity, bitHolder, "Shotam");
-	}
-	{
-		//Creates entity 
-		auto entity = ECS::CreateEntity();
-
-		//Add components
-		ECS::AttachComponent<Sprite>(entity);
-		ECS::AttachComponent<Transform>(entity);
-		ECS::AttachComponent<AnimationController>(entity);
-		ECS::AttachComponent<PhysicsBody>(entity);
-		ECS::AttachComponent<Pickup>(entity);
-
-		//Sets up components
-		std::string chest = "ChestArmor.png";
-		auto& animController = ECS::GetComponent<AnimationController>(entity);
-		animController.InitUVs(chest);
-		//Adds first animation
-		animController.AddAnimation(Animation());
-		//Sets active animation
-		animController.SetActiveAnim(0);
-
-		//gets first animation
-		auto& anim = animController.GetAnimation(0);
-		anim.AddFrame(vec2(120.f, 210.f), vec2(209.f, 110.f));
-		anim.AddFrame(vec2(460.f, 210.f), vec2(549.f, 110.f));
-		anim.AddFrame(vec2(120.f, 210.f), vec2(209.f, 110.f));
-		anim.AddFrame(vec2(800.f, 210.f), vec2(889.f, 110.f));
-
-		//Makes it repeat
-		anim.SetRepeating(true);
-		//Sets the time between frames
-		anim.SetSecPerFrame(0.2f);
-		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
-		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
-		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
-			vec2(0.f, 0.f),
-			CollisionIDs::Pickup(), CollisionIDs::Player(), false);
-
-		ECS::GetComponent<Pickup>(entity).SetHealth(0, 50);
-		ECS::GetComponent<Sprite>(entity).LoadSprite(chest, 10, 12, true, &animController);
-
-		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-20.f, 40.f, 5.f));
-
-		//Sets up the identifier
-		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::AnimationBit();
-		ECS::SetUpIdentifier(entity, bitHolder, "Chestar");
-	}
-	{
-		//Creates entity 
-		auto entity = ECS::CreateEntity();
-
-		//Add components
-		ECS::AttachComponent<Sprite>(entity);
-		ECS::AttachComponent<Transform>(entity);
-		ECS::AttachComponent<AnimationController>(entity);
-		ECS::AttachComponent<PhysicsBody>(entity);
-		ECS::AttachComponent<Pickup>(entity);
-
-		//Sets up components
-		std::string med = "Medkit.png";
-		auto& animController = ECS::GetComponent<AnimationController>(entity);
-		animController.InitUVs(med);
-		//Adds first animation
-		animController.AddAnimation(Animation());
-		//Sets active animation
-		animController.SetActiveAnim(0);
-
-		//gets first animation
-		auto& anim = animController.GetAnimation(0);
-		anim.AddFrame(vec2(120.f, 209.f), vec2(209.f, 119.f));
-		anim.AddFrame(vec2(460.f, 209.f), vec2(549.f, 119.f));
-		anim.AddFrame(vec2(120.f, 209.f), vec2(209.f, 119.f));
-		anim.AddFrame(vec2(800.f, 209.f), vec2(890.f, 119.f));
-
-		//Makes it repeat
-		anim.SetRepeating(true);
-		//Sets the time between frames
-		anim.SetSecPerFrame(0.2f);
-		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
-		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
-		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
-			vec2(0.f, 0.f),
-			CollisionIDs::Pickup(), CollisionIDs::Player(), false);
-
-		ECS::GetComponent<Pickup>(entity).SetHealth(50, 0);
-		ECS::GetComponent<Sprite>(entity).LoadSprite(med, 10, 12, true, &animController);
-
-		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-20.f, 20.f, 5.f));
-
-		//Sets up the identifier
-		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::AnimationBit();
-		ECS::SetUpIdentifier(entity, bitHolder, "Medkit");
-	}
-	{
-		//Creates entity 
-		auto entity = ECS::CreateEntity();
-
-		//Add components
-		ECS::AttachComponent<Sprite>(entity);
-		ECS::AttachComponent<Transform>(entity);
-		ECS::AttachComponent<AnimationController>(entity);
-		ECS::AttachComponent<PhysicsBody>(entity);
 		ECS::AttachComponent<HealthArmour>(entity);
 		ECS::AttachComponent<Zombie>(entity);
 
@@ -854,7 +670,7 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 
 		ECS::GetComponent<Sprite>(entity).LoadSprite(Zombie, 24, 24, true, &animController);
 
-		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-20.f, 360.f, 10.f));
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(0.f, 360.f, 10.f));
 		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
 		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
 
@@ -870,82 +686,6 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::AnimationBit() 
 			|EntityIdentifier::PhysicsBit()| EntityIdentifier::HealthArmourBit()| EntityIdentifier::ZombieBit();
 		ECS::SetUpIdentifier(entity, bitHolder, "Zombie");
-	}
-	{
-		//Creates entity 
-		auto entity = ECS::CreateEntity();
-
-		//Add components
-		ECS::AttachComponent<Sprite>(entity);
-		ECS::AttachComponent<Transform>(entity);
-		ECS::AttachComponent<AnimationController>(entity);
-		ECS::AttachComponent<PhysicsBody>(entity);
-		ECS::AttachComponent<HealthArmour>(entity);
-		ECS::AttachComponent<Imp>(entity);
-
-		//Sets up components
-		std::string Demon = "DemonMasterSheet.png";
-		auto& animController = ECS::GetComponent<AnimationController>(entity);
-		animController.InitUVs(Demon);
-		//Adds first animation
-		animController.AddAnimation(Animation());
-		animController.AddAnimation(Animation());
-		animController.AddAnimation(Animation());
-		//Sets active animation
-		animController.SetActiveAnim(0);
-
-		//gets first animation
-		auto& anim = animController.GetAnimation(0);
-		anim.AddFrame(vec2(68.f, 905.f), vec2(277.f, 766.f));
-		anim.AddFrame(vec2(408.f, 903.f), vec2(617.f, 764.f));
-		anim.AddFrame(vec2(68.f, 905.f), vec2(277.f, 766.f));
-		anim.AddFrame(vec2(743.f, 911.f), vec2(953.f, 772.f));
-		auto& anim2 = animController.GetAnimation(1);
-		anim2.AddFrame(vec2(67.f, 895.f), vec2(277.f, 766.f));
-		anim2.AddFrame(vec2(71.f, 572.f), vec2(280.f, 442.f));
-		anim2.AddFrame(vec2(411.f, 572.f), vec2(620.f, 442.f));
-		anim2.AddFrame(vec2(751.f, 573.f), vec2(960.f, 443.f));
-		anim2.AddFrame(vec2(1091.f, 573.f), vec2(1300.f, 443.f));
-		anim2.AddFrame(vec2(751.f, 573.f), vec2(960.f, 443.f));
-		anim2.AddFrame(vec2(411.f, 572.f), vec2(620.f, 442.f));
-		anim2.AddFrame(vec2(71.f, 572.f), vec2(280.f, 442.f));
-		anim2.AddFrame(vec2(67.f, 895.f), vec2(277.f, 766.f));
-		auto& anim3 = animController.GetAnimation(2);
-		anim3.AddFrame(vec2(28.f, 290.f), vec2(298.f, 41.f));
-		anim3.AddFrame(vec2(371.f, 290.f), vec2(640.f, 41.f));
-		anim3.AddFrame(vec2(711.f, 290.f), vec2(980.f, 41.f));
-		anim3.AddFrame(vec2(1051.f, 290.f), vec2(1321.f, 41.f));
-		anim3.AddFrame(vec2(1391.f, 290.f), vec2(1660.f, 41.f));
-
-
-		//Makes it repeat
-		anim.SetRepeating(true);
-		anim2.SetRepeating(false);
-		anim3.SetRepeating(false);
-		//Sets the time between frames
-		anim.SetSecPerFrame(0.1667f);
-		anim2.SetSecPerFrame(0.1667f);
-		anim3.SetSecPerFrame(0.1667f);
-
-
-		ECS::GetComponent<Sprite>(entity).LoadSprite(Demon, 22, 22, true, &animController);
-
-		ECS::GetComponent<Transform>(entity).SetPosition(vec3(20.f, 360.f, 10.f));
-		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
-		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
-
-		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
-			vec2(0.f, 0.f),
-			CollisionIDs::Enemy(), (CollisionIDs::Player() | CollisionIDs::Environment()), true);
-		tempPhsBody.SetGravity(false);
-		tempPhsBody.SetFriction(1.f);
-
-		ECS::GetComponent<HealthArmour>(entity).SetHealth(30);
-
-		//Sets up the identifier
-		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::AnimationBit() 
-			|EntityIdentifier::PhysicsBit()| EntityIdentifier::HealthArmourBit()| EntityIdentifier::ImpBit();
-		ECS::SetUpIdentifier(entity, bitHolder, "Imp");
 	}
 	//level 1 begins
 
@@ -2585,7 +2325,7 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 			vec2(0.f, 0.f),
 			CollisionIDs::Pickup(), CollisionIDs::Player(), false);
 
-		ECS::GetComponent<Pickup>(entity).SetAmmo(0, 5, 1);
+		ECS::GetComponent<Pickup>(entity).SetAmmo(0, 5, 0);
 		ECS::GetComponent<Sprite>(entity).LoadSprite(ammo, 6, 6, true, &animController);
 
 		ECS::GetComponent<Transform>(entity).SetPosition(vec3(505.975, -21.651, 5.f));
@@ -2631,7 +2371,7 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 			vec2(0.f, 0.f),
 			CollisionIDs::Pickup(), CollisionIDs::Player(), false);
 
-		ECS::GetComponent<Pickup>(entity).SetAmmo(0, 5, 1);
+		ECS::GetComponent<Pickup>(entity).SetAmmo(0, 5, 0);
 		ECS::GetComponent<Sprite>(entity).LoadSprite(ammo, 6, 6, true, &animController);
 
 		ECS::GetComponent<Transform>(entity).SetPosition(vec3(375.800, -21.651, 5.f));
@@ -4189,6 +3929,160 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 		ECS::SetUpIdentifier(entity, bitHolder, "Dark Background");
 	}
 	{
+		//Creates entity 
+		auto entity = ECS::CreateEntity();
+
+		//Add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<AnimationController>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+		ECS::AttachComponent<HealthArmour>(entity);
+		ECS::AttachComponent<Zombie>(entity);
+
+		//Sets up components
+		std::string Zombie = "ZombieMasterSheet.png";
+		auto& animController = ECS::GetComponent<AnimationController>(entity);
+		animController.InitUVs(Zombie);
+		//Adds first animation
+		animController.AddAnimation(Animation());
+		animController.AddAnimation(Animation());
+		animController.AddAnimation(Animation());
+		animController.AddAnimation(Animation());
+		//Sets active animation
+		animController.SetActiveAnim(0);
+
+		//gets first animation
+		auto& anim = animController.GetAnimation(0);
+		anim.AddFrame(vec2(2114.f, 603.f), vec2(2323.f, 424.f));
+		anim.AddFrame(vec2(2454.f, 603.f), vec2(2664.f, 424.f));
+		anim.AddFrame(vec2(2114.f, 603.f), vec2(2323.f, 424.f));
+		anim.AddFrame(vec2(2794.f, 603.f), vec2(3004.f, 424.f));
+		auto& anim2 = animController.GetAnimation(1);
+		anim2.AddFrame(vec2(2114.f, 633.f), vec2(2323.f, 424.f));
+		anim2.AddFrame(vec2(2114.f, 291.f), vec2(2323.f, 82.f));
+		anim2.AddFrame(vec2(2454.f, 291.f), vec2(2663.f, 82.f));
+		anim2.AddFrame(vec2(2794.f, 291.f), vec2(3003.f, 82.f));
+		auto& anim3 = animController.GetAnimation(2);
+		anim3.AddFrame(vec2(39.f, 632.f), vec2(309.f, 372.f));
+		anim3.AddFrame(vec2(381.f, 632.f), vec2(651.f, 372.f));
+		anim3.AddFrame(vec2(1061.f, 632.f), vec2(1330.f, 372.f));
+		anim3.AddFrame(vec2(1400.f, 632.f), vec2(1670.f, 372.f));
+		anim3.AddFrame(vec2(1741.f, 632.f), vec2(2010.f, 372.f));
+		auto& anim4 = animController.GetAnimation(3);
+		anim4.AddFrame(vec2(2114.f, 603.f), vec2(2323.f, 424.f));
+		anim4.AddFrame(vec2(70.f, 260.f), vec2(280.f, 81.f));
+
+
+		//Makes it repeat
+		anim.SetRepeating(true);
+		anim2.SetRepeating(false);
+		anim3.SetRepeating(false);
+		anim4.SetRepeating(false);
+		//Sets the time between frames
+		anim.SetSecPerFrame(0.1667f);
+		anim2.SetSecPerFrame(0.1667f);
+		anim3.SetSecPerFrame(0.1667f);
+		anim4.SetSecPerFrame(0.1667f);
+
+
+		ECS::GetComponent<Sprite>(entity).LoadSprite(Zombie, 24, 24, true, &animController);
+
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-264.323, 652.4, 5.f));
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
+			vec2(0.f, 0.f),
+			CollisionIDs::Enemy(), (CollisionIDs::Player() | CollisionIDs::Environment()), true);
+		tempPhsBody.SetGravity(false);
+		tempPhsBody.SetFriction(1.f);
+
+		ECS::GetComponent<HealthArmour>(entity).SetHealth(30);
+
+		//Sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::AnimationBit()
+			| EntityIdentifier::PhysicsBit() | EntityIdentifier::HealthArmourBit() | EntityIdentifier::ZombieBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "Zombie");
+	}
+	{
+		//Creates entity 
+		auto entity = ECS::CreateEntity();
+
+		//Add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<AnimationController>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+		ECS::AttachComponent<HealthArmour>(entity);
+		ECS::AttachComponent<Zombie>(entity);
+
+		//Sets up components
+		std::string Zombie = "ZombieMasterSheet.png";
+		auto& animController = ECS::GetComponent<AnimationController>(entity);
+		animController.InitUVs(Zombie);
+		//Adds first animation
+		animController.AddAnimation(Animation());
+		animController.AddAnimation(Animation());
+		animController.AddAnimation(Animation());
+		animController.AddAnimation(Animation());
+		//Sets active animation
+		animController.SetActiveAnim(0);
+
+		//gets first animation
+		auto& anim = animController.GetAnimation(0);
+		anim.AddFrame(vec2(2114.f, 603.f), vec2(2323.f, 424.f));
+		anim.AddFrame(vec2(2454.f, 603.f), vec2(2664.f, 424.f));
+		anim.AddFrame(vec2(2114.f, 603.f), vec2(2323.f, 424.f));
+		anim.AddFrame(vec2(2794.f, 603.f), vec2(3004.f, 424.f));
+		auto& anim2 = animController.GetAnimation(1);
+		anim2.AddFrame(vec2(2114.f, 633.f), vec2(2323.f, 424.f));
+		anim2.AddFrame(vec2(2114.f, 291.f), vec2(2323.f, 82.f));
+		anim2.AddFrame(vec2(2454.f, 291.f), vec2(2663.f, 82.f));
+		anim2.AddFrame(vec2(2794.f, 291.f), vec2(3003.f, 82.f));
+		auto& anim3 = animController.GetAnimation(2);
+		anim3.AddFrame(vec2(39.f, 632.f), vec2(309.f, 372.f));
+		anim3.AddFrame(vec2(381.f, 632.f), vec2(651.f, 372.f));
+		anim3.AddFrame(vec2(1061.f, 632.f), vec2(1330.f, 372.f));
+		anim3.AddFrame(vec2(1400.f, 632.f), vec2(1670.f, 372.f));
+		anim3.AddFrame(vec2(1741.f, 632.f), vec2(2010.f, 372.f));
+		auto& anim4 = animController.GetAnimation(3);
+		anim4.AddFrame(vec2(2114.f, 603.f), vec2(2323.f, 424.f));
+		anim4.AddFrame(vec2(70.f, 260.f), vec2(280.f, 81.f));
+
+
+		//Makes it repeat
+		anim.SetRepeating(true);
+		anim2.SetRepeating(false);
+		anim3.SetRepeating(false);
+		anim4.SetRepeating(false);
+		//Sets the time between frames
+		anim.SetSecPerFrame(0.1667f);
+		anim2.SetSecPerFrame(0.1667f);
+		anim3.SetSecPerFrame(0.1667f);
+		anim4.SetSecPerFrame(0.1667f);
+
+
+		ECS::GetComponent<Sprite>(entity).LoadSprite(Zombie, 24, 24, true, &animController);
+
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(264.323, 652.4, 5.f));
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
+			vec2(0.f, 0.f),
+			CollisionIDs::Enemy(), (CollisionIDs::Player() | CollisionIDs::Environment()), true);
+		tempPhsBody.SetGravity(false);
+		tempPhsBody.SetFriction(1.f);
+
+		ECS::GetComponent<HealthArmour>(entity).SetHealth(30);
+
+		//Sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::AnimationBit()
+			| EntityIdentifier::PhysicsBit() | EntityIdentifier::HealthArmourBit() | EntityIdentifier::ZombieBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "Zombie");
+	}
+	{
 		//creates entity
 		auto entity = ECS::CreateEntity();
 
@@ -5518,15 +5412,14 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 		ECS::AttachComponent<PhysicsBody>(entity);
 
 		//sets up components
-		std::string fileName = "sidewaysWall.png";
-		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 20, 270);
+		std::string fileName = "HalfSideWall.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 20, 141);
 
 		ECS::GetComponent<Transform>(entity).SetPosition(vec3(303.9f, 1148.2f, 10.f));
 
 		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
 		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
-		auto& rot = ECS::GetComponent<Transform>(entity);
-		rot.SetRotationAngleZ(PI / 2);
+
 		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
 			vec2(0.f, 0.f),
 			CollisionIDs::Environment(), (0x0), false);
@@ -5534,7 +5427,452 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 
 		//sets up the identifier
 		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
-		ECS::SetUpIdentifier(entity, bitHolder, "LongWall1");
+		ECS::SetUpIdentifier(entity, bitHolder, "HalfSideWall6");
+	}
+	{
+		//Creates entity 
+		auto entity = ECS::CreateEntity();
+
+		//Add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<AnimationController>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+		ECS::AttachComponent<Pickup>(entity);
+
+		//Sets up components
+		std::string chest = "ChestArmor.png";
+		auto& animController = ECS::GetComponent<AnimationController>(entity);
+		animController.InitUVs(chest);
+		//Adds first animation
+		animController.AddAnimation(Animation());
+		//Sets active animation
+		animController.SetActiveAnim(0);
+
+		//gets first animation
+		auto& anim = animController.GetAnimation(0);
+		anim.AddFrame(vec2(120.f, 210.f), vec2(209.f, 110.f));
+		anim.AddFrame(vec2(460.f, 210.f), vec2(549.f, 110.f));
+		anim.AddFrame(vec2(120.f, 210.f), vec2(209.f, 110.f));
+		anim.AddFrame(vec2(800.f, 210.f), vec2(889.f, 110.f));
+
+		//Makes it repeat
+		anim.SetRepeating(true);
+		//Sets the time between frames
+		anim.SetSecPerFrame(0.2f);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
+			vec2(0.f, 0.f),
+			CollisionIDs::Pickup(), CollisionIDs::Player(), false);
+
+		ECS::GetComponent<Pickup>(entity).SetHealth(0, 50);
+		ECS::GetComponent<Sprite>(entity).LoadSprite(chest, 10, 12, true, &animController);
+
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(343.9f, 1148.2f, 5.f));
+
+		//Sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::AnimationBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "Chestar");
+	}
+	{
+		//Creates entity 
+		auto entity = ECS::CreateEntity();
+
+		//Add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<AnimationController>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+		ECS::AttachComponent<Pickup>(entity);
+
+		//Sets up components
+		std::string ammo = "ammopickup.png";
+		auto& animController = ECS::GetComponent<AnimationController>(entity);
+		animController.InitUVs(ammo);
+		//Adds first animation
+		animController.AddAnimation(Animation());
+		//Sets active animation
+		animController.SetActiveAnim(0);
+
+		//gets first animation
+		auto& anim = animController.GetAnimation(0);
+		anim.AddFrame(vec2(130.f, 210.f), vec2(200.f, 140.f));
+		anim.AddFrame(vec2(470.f, 210.f), vec2(539.f, 140.f));
+		anim.AddFrame(vec2(130.f, 210.f), vec2(200.f, 140.f));
+		anim.AddFrame(vec2(810.f, 210.f), vec2(879.f, 140.f));
+
+		//Makes it repeat
+		anim.SetRepeating(true);
+		//Sets the time between frames
+		anim.SetSecPerFrame(0.2f);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
+			vec2(0.f, 0.f),
+			CollisionIDs::Pickup(), CollisionIDs::Player(), false);
+
+		ECS::GetComponent<Pickup>(entity).SetAmmo(5, 0, 0);
+		ECS::GetComponent<Sprite>(entity).LoadSprite(ammo, 6, 6, true, &animController);
+
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(343.9f, 1188.2f, 5.f));
+
+		//Sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::AnimationBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "Pistam");
+	}
+	{
+		//Creates entity 
+		auto entity = ECS::CreateEntity();
+
+		//Add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<AnimationController>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+		ECS::AttachComponent<Pickup>(entity);
+
+		//Sets up components
+		std::string ammo = "ammopickup.png";
+		auto& animController = ECS::GetComponent<AnimationController>(entity);
+		animController.InitUVs(ammo);
+		//Adds first animation
+		animController.AddAnimation(Animation());
+		//Sets active animation
+		animController.SetActiveAnim(0);
+
+		//gets first animation
+		auto& anim = animController.GetAnimation(0);
+		anim.AddFrame(vec2(130.f, 210.f), vec2(200.f, 140.f));
+		anim.AddFrame(vec2(470.f, 210.f), vec2(539.f, 140.f));
+		anim.AddFrame(vec2(130.f, 210.f), vec2(200.f, 140.f));
+		anim.AddFrame(vec2(810.f, 210.f), vec2(879.f, 140.f));
+
+		//Makes it repeat
+		anim.SetRepeating(true);
+		//Sets the time between frames
+		anim.SetSecPerFrame(0.2f);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
+			vec2(0.f, 0.f),
+			CollisionIDs::Pickup(), CollisionIDs::Player(), false);
+
+		ECS::GetComponent<Pickup>(entity).SetAmmo(5, 0, 0);
+		ECS::GetComponent<Sprite>(entity).LoadSprite(ammo, 6, 6, true, &animController);
+
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(343.9f, 1108.2f, 5.f));
+
+		//Sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::AnimationBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "Pistam");
+	}
+	{
+		//Creates entity 
+		auto entity = ECS::CreateEntity();
+
+		//Add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<AnimationController>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+		ECS::AttachComponent<HealthArmour>(entity);
+		ECS::AttachComponent<Zombie>(entity);
+
+		//Sets up components
+		std::string Zombie = "ZombieMasterSheet.png";
+		auto& animController = ECS::GetComponent<AnimationController>(entity);
+		animController.InitUVs(Zombie);
+		//Adds first animation
+		animController.AddAnimation(Animation());
+		animController.AddAnimation(Animation());
+		animController.AddAnimation(Animation());
+		animController.AddAnimation(Animation());
+		//Sets active animation
+		animController.SetActiveAnim(0);
+
+		//gets first animation
+		auto& anim = animController.GetAnimation(0);
+		anim.AddFrame(vec2(2114.f, 603.f), vec2(2323.f, 424.f));
+		anim.AddFrame(vec2(2454.f, 603.f), vec2(2664.f, 424.f));
+		anim.AddFrame(vec2(2114.f, 603.f), vec2(2323.f, 424.f));
+		anim.AddFrame(vec2(2794.f, 603.f), vec2(3004.f, 424.f));
+		auto& anim2 = animController.GetAnimation(1);
+		anim2.AddFrame(vec2(2114.f, 633.f), vec2(2323.f, 424.f));
+		anim2.AddFrame(vec2(2114.f, 291.f), vec2(2323.f, 82.f));
+		anim2.AddFrame(vec2(2454.f, 291.f), vec2(2663.f, 82.f));
+		anim2.AddFrame(vec2(2794.f, 291.f), vec2(3003.f, 82.f));
+		auto& anim3 = animController.GetAnimation(2);
+		anim3.AddFrame(vec2(39.f, 632.f), vec2(309.f, 372.f));
+		anim3.AddFrame(vec2(381.f, 632.f), vec2(651.f, 372.f));
+		anim3.AddFrame(vec2(1061.f, 632.f), vec2(1330.f, 372.f));
+		anim3.AddFrame(vec2(1400.f, 632.f), vec2(1670.f, 372.f));
+		anim3.AddFrame(vec2(1741.f, 632.f), vec2(2010.f, 372.f));
+		auto& anim4 = animController.GetAnimation(3);
+		anim4.AddFrame(vec2(2114.f, 603.f), vec2(2323.f, 424.f));
+		anim4.AddFrame(vec2(70.f, 260.f), vec2(280.f, 81.f));
+
+
+		//Makes it repeat
+		anim.SetRepeating(true);
+		anim2.SetRepeating(false);
+		anim3.SetRepeating(false);
+		anim4.SetRepeating(false);
+		//Sets the time between frames
+		anim.SetSecPerFrame(0.1667f);
+		anim2.SetSecPerFrame(0.1667f);
+		anim3.SetSecPerFrame(0.1667f);
+		anim4.SetSecPerFrame(0.1667f);
+
+
+		ECS::GetComponent<Sprite>(entity).LoadSprite(Zombie, 24, 24, true, &animController);
+
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(243.9f, 1188.2f, 10.f));
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
+			vec2(0.f, 0.f),
+			CollisionIDs::Enemy(), (CollisionIDs::Player() | CollisionIDs::Environment()), true);
+		tempPhsBody.SetGravity(false);
+		tempPhsBody.SetFriction(1.f);
+
+		ECS::GetComponent<HealthArmour>(entity).SetHealth(30);
+
+		//Sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::AnimationBit()
+			| EntityIdentifier::PhysicsBit() | EntityIdentifier::HealthArmourBit() | EntityIdentifier::ZombieBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "Zombie");
+	}
+	{
+		//Creates entity 
+		auto entity = ECS::CreateEntity();
+
+		//Add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<AnimationController>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+		ECS::AttachComponent<HealthArmour>(entity);
+		ECS::AttachComponent<Zombie>(entity);
+
+		//Sets up components
+		std::string Zombie = "ZombieMasterSheet.png";
+		auto& animController = ECS::GetComponent<AnimationController>(entity);
+		animController.InitUVs(Zombie);
+		//Adds first animation
+		animController.AddAnimation(Animation());
+		animController.AddAnimation(Animation());
+		animController.AddAnimation(Animation());
+		animController.AddAnimation(Animation());
+		//Sets active animation
+		animController.SetActiveAnim(0);
+
+		//gets first animation
+		auto& anim = animController.GetAnimation(0);
+		anim.AddFrame(vec2(2114.f, 603.f), vec2(2323.f, 424.f));
+		anim.AddFrame(vec2(2454.f, 603.f), vec2(2664.f, 424.f));
+		anim.AddFrame(vec2(2114.f, 603.f), vec2(2323.f, 424.f));
+		anim.AddFrame(vec2(2794.f, 603.f), vec2(3004.f, 424.f));
+		auto& anim2 = animController.GetAnimation(1);
+		anim2.AddFrame(vec2(2114.f, 633.f), vec2(2323.f, 424.f));
+		anim2.AddFrame(vec2(2114.f, 291.f), vec2(2323.f, 82.f));
+		anim2.AddFrame(vec2(2454.f, 291.f), vec2(2663.f, 82.f));
+		anim2.AddFrame(vec2(2794.f, 291.f), vec2(3003.f, 82.f));
+		auto& anim3 = animController.GetAnimation(2);
+		anim3.AddFrame(vec2(39.f, 632.f), vec2(309.f, 372.f));
+		anim3.AddFrame(vec2(381.f, 632.f), vec2(651.f, 372.f));
+		anim3.AddFrame(vec2(1061.f, 632.f), vec2(1330.f, 372.f));
+		anim3.AddFrame(vec2(1400.f, 632.f), vec2(1670.f, 372.f));
+		anim3.AddFrame(vec2(1741.f, 632.f), vec2(2010.f, 372.f));
+		auto& anim4 = animController.GetAnimation(3);
+		anim4.AddFrame(vec2(2114.f, 603.f), vec2(2323.f, 424.f));
+		anim4.AddFrame(vec2(70.f, 260.f), vec2(280.f, 81.f));
+
+
+		//Makes it repeat
+		anim.SetRepeating(true);
+		anim2.SetRepeating(false);
+		anim3.SetRepeating(false);
+		anim4.SetRepeating(false);
+		//Sets the time between frames
+		anim.SetSecPerFrame(0.1667f);
+		anim2.SetSecPerFrame(0.1667f);
+		anim3.SetSecPerFrame(0.1667f);
+		anim4.SetSecPerFrame(0.1667f);
+
+
+		ECS::GetComponent<Sprite>(entity).LoadSprite(Zombie, 24, 24, true, &animController);
+
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(243.9f, 1108.2f, 10.f));
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
+			vec2(0.f, 0.f),
+			CollisionIDs::Enemy(), (CollisionIDs::Player() | CollisionIDs::Environment()), true);
+		tempPhsBody.SetGravity(false);
+		tempPhsBody.SetFriction(1.f);
+
+		ECS::GetComponent<HealthArmour>(entity).SetHealth(30);
+
+		//Sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::AnimationBit()
+			| EntityIdentifier::PhysicsBit() | EntityIdentifier::HealthArmourBit() | EntityIdentifier::ZombieBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "Zombie");
+	}
+	{
+		//Creates entity 
+		auto entity = ECS::CreateEntity();
+
+		//Add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<AnimationController>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+		ECS::AttachComponent<HealthArmour>(entity);
+		ECS::AttachComponent<Zombie>(entity);
+
+		//Sets up components
+		std::string Zombie = "ZombieMasterSheet.png";
+		auto& animController = ECS::GetComponent<AnimationController>(entity);
+		animController.InitUVs(Zombie);
+		//Adds first animation
+		animController.AddAnimation(Animation());
+		animController.AddAnimation(Animation());
+		animController.AddAnimation(Animation());
+		animController.AddAnimation(Animation());
+		//Sets active animation
+		animController.SetActiveAnim(0);
+
+		//gets first animation
+		auto& anim = animController.GetAnimation(0);
+		anim.AddFrame(vec2(2114.f, 603.f), vec2(2323.f, 424.f));
+		anim.AddFrame(vec2(2454.f, 603.f), vec2(2664.f, 424.f));
+		anim.AddFrame(vec2(2114.f, 603.f), vec2(2323.f, 424.f));
+		anim.AddFrame(vec2(2794.f, 603.f), vec2(3004.f, 424.f));
+		auto& anim2 = animController.GetAnimation(1);
+		anim2.AddFrame(vec2(2114.f, 633.f), vec2(2323.f, 424.f));
+		anim2.AddFrame(vec2(2114.f, 291.f), vec2(2323.f, 82.f));
+		anim2.AddFrame(vec2(2454.f, 291.f), vec2(2663.f, 82.f));
+		anim2.AddFrame(vec2(2794.f, 291.f), vec2(3003.f, 82.f));
+		auto& anim3 = animController.GetAnimation(2);
+		anim3.AddFrame(vec2(39.f, 632.f), vec2(309.f, 372.f));
+		anim3.AddFrame(vec2(381.f, 632.f), vec2(651.f, 372.f));
+		anim3.AddFrame(vec2(1061.f, 632.f), vec2(1330.f, 372.f));
+		anim3.AddFrame(vec2(1400.f, 632.f), vec2(1670.f, 372.f));
+		anim3.AddFrame(vec2(1741.f, 632.f), vec2(2010.f, 372.f));
+		auto& anim4 = animController.GetAnimation(3);
+		anim4.AddFrame(vec2(2114.f, 603.f), vec2(2323.f, 424.f));
+		anim4.AddFrame(vec2(70.f, 260.f), vec2(280.f, 81.f));
+
+
+		//Makes it repeat
+		anim.SetRepeating(true);
+		anim2.SetRepeating(false);
+		anim3.SetRepeating(false);
+		anim4.SetRepeating(false);
+		//Sets the time between frames
+		anim.SetSecPerFrame(0.1667f);
+		anim2.SetSecPerFrame(0.1667f);
+		anim3.SetSecPerFrame(0.1667f);
+		anim4.SetSecPerFrame(0.1667f);
+
+
+		ECS::GetComponent<Sprite>(entity).LoadSprite(Zombie, 24, 24, true, &animController);
+
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(203.9f, 1148.2f, 10.f));
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
+			vec2(0.f, 0.f),
+			CollisionIDs::Enemy(), (CollisionIDs::Player() | CollisionIDs::Environment()), true);
+		tempPhsBody.SetGravity(false);
+		tempPhsBody.SetFriction(1.f);
+
+		ECS::GetComponent<HealthArmour>(entity).SetHealth(30);
+
+		//Sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::AnimationBit()
+			| EntityIdentifier::PhysicsBit() | EntityIdentifier::HealthArmourBit() | EntityIdentifier::ZombieBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "Zombie");
+	}
+	{
+		//Creates entity 
+		auto entity = ECS::CreateEntity();
+
+		//Add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<AnimationController>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+		ECS::AttachComponent<HealthArmour>(entity);
+		ECS::AttachComponent<Imp>(entity);
+
+		//Sets up components
+		std::string Demon = "DemonMasterSheet.png";
+		auto& animController = ECS::GetComponent<AnimationController>(entity);
+		animController.InitUVs(Demon);
+		//Adds first animation
+		animController.AddAnimation(Animation());
+		animController.AddAnimation(Animation());
+		animController.AddAnimation(Animation());
+		//Sets active animation
+		animController.SetActiveAnim(0);
+
+		//gets first animation
+		auto& anim = animController.GetAnimation(0);
+		anim.AddFrame(vec2(68.f, 905.f), vec2(277.f, 766.f));
+		anim.AddFrame(vec2(408.f, 903.f), vec2(617.f, 764.f));
+		anim.AddFrame(vec2(68.f, 905.f), vec2(277.f, 766.f));
+		anim.AddFrame(vec2(743.f, 911.f), vec2(953.f, 772.f));
+		auto& anim2 = animController.GetAnimation(1);
+		anim2.AddFrame(vec2(67.f, 895.f), vec2(277.f, 766.f));
+		anim2.AddFrame(vec2(71.f, 572.f), vec2(280.f, 442.f));
+		anim2.AddFrame(vec2(411.f, 572.f), vec2(620.f, 442.f));
+		anim2.AddFrame(vec2(751.f, 573.f), vec2(960.f, 443.f));
+		anim2.AddFrame(vec2(1091.f, 573.f), vec2(1300.f, 443.f));
+		anim2.AddFrame(vec2(751.f, 573.f), vec2(960.f, 443.f));
+		anim2.AddFrame(vec2(411.f, 572.f), vec2(620.f, 442.f));
+		anim2.AddFrame(vec2(71.f, 572.f), vec2(280.f, 442.f));
+		anim2.AddFrame(vec2(67.f, 895.f), vec2(277.f, 766.f));
+		auto& anim3 = animController.GetAnimation(2);
+		anim3.AddFrame(vec2(28.f, 290.f), vec2(298.f, 41.f));
+		anim3.AddFrame(vec2(371.f, 290.f), vec2(640.f, 41.f));
+		anim3.AddFrame(vec2(711.f, 290.f), vec2(980.f, 41.f));
+		anim3.AddFrame(vec2(1051.f, 290.f), vec2(1321.f, 41.f));
+		anim3.AddFrame(vec2(1391.f, 290.f), vec2(1660.f, 41.f));
+
+
+		//Makes it repeat
+		anim.SetRepeating(true);
+		anim2.SetRepeating(false);
+		anim3.SetRepeating(false);
+		//Sets the time between frames
+		anim.SetSecPerFrame(0.1667f);
+		anim2.SetSecPerFrame(0.1667f);
+		anim3.SetSecPerFrame(0.1667f);
+
+
+		ECS::GetComponent<Sprite>(entity).LoadSprite(Demon, 22, 22, true, &animController);
+
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(243.9f, 1188.2f, 10.f));
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
+			vec2(0.f, 0.f),
+			CollisionIDs::Enemy(), (CollisionIDs::Player() | CollisionIDs::Environment()), true);
+		tempPhsBody.SetGravity(false);
+		tempPhsBody.SetFriction(1.f);
+
+		ECS::GetComponent<HealthArmour>(entity).SetHealth(30);
+
+		//Sets up the identifier
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::AnimationBit()
+			| EntityIdentifier::PhysicsBit() | EntityIdentifier::HealthArmourBit() | EntityIdentifier::ImpBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "Imp");
 	}
 	{
 		//creates entity
@@ -7797,160 +8135,6 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 		ECS::AttachComponent<Transform>(entity);
 		ECS::AttachComponent<AnimationController>(entity);
 		ECS::AttachComponent<PhysicsBody>(entity);
-		ECS::AttachComponent<HealthArmour>(entity);
-		ECS::AttachComponent<Zombie>(entity);
-
-		//Sets up components
-		std::string Zombie = "ZombieMasterSheet.png";
-		auto& animController = ECS::GetComponent<AnimationController>(entity);
-		animController.InitUVs(Zombie);
-		//Adds first animation
-		animController.AddAnimation(Animation());
-		animController.AddAnimation(Animation());
-		animController.AddAnimation(Animation());
-		animController.AddAnimation(Animation());
-		//Sets active animation
-		animController.SetActiveAnim(0);
-
-		//gets first animation
-		auto& anim = animController.GetAnimation(0);
-		anim.AddFrame(vec2(2114.f, 603.f), vec2(2323.f, 424.f));
-		anim.AddFrame(vec2(2454.f, 603.f), vec2(2664.f, 424.f));
-		anim.AddFrame(vec2(2114.f, 603.f), vec2(2323.f, 424.f));
-		anim.AddFrame(vec2(2794.f, 603.f), vec2(3004.f, 424.f));
-		auto& anim2 = animController.GetAnimation(1);
-		anim2.AddFrame(vec2(2114.f, 633.f), vec2(2323.f, 424.f));
-		anim2.AddFrame(vec2(2114.f, 291.f), vec2(2323.f, 82.f));
-		anim2.AddFrame(vec2(2454.f, 291.f), vec2(2663.f, 82.f));
-		anim2.AddFrame(vec2(2794.f, 291.f), vec2(3003.f, 82.f));
-		auto& anim3 = animController.GetAnimation(2);
-		anim3.AddFrame(vec2(39.f, 632.f), vec2(309.f, 372.f));
-		anim3.AddFrame(vec2(381.f, 632.f), vec2(651.f, 372.f));
-		anim3.AddFrame(vec2(1061.f, 632.f), vec2(1330.f, 372.f));
-		anim3.AddFrame(vec2(1400.f, 632.f), vec2(1670.f, 372.f));
-		anim3.AddFrame(vec2(1741.f, 632.f), vec2(2010.f, 372.f));
-		auto& anim4 = animController.GetAnimation(3);
-		anim4.AddFrame(vec2(2114.f, 603.f), vec2(2323.f, 424.f));
-		anim4.AddFrame(vec2(70.f, 260.f), vec2(280.f, 81.f));
-
-
-		//Makes it repeat
-		anim.SetRepeating(true);
-		anim2.SetRepeating(false);
-		anim3.SetRepeating(false);
-		anim4.SetRepeating(false);
-		//Sets the time between frames
-		anim.SetSecPerFrame(0.1667f);
-		anim2.SetSecPerFrame(0.1667f);
-		anim3.SetSecPerFrame(0.1667f);
-		anim4.SetSecPerFrame(0.1667f);
-
-
-		ECS::GetComponent<Sprite>(entity).LoadSprite(Zombie, 24, 24, true, &animController);
-
-		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-604.f, 760.f, 10.f));
-		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
-		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
-
-		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
-			vec2(0.f, 0.f),
-			CollisionIDs::Enemy(), (CollisionIDs::Player() | CollisionIDs::Environment()), true);
-		tempPhsBody.SetGravity(false);
-		tempPhsBody.SetFriction(1.f);
-
-		ECS::GetComponent<HealthArmour>(entity).SetHealth(30);
-
-		//Sets up the identifier
-		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::AnimationBit()
-			| EntityIdentifier::PhysicsBit() | EntityIdentifier::HealthArmourBit() | EntityIdentifier::ZombieBit();
-		ECS::SetUpIdentifier(entity, bitHolder, "Zombie");
-	}
-	{
-		//Creates entity 
-		auto entity = ECS::CreateEntity();
-
-		//Add components
-		ECS::AttachComponent<Sprite>(entity);
-		ECS::AttachComponent<Transform>(entity);
-		ECS::AttachComponent<AnimationController>(entity);
-		ECS::AttachComponent<PhysicsBody>(entity);
-		ECS::AttachComponent<HealthArmour>(entity);
-		ECS::AttachComponent<Zombie>(entity);
-
-		//Sets up components
-		std::string Zombie = "ZombieMasterSheet.png";
-		auto& animController = ECS::GetComponent<AnimationController>(entity);
-		animController.InitUVs(Zombie);
-		//Adds first animation
-		animController.AddAnimation(Animation());
-		animController.AddAnimation(Animation());
-		animController.AddAnimation(Animation());
-		animController.AddAnimation(Animation());
-		//Sets active animation
-		animController.SetActiveAnim(0);
-
-		//gets first animation
-		auto& anim = animController.GetAnimation(0);
-		anim.AddFrame(vec2(2114.f, 603.f), vec2(2323.f, 424.f));
-		anim.AddFrame(vec2(2454.f, 603.f), vec2(2664.f, 424.f));
-		anim.AddFrame(vec2(2114.f, 603.f), vec2(2323.f, 424.f));
-		anim.AddFrame(vec2(2794.f, 603.f), vec2(3004.f, 424.f));
-		auto& anim2 = animController.GetAnimation(1);
-		anim2.AddFrame(vec2(2114.f, 633.f), vec2(2323.f, 424.f));
-		anim2.AddFrame(vec2(2114.f, 291.f), vec2(2323.f, 82.f));
-		anim2.AddFrame(vec2(2454.f, 291.f), vec2(2663.f, 82.f));
-		anim2.AddFrame(vec2(2794.f, 291.f), vec2(3003.f, 82.f));
-		auto& anim3 = animController.GetAnimation(2);
-		anim3.AddFrame(vec2(39.f, 632.f), vec2(309.f, 372.f));
-		anim3.AddFrame(vec2(381.f, 632.f), vec2(651.f, 372.f));
-		anim3.AddFrame(vec2(1061.f, 632.f), vec2(1330.f, 372.f));
-		anim3.AddFrame(vec2(1400.f, 632.f), vec2(1670.f, 372.f));
-		anim3.AddFrame(vec2(1741.f, 632.f), vec2(2010.f, 372.f));
-		auto& anim4 = animController.GetAnimation(3);
-		anim4.AddFrame(vec2(2114.f, 603.f), vec2(2323.f, 424.f));
-		anim4.AddFrame(vec2(70.f, 260.f), vec2(280.f, 81.f));
-
-
-		//Makes it repeat
-		anim.SetRepeating(true);
-		anim2.SetRepeating(false);
-		anim3.SetRepeating(false);
-		anim4.SetRepeating(false);
-		//Sets the time between frames
-		anim.SetSecPerFrame(0.1667f);
-		anim2.SetSecPerFrame(0.1667f);
-		anim3.SetSecPerFrame(0.1667f);
-		anim4.SetSecPerFrame(0.1667f);
-
-
-		ECS::GetComponent<Sprite>(entity).LoadSprite(Zombie, 24, 24, true, &animController);
-
-		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-604.f, 545.f, 10.f));
-		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
-		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
-
-		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth()), float(tempSpr.GetHeight()),
-			vec2(0.f, 0.f),
-			CollisionIDs::Enemy(), (CollisionIDs::Player() | CollisionIDs::Environment()), true);
-		tempPhsBody.SetGravity(false);
-		tempPhsBody.SetFriction(1.f);
-
-		ECS::GetComponent<HealthArmour>(entity).SetHealth(30);
-
-		//Sets up the identifier
-		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::AnimationBit()
-			| EntityIdentifier::PhysicsBit() | EntityIdentifier::HealthArmourBit() | EntityIdentifier::ZombieBit();
-		ECS::SetUpIdentifier(entity, bitHolder, "Zombie");
-	}
-	{
-		//Creates entity 
-		auto entity = ECS::CreateEntity();
-
-		//Add components
-		ECS::AttachComponent<Sprite>(entity);
-		ECS::AttachComponent<Transform>(entity);
-		ECS::AttachComponent<AnimationController>(entity);
-		ECS::AttachComponent<PhysicsBody>(entity);
 		ECS::AttachComponent<Pickup>(entity);
 
 		//Sets up components
@@ -8209,7 +8393,7 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 			vec2(0.f, 0.f),
 			CollisionIDs::Pickup(), CollisionIDs::Player(), false);
 
-		ECS::GetComponent<Pickup>(entity).SetAmmo(0, 5, 1);
+		ECS::GetComponent<Pickup>(entity).SetAmmo(0, 5, 0);
 		ECS::GetComponent<Sprite>(entity).LoadSprite(ammo, 6, 6, true, &animController);
 
 		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-636.923, 449.739, 5.f));
@@ -8319,6 +8503,7 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 		//add components
 		ECS::AttachComponent<Sprite>(entity);
 		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
 
 		//sets up components
 		std::string fileName = "surface.png";
@@ -8326,7 +8511,13 @@ void AssignScene1::InitScene(float windowWidth, float windowHeight)
 
 
 		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-814.2f, 651.f, 0.f));
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
 
+
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth() - 30), float(tempSpr.GetHeight() - 30),
+			vec2(0.f, 0.f),
+			CollisionIDs::Win(), CollisionIDs::Player(), true);
 
 
 		//sets up the identifier
